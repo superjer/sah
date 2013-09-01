@@ -1,0 +1,89 @@
+<style>
+.hand {
+  clear:left;
+}
+.card {
+  padding:15px;
+  margin:5px;
+  border-radius:10px;
+  background:white;
+  border:1px solid #333;
+  width:130px;
+  height:180px;
+  float:left;
+  font:16px sans-serif;
+  box-shadow:2px 3px 3px 0 #888;
+}
+.blackcard {
+  color:white;
+  background:#111;
+}
+.cardtxt {
+  height:160px;
+}
+.num {
+  text-align:right;
+  font-style:italic;
+}
+.num div {
+  background:white;
+  color:#111;
+  width:20px;
+  height:20px;
+  border-radius:10px;
+  text-align:center;
+  line-height:20px;
+  display:inline-block;
+  font-style:normal;
+}
+.thermo {
+  width:4px;
+  height:20px;
+  box-shadow:0 0 2px 0 #777;
+  float:left;
+  opacity:0.3;
+  /* visibility:hidden; */
+}
+.thermo:hover {
+  box-shadow:0 0 6px 0 #777;
+  cursor:pointer;
+}
+.card:hover .thermo {
+  opacity:1.0;
+  visibility:visible;
+}
+.thermo div {
+  background-color:white;
+}
+.blackcard .thermo div {
+  background-color:black;
+}
+.thermo.love {
+  background-color:#2d3;
+}
+.thermo.hate {
+  background-color:#f40;
+}
+</style>
+
+<h1>SuperJer Against Humanity</h1>
+<h2>{{username}} ({{score}})</h2>
+
+<div class="card blackcard" blackid={{blackid}}>
+  <div class=cardtxt>{{blacktxt}}</div>
+  <div class="thermo {{blackclass}}">
+    <div style='height:{{blackheight}}px;'></div>
+  </div>
+  <div class=num>Play <div>{{blacknr}}</div></div>
+</div>
+
+<div class=hand>
+{{#hand}}
+  <div class=card whiteid={{whiteid}}>
+    <div class=cardtxt>{{txt}}</div>
+    <div class="thermo {{thermoclass}}">
+      <div style='height:{{thermoheight}}px;'></div>
+    </div>
+  </div>
+{{/hand}}
+</div>
