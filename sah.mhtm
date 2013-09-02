@@ -1,10 +1,22 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+<link type="text/css" href="ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
 <style>
 .hand {
   clear:left;
 }
+.holder {
+  margin:5px;
+  padding:-4px;
+  border-radius:10px;
+  border:2px dashed #ccc;
+  width:158px;
+  height:208px;
+  float:left;
+}
 .card {
   padding:15px;
-  margin:5px;
+  margin:-2px;
   border-radius:10px;
   background:white;
   border:1px solid #333;
@@ -12,7 +24,12 @@
   height:180px;
   float:left;
   font:16px sans-serif;
-  box-shadow:2px 3px 3px 0 #888;
+  box-shadow:2px 3px 3px 0 #aaa;
+}
+.card.slot {
+  background:none;
+  border:1px dashed transparent;
+  box-shadow:none;
 }
 .blackcard {
   color:white;
@@ -64,26 +81,67 @@
 .thermo.hate {
   background-color:#f40;
 }
+.draggable {
+  cursor:move;
+}
 </style>
 
 <h1>SuperJer Against Humanity</h1>
 <h2>{{username}} ({{score}})</h2>
 
-<div class="card blackcard" blackid={{blackid}}>
-  <div class=cardtxt>{{blacktxt}}</div>
-  <div class="thermo {{blackclass}}">
-    <div style='height:{{blackheight}}px;'></div>
+<div class=holder>
+  <div class="card blackcard" blackid={{blackid}}>
+    <div class=cardtxt>{{blacktxt}}</div>
+    <div class="thermo {{blackclass}}">
+      <div style='height:{{blackheight}}px;'></div>
+    </div>
+    <div class=num>Play <div>{{blacknr}}</div></div>
   </div>
-  <div class=num>Play <div>{{blacknr}}</div></div>
 </div>
+
+{{#slots}}
+<div class=holder>
+  <div class="card slot">
+  </div>
+</div>
+{{/slots}}
 
 <div class=hand>
 {{#hand}}
-  <div class=card whiteid={{whiteid}}>
-    <div class=cardtxt>{{txt}}</div>
-    <div class="thermo {{thermoclass}}">
-      <div style='height:{{thermoheight}}px;'></div>
+  <div class=holder>
+    <div class="card draggable {{@inplay}}gone{{/inplay}}" whiteid={{whiteid}}>
+      <div class=cardtxt>{{txt}}</div>
+      <div class="thermo {{thermoclass}}">
+        <div style='height:{{thermoheight}}px;'></div>
+      </div>
     </div>
   </div>
 {{/hand}}
 </div>
+
+<script>
+function dropme($x) {
+  $x.droppable({
+    tolerance: "intersect",
+    drop: function( event, ui ){
+      $slot = $(event.target).first();
+      $card = $(ui.draggable);
+      $parent = $card.parent();
+      $parent.append( $slot.replaceWith($card) );
+      dropme( $slot );
+      $card.css({top:0, left:0});
+    },
+  });
+}
+function dragme($x) {
+  $x.draggable({
+    cursor: "move",
+    cancel: ".thermo",
+    revert: "invalid",
+    stack: ".draggable",
+  })
+  .disableSelection();
+}
+dropme( $(".slot") );
+dragme( $(".draggable") );
+</script>

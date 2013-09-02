@@ -73,6 +73,7 @@ if( $hand_count < 10 )
   );
 }
 
+$view['slots'] = array(array(),array(),array());
 $qr = mysql_query("
   SELECT w.*,h.*
   FROM hand h
@@ -81,12 +82,25 @@ $qr = mysql_query("
 ");
 while( $r = mysql_fetch_assoc($qr) )
 {
+  $txt = ucfirst( $r['txt'] );
+  if( $txt[0]=='"' )
+    $txt[1] = strtoupper( $txt[1] );
+
+  $inplay = ($r['state'] == 'play');
+
   $view['hand'][] = array(
     'whiteid'      => $r['id'],
-    'txt'          => $r['txt'],
+    'txt'          => $txt,
     'thermoheight' => mt_rand(0,20),
     'thermoclass'  => mt_rand(0,1) ? 'love' : 'hate',
+    'inplay'       => $inplay,
   );
+
+  if( $inplay )
+    $view['slots'][ $r['place'] ] = array(
+      'whiteid'      => $r['id'],
+      'txt'          => $txt,
+    );
 }
 
 echo new Mustache(file_get_contents("sah.mhtm"), $view);
