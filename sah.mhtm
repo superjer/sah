@@ -1,131 +1,8 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="ui/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="js.js"></script>
 <link type="text/css" href="ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
-<style>
-html, body, td {
-  font:16px sans-serif;
-}
-h1 {
-  font-weight:normal;
-  margin:10px 10px 30px 10px;
-}
-.hand {
-  clear:left;
-}
-.holder {
-  margin:5px;
-  padding:-4px;
-  border-radius:10px;
-  border:2px dashed #ccc;
-  width:158px;
-  height:208px;
-  float:left;
-}
-.card {
-  padding:15px;
-  margin:-2px;
-  border-radius:10px;
-  background:white;
-  border:1px solid #333;
-  width:130px;
-  height:180px;
-  float:left;
-  box-shadow:2px 3px 3px 0 #aaa;
-}
-.card.slot {
-  background:none;
-  border:1px dashed transparent;
-  box-shadow:none;
-}
-.blackcard {
-  color:white;
-  background:#111;
-}
-.cardtxt {
-  height:160px;
-}
-.num {
-  text-align:right;
-  font-style:italic;
-}
-.num div {
-  background:white;
-  color:#111;
-  width:20px;
-  height:20px;
-  border-radius:10px;
-  text-align:center;
-  line-height:20px;
-  display:inline-block;
-  font-style:normal;
-}
-.thermo {
-  width:4px;
-  height:20px;
-  box-shadow:0 0 2px 0 #777;
-  float:left;
-  opacity:0.3;
-  /* visibility:hidden; */
-}
-.thermo:hover {
-  box-shadow:0 0 6px 0 #777;
-  cursor:pointer;
-}
-.card:hover .thermo {
-  opacity:1.0;
-  visibility:visible;
-}
-.thermo div {
-  background-color:white;
-}
-.blackcard .thermo div {
-  background-color:black;
-}
-.thermo.love {
-  background-color:#2d3;
-}
-.thermo.hate {
-  background-color:#f40;
-}
-.draggable {
-  cursor:move;
-}
-.err {
-  font-size:50px;
-  color:white;
-  background:#c00;
-  padding:10px 30px;
-  display:none;
-}
-.clear {
-  clear:left;
-}
-.scoresheet {
-  margin:30px 10px;
-  border-spacing:0;
-  float:left;
-}
-.scoresheet th, .scoresheet td {
-  padding:7px 9px 3px;
-}
-.scoresheet th {
-  font-weight:normal;
-  text-align:left;
-  color:#aaa;
-}
-.scoresheet td {
-  border-top:1px solid #aaa;
-}
-h1.clock {
-  float:right;
-}
-button {
-  float:left;
-  padding:10px 40px;
-  font-size:20px;
-  margin:40px 10px 10px;
-}
-</style>
+<link type="text/css" href="css.css">
 
 <h1 class=clock>⌛ <span>0</span></h1>
 <h1>SuperJer Against Humanity</h1>
@@ -134,9 +11,7 @@ button {
 <div class=holder>
   <div class="card blackcard" blackid=0>
     <div class=cardtxt></div>
-    <div class="thermo love">
-      <div style='height:20px;'></div>
-    </div>
+    <div class="thermo love"><div style='height:20px;'></div></div>
     <div class=num>Play <div>0</div></div>
   </div>
 </div>
@@ -167,6 +42,8 @@ button {
     <th>Player</th>
     <th>Score</th>
     <th>Cards in</th>
+    <th>Idle turns</th>
+    <th>Czar?</th>
   </tr>
   <thead>
   <tbody>
@@ -176,117 +53,14 @@ button {
 <button class=reset>Reset</button>
 <button class=callit>Call it</button>
 
-<script>
-var $xhr = null;
-var to = null;
-var $clock = null;
+<div class=shade></div>
 
-function dropme($x) {
-  $x.droppable({
-    tolerance: "intersect",
-    drop: function( event, ui ){
-      var $slot = $(event.target).first();
-      var $card = $(ui.draggable);
-      var $parent = $card.parent();
-      $parent.append( $slot.replaceWith($card) );
-      dropme( $slot );
-      $card.css({top:0, left:0});
-      json = {
-        action:  'move',
-        whiteid: $card.attr('whiteid'),
-        inplay:  ($card.parents('.play').length > 0),
-        slot:    $card.parent().attr('slot'),
-      };
-      checkin(json);
-    },
-  });
-}
-function dragme($x) {
-  $x.draggable({
-    cursor: "move",
-    cancel: ".thermo",
-    revert: "invalid",
-    stack: ".draggable",
-  })
-  .disableSelection();
-}
-function checkin( json ) {
-  if( $xhr ) { $xhr.abort(); xhr = null; }
-  clearTimeout(to);
-  if( typeof json == 'undefined' ) json = {};
-  json = JSON.stringify(json);
-  $xhr = $.post("ajax.php", json, function(data){
-    d = $.parseJSON(data);
-    if( d.msg ) alert( d.msg );
-    if( $clock.text() - 1 != d.game.secs )
-      $clock.text(d.game.secs);
-    var $black = $('.blackcard');
-    $black.find('.cardtxt').text(d.black.txt);
-    $black.find('.num div').text(d.black.nr);
-    $black.find('.thermo').removeClass('love').removeClass('hate').addClass(d.black.class);
-    $black.find('.thermo div').css('height',d.black.height);
-    var $tbody = $('.scoresheet tbody');
-    var html = "";
-    for( var i in d.players ) {
-      var pl = d.players[i];
-      html += '<tr><td>'+pl.name+'</td><td>'+pl.score+'</td><td>'+pl.whatup+'</td></tr>';
-    }
-    $tbody.html(html);
-    var $mycards = $('.card.draggable');
-    var newlist = [];
-    for( var i in d.hand ){
-      var card = d.hand[i];
-      var $it = $mycards.filter('[whiteid='+card.whiteid+']');
-      if( $it.length > 0 )
-        $mycards = $mycards.not($it);
-      else {
-        var start = (card.inplay ? 'startinplay=1' : '');
-        var $elem = $(
-            '<div class="card draggable" whiteid='+card.whiteid+' '+start+'>'
-          +   '<div class=cardtxt></div>'
-          +   '<div class="thermo '+card.thermoclass+'">'
-          +     '<div style="height:'+card.thermoheight+'px;"></div>'
-          +   '</div>'
-          + '</div>'
-        );
-        $elem.find('.cardtxt').text(card.txt/*+' '+card.whiteid*/);
-        newlist.push( $elem );
-      }
-    }
-    if( $mycards.length > 0 ){
-      $mycards.replaceWith("<div class='card slot slotnew'></div>");
-      dropme( $('.slotnew').removeClass('slotnew') );
-    }
-    var $handslots = $('.hand .slot');
-    var $playslots = $('.play .slot');
-    for( var i in newlist ){
-      var $elem = newlist[i];
-      var $slots = $handslots;
-      if( $elem.attr('startinplay') )
-        $slots = $playslots;
-      if( $slots.length < 1 ) { err("Nowhere to put new card!"); continue; }
-      $aslot = $slots.first();
-      $handslots = $handslots.not($aslot); // reference?
-      $playslots = $playslots.not($aslot);
-      $aslot.replaceWith($elem);
-      dragme($elem);
-    }
-    to = setTimeout( checkin, 2500 );
-  });
-}
-function err(s) {
-  $('.err').text('Error: '+s).css('display','block');
-}
-function upclock() {
-  $clock.text( parseInt($clock.text()) + 1 );
-}
-$(function() {
-  dropme( $(".slot") );
-  dragme( $(".draggable") );
-  checkin();
-  $clock = $('.clock span');
-  setInterval( upclock, 1002 );
-  $('.reset').click( function(){ checkin({action:'reset'}); } );
-  $('.callit').click( function(){ checkin({action:'callit'}); } );
-});
-</script>
+<div class=selectwin><div>
+  <h2 class=wintitle>Choose winner...</h2>
+  <div class="card blackcard" blackid=0 style='width:200px;height:300px;'>
+    <div class=cardtxt style='height:280px;'></div>
+    <div class=num>Play <div>0</div></div>
+  </div>
+  <div class=contenders></div>
+  <div class=clear></div>
+</div></div>
