@@ -48,7 +48,7 @@ function checkin( json ) {
 
   $xhr = $.post("ajax.php", json, function(data){
     d = $.parseJSON(data);
-    if( d.msg ) alert( d.msg );
+    if( d.msg ) { err( d.msg ); return; }
 
     var statechange = (!game || d.game.state != game.state);
     game = d.game;
@@ -203,7 +203,7 @@ function checkin( json ) {
 }
 
 function err(s) {
-  $('.err').text('Error: '+s).css('display','block');
+  $('.err').text(s).css('display','block');
 }
 
 function upclock() {

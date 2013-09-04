@@ -4,8 +4,8 @@ ini_set('display_errors',true);
 error_reporting(E_ALL&~E_NOTICE);
 include "../inc/config.inc";
 
-if( !isset($_SESSION['userid']) )
-  die("You need to log in!");
+isset($_SESSION['userid']) or
+  die(json_encode(array('msg'=>"You need to log in to the forum")));
 
 $username = $_SESSION['selfname'];
 $userid = intval( $_SESSION['userid'] );
