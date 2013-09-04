@@ -89,14 +89,6 @@ $putforward = array();
 $withatleast = array(1=>0, 2=>0, 3=>0);
 switch( $in['action'] )
 {
-  case 'reset':
-    mysql_query("DELETE FROM hand WHERE gameid=$gameid");
-    mysql_query("DELETE FROM stack WHERE gameid=$gameid");
-    mysql_query("UPDATE game SET state='gather',ts=CURRENT_TIMESTAMP() WHERE id=$gameid");
-    $json['game']['deltat'] = "00:00:00";
-    $json['game']['secs'] = 0;
-    break;
-
   case 'move':
     $state   = $in['inplay'] ? 'play' : 'hand';
     $slot    = intval($in['slot']);

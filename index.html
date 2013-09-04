@@ -2,10 +2,10 @@
 <html>
 <head>
 <title>SuperJer Against Humanity</title>
-<link rel=stylesheet type="text/css" href="css.css">
+<link rel=stylesheet type="text/css" href="sah.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="ui/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="js.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="sah.js"></script>
 </head>
 <body>
 
@@ -38,12 +38,9 @@
 </div>
 
 <div class=play>
-{{#slots}}
-  <div class=holder slot={{.}}>
-    <div class="card slot">
-    </div>
-  </div>
-{{/slots}}
+  <div class=holder slot=0><div class="card slot"></div></div>
+  <div class=holder slot=1><div class="card slot"></div></div>
+  <div class=holder slot=2><div class="card slot"></div></div>
 </div>
 
 <div class="holder buttons">
@@ -54,19 +51,19 @@
 </div>
 
 <div class=hand>
-{{#hand}}
-  <div class=holder slot={{.}}>
-    <div class="card slot">
-    </div>
-  </div>
-{{/hand}}
+  <div class=holder slot=0><div class="card slot"></div></div>
+  <div class=holder slot=1><div class="card slot"></div></div>
+  <div class=holder slot=2><div class="card slot"></div></div>
+  <div class=holder slot=3><div class="card slot"></div></div>
+  <div class=holder slot=4><div class="card slot"></div></div>
+  <div class=holder slot=5><div class="card slot"></div></div>
+  <div class=holder slot=6><div class="card slot"></div></div>
+  <div class=holder slot=7><div class="card slot"></div></div>
+  <div class=holder slot=8><div class="card slot"></div></div>
+  <div class=holder slot=9><div class="card slot"></div></div>
 </div>
 
 </div> <!-- leftcol -->
-
-{{@reset}}
-<button class=reset style='float:right;display:none;'>Reset</button>
-{{/reset}}
 
 <div class=shade></div>
 
