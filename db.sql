@@ -85,10 +85,12 @@ CREATE TABLE `player` (
   `user` int(10) unsigned NOT NULL,
   `score` int(10) unsigned NOT NULL default '0',
   `idle` int(10) unsigned NOT NULL default '0',
+  `abandon` tinyint(3) unsigned NOT NULL default '0',
   `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `czarts` timestamp NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `gameid` (`gameid`,`user`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,4 +136,4 @@ CREATE TABLE `white` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-09-02 18:16:35
+-- Dump completed on 2013-09-04  2:30:49
