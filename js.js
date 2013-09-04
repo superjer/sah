@@ -1,7 +1,13 @@
 var $xhr = null;
 var to = null;
+var clock = 0;
 var $clock = null;
 var game = null;
+var quickly = false;
+var playersmd5 = '0';
+var handcount = -1;
+var amczar = false;
+var czar = 'No one';
 
 function dropme($x) {
   $x.droppable({
@@ -23,15 +29,16 @@ function dropme($x) {
     },
   });
 }
+
 function dragme($x) {
   $x.draggable({
-    cursor: "move",
     cancel: ".thermo",
     revert: "invalid",
     stack: ".draggable",
   })
   .disableSelection();
 }
+
 function checkin( json ) {
   if( $xhr ) { $xhr.abort(); xhr = null; }
   clearTimeout(to);
@@ -46,19 +53,10 @@ function checkin( json ) {
     var statechange = (!game || d.game.state != game.state);
     game = d.game;
 
-    if( $clock.text() - 1 != game.secs )
-      $clock.text(game.secs);
+    $('.username').text(d.username);
 
-    if( statechange ){
-      if( game.state == 'gather' ){
-        $('.selectwin, .shade').hide();
-        $('.draggable').draggable('enable');
-      }else{
-        $('.selectwin, .shade').show();
-        $('.draggable').draggable('disable');
-        $('.wintitle').text('Choose winner...');
-      }
-    }
+    if( clock - 1 != game.secs )
+      $clock.text(clock = game.secs);
 
     var $black = $('.blackcard');
     $black.find('.cardtxt').text(d.black.txt);
@@ -66,13 +64,55 @@ function checkin( json ) {
     $black.find('.thermo').removeClass('love').removeClass('hate').addClass(d.black.class);
     $black.find('.thermo div').css('height',d.black.height);
 
-    var $tbody = $('.scoresheet tbody');
-    var html = "";
-    for( var i in d.players ) {
-      var pl = d.players[i];
-      html += '<tr><td>'+pl.name+'</td><td>'+pl.score+'</td><td>'+pl.whatup+'</td><td>'+pl.idle+'</td><td>'+pl.czar+'</td></tr>';
+    if( d.handcount != handcount ){
+      handcount = d.handcount;
+      if( handcount < 10 )
+        $('.draw').removeAttr('disabled');
+      else
+        $('.draw').attr('disabled',true);
     }
-    $tbody.html(html);
+
+    if( d.playersmd5 != playersmd5 ){
+      playersmd5 = d.playersmd5;
+      var html = "";
+      amczar = false;
+      for( var i in d.players ) {
+        var pl = d.players[i];
+        var classes = "";
+        if(pl.czar && pl.myself)
+          amczar = true;
+        if( pl.czar ) { czar = pl.name; classes += " czar"; }
+        if( pl.myself ) classes += " myself";
+        html += '<tr class="'+classes+'" '+(pl.idle ? 'title="Idle '+pl.idle+' turns"' : '')
+              +   '><td>' + pl.name   +
+              '</td><td>' + pl.score  +
+              '</td><td>' + (pl.czar ? 'Czar' : pl.idle ? 'Idle' : pl.whatup) +
+              '</td></tr>';
+      }
+      $('.scoresheet tbody').html(html);
+      if( amczar )
+        $('.callit').removeAttr('disabled');
+      else
+        $('.callit').attr('disabled',true);
+    }
+
+    if( statechange ){
+      if( game.state == 'gather' ){
+        $('.selectwin, .shade').hide();
+        $('.draggable').draggable('enable');
+      }else{
+        $('.selectwin, .shade').show();
+        $('.abandon').css('visibility','hidden').removeAttr('disabled').text('Abandon');
+        $('.draggable').draggable('disable');
+        $('.wintitle').text( amczar ? 'You are the Czar. Choose the winner:' : 'Waiting for '+czar+' to choose...' );
+      }
+    }
+
+    if( game.state == 'select' && clock > 30 && !amczar ){
+      $('.abandon').css('visibility','visible');
+      if( d.abandonratio )
+        $('.abandon').text(d.abandonratio);
+    }
 
     var $mycards = $('.card.draggable');
     var newlist = [];
@@ -141,33 +181,44 @@ function checkin( json ) {
           $cons.append($cont);
         }
         $('.aset').click(function(event){
+          if( !amczar ) return;
           var playerid = $(this).attr('playerid');
           checkin( {action:'choose', playerid:playerid} );
+          quickly = true;
         });
       }
 
       if( game.winner > 0 ){
         $('.aset[playerid='+game.winner+']').addClass('winner');
         $('.wintitle').text('A winner is '+game.winnername+'!');
+      }else if( game.state == 'bask' ){
+        $('.wintitle').text('No winner. Round abandoned. Cards returned to hands.');
       }
     }
 
-    to = setTimeout( checkin, 2500 );
+    var ms = quickly ? 10 : 2500;
+    quickly = false;
+    to = setTimeout( checkin, ms );
   });
 }
+
 function err(s) {
   $('.err').text('Error: '+s).css('display','block');
 }
+
 function upclock() {
-  $clock.text( parseInt($clock.text()) + 1 );
+  $clock.text( ++clock );
 }
+
 $(function() {
   dropme( $(".slot") );
   dragme( $(".draggable") );
   checkin();
-  $clock = $('.clock span');
+  $clock = $('.clock');
   setInterval( upclock, 1002 );
-  $('.reset').click( function(){ checkin({action:'reset'}); } );
-  $('.callit').click( function(){ checkin({action:'callit'}); } );
+  $('.reset'  ).click( function(){ checkin({action:'reset'  }); } );
+  $('.callit' ).click( function(){ checkin({action:'callit' }); quickly = true; } );
+  $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
+  $('.abandon').click( function(){ checkin({action:'abandon'}); $('.abandon').attr('disabled',true); } );
   $('html').disableSelection();
 });

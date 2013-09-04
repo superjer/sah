@@ -9,6 +9,7 @@ if( !isset($_SESSION['userid']) )
 
 $username = $_SESSION['selfname'];
 $userid = intval( $_SESSION['userid'] );
+$playerid = 0;
 
 $input = file_get_contents("php://input");
 $in = @json_decode($input);
@@ -25,17 +26,11 @@ $json['players']  = array();
 
 mysql_select_db('sah');
 
-$qr = mysql_query("SELECT GET_LOCK('sah-game',10)");
-if( mysql_result($qr,0) != 1 )
-  die(json_encode(array('msg'=>"Cannot get lock")));
-
 // what game are we in?
 $qr = mysql_query("SELECT * FROM player WHERE user=$userid");
 if( mysql_num_rows($qr) < 1 )
 {
   $gameid = 1;
-  mysql_query("INSERT INTO player SET gameid=$gameid, user=$userid");
-  $playerid = mysql_insert_id();
 }
 else
 {
@@ -43,6 +38,18 @@ else
   $playerid = $r['id'];
   $gameid = $r['gameid'];
   $json['score'] = $r['score'];
+}
+
+$lockname = "sah-game-$gameid";
+$qr = mysql_query("SELECT GET_LOCK('$lockname',10)");
+if( mysql_result($qr,0) != 1 )
+  die(json_encode(array('msg'=>"Cannot get lock for game $gameid")));
+
+if( !$playerid )
+{
+  mysql_query("INSERT INTO player SET gameid=$gameid, user=$userid");
+  $playerid = mysql_insert_id() or
+    die(json_encode(array('msg'=>"Cannot join game twice")));
 }
 
 // get game
@@ -64,7 +71,20 @@ $secs = $secs[0]*60*60 + $secs[1]*60 + $secs[2];
 $json['game']['secs'] = $secs;
 $czar = $gamerow['czar'];
 
+// choose czar?
+if( !$czar )
+{
+  $qr = mysql_query("SELECT id FROM player WHERE gameid=$gameid AND !idle ORDER BY czarts LIMIT 1");
+  if( mysql_num_rows($qr) > 0 )
+  {
+    $czar = $gamerow['czar'] = $json['game']['czar'] = mysql_result($qr,0);
+    mysql_query("UPDATE game SET czar=$czar WHERE id=$gameid");
+    mysql_query("UPDATE player SET czarts=CURRENT_TIMESTAMP() WHERE id=$czar");
+  }
+}
+
 // incoming actions?
+$callingit = false;
 $putforward = array();
 $withatleast = array(1=>0, 2=>0, 3=>0);
 switch( $in['action'] )
@@ -88,18 +108,41 @@ switch( $in['action'] )
     ");
     break;
 
-  case 'callit':
-    if( $czar!=$playerid )
+  case 'choose':
+    if( $czar != $playerid )
     {
-      unset($in['action']);
       $json['msg'] = "You're not the Card Czar!";
       break;
     }
-    if( $gamerow['state']!='gather' )
+    if( $gamerow['state'] != 'select' )
+      break;
+    $winner = intval($in['playerid']);
+    mysql_query("UPDATE game SET state='bask',winner=$winner WHERE id=$gameid");
+    mysql_query("UPDATE player SET score=score+1 WHERE id=$winner");
+    break;
+
+  case 'draw':
+    break;
+
+  case 'abandon':
+    if( $gamerow['state'] == 'select' )
+      mysql_query("UPDATE player SET abandon=1 WHERE id=$playerid");
+    break;
+
+  case 'callit':
+    if( $czar != $playerid )
     {
-      unset($in['action']);
+      $json['msg'] = "You're not the Card Czar!";
       break;
     }
+    // fall thru ...
+
+  default:
+    if( $gamerow['state'] != 'gather' )
+      break;
+    if( $secs < 60 && $in['action'] != 'callit' )
+      break;
+    $callingit = true;
     $qr = mysql_query("
       SELECT *
       FROM hand
@@ -112,22 +155,13 @@ switch( $in['action'] )
       for( $i=1; $i<=count($pfwd); $i++ )
         $withatleast[$i]++;
     break;
-
-  case 'choose':
-    if( $czar!=$playerid )
-    {
-      $json['msg'] = "You're not the Card Czar!";
-      break;
-    }
-    if( $gamerow['state']!='select' )
-      break;
-    $winner = intval($in['playerid']);
-    mysql_query("UPDATE game SET state='bask',winner=$winner WHERE id=$gameid");
-    mysql_query("UPDATE player SET score=score+1 WHERE id=$winner");
-    break;
 }
 
 // get scorelist
+$playercount = 0;
+$abandoners = 0;
+$idleabandoners = 0;
+$idlers = 0;
 $qr = mysql_query("
   SELECT p.*,COUNT(h.state) whatup,u.name 
   FROM player p
@@ -135,17 +169,28 @@ $qr = mysql_query("
   LEFT JOIN hand h ON h.gameid=$gameid AND h.playerid=p.id AND h.state='play'
   WHERE p.gameid=$gameid
   GROUP BY p.user
+  ORDER BY p.idle,p.id
 ");
 while( $r = mysql_fetch_assoc($qr) )
 {
   $json['players'][] = array(
     'name'   => $r['name'],
-    'score'  => $r['score'],
-    'whatup' => $r['whatup'],
-    'idle'   => $r['idle'],
-    'czar'   => ($gamerow['czar']==$r['id'] ? 'Czar' : ''),
+    'score'  => ($r['score']  ? $r['score']  : ''),
+    'whatup' => ($r['whatup'] ? $r['whatup'] : ''),
+    'idle'   => ($r['idle']   ? $r['idle']   : ''),
+    'czar'   => ($gamerow['czar']==$r['id'] ? 1 : 0),
+    'myself' => ($playerid==$r['id'] ? 1 : 0),
   );
+  $playercount++;
+  if( $r['abandon'] )
+  {
+    if( $r['idle'] ) $idleabandoners++; else $abandoners++;
+  }
+  if( $r['idle']    ) $idlers++;
 }
+$actives = $playercount - $idlers - 1;
+$json['playersmd5'] = md5(serialize($json['players']));
+$json['abandonratio'] = $abandoners ? "$abandoners/$actives" : '';
 
 // draw a new black card?
 $qr = mysql_query("SELECT COUNT(*) FROM stack WHERE gameid=$gameid AND state='up'");
@@ -176,35 +221,44 @@ $json['black']['height'] = mt_rand(0,20);
 $json['black']['class']  = mt_rand(0,1) ? 'love' : 'hate';
 
 // calling it?
-while( $in['action']=='callit' )
+while( $callingit )
 {
   if( $withatleast[$playnr] < 2 )
   {
-    $json['msg'] = "Need at least 2 players' submissions";
+    $in['action'] == 'callit' and
+      $json['msg'] = "Need at least 2 players' submissions";
     break;
   }
-  else if( $secs < 20 && $withatleast[$playnr] < count($json['players']) )
+
+  if( $secs < 20 && $withatleast[$playnr] < $actives )
   {
-    $json['msg'] = "Wait until 20 seconds have passed or all players are in";
+    $in['action'] == 'callit' and
+      $json['msg'] = "Wait until 20 seconds have passed or all non-idle players are in";
     break;
   }
 
   $whites = array();
-  $notidle = array();
+  $stillkickin = array($czar);
   foreach( $putforward as $pfplr => $pfwd )
   {
     if( count($pfwd) < $playnr ) break;
-    $notidle[] = $pfplr;
+    $stillkickin[] = $pfplr;
     for( $i=0; $i<$playnr; $i++ )
       $whites[] = $pfwd[$i]['whiteid'];
   }
-  if( count($notidle) )
+  if( count($stillkickin) > 1 )
   {
+    $stillkickin = implode(',',$stillkickin);
     mysql_query("
       UPDATE player
       SET idle=idle+1
-      WHERE gameid=$gameid AND playerid NOT IN (".implode(',',$notidle).")"
+      WHERE gameid=$gameid AND id NOT IN ($stillkickin)"
     );
+    mysql_query("
+      UPDATE player
+      SET idle=0
+      WHERE gameid=$gameid AND id IN ($stillkickin)
+    ");
   }
   if( count($whites) )
   {
@@ -224,8 +278,8 @@ $qr = mysql_query("
   FROM hand
   WHERE gameid=$gameid AND playerid=$playerid AND state IN ('hand','play','consider')
   ");
-$hand_count = mysql_result($qr, 0);
-if( $hand_count < 10 )
+$json['handcount'] = mysql_result($qr, 0);
+if( $json['handcount'] < 10 && $in['action'] == 'draw' )
 {
   $qr = mysql_query("
     INSERT INTO hand (gameid, playerid, whiteid)
@@ -234,7 +288,7 @@ if( $hand_count < 10 )
     LEFT JOIN hand h ON w.id=h.whiteid AND gameid=$gameid
     WHERE h.whiteid IS NULL
     ORDER BY RAND()
-    LIMIT " . (10-$hand_count)
+    LIMIT 1"
   );
 }
 
@@ -276,6 +330,7 @@ while( $r = mysql_fetch_assoc($qr) )
     );
 }
 
+// preset submitted cards
 if( $consider )
 {
   $json['consider'] = array();
@@ -288,27 +343,28 @@ if( $consider )
   usort( $json['consider'], comp );
 }
 
-// see if calling the round
-$playercount = count($json['players']);
-$enoughcount = 0;
-foreach( $json['players'] as $jp )
-  $enoughcount += $jp['whatup'];
-
-$qr = mysql_query("
-  SELECT COUNT(*)
-  FROM hand
-  WHERE gameid=$gameid AND state='play'
-  GROUP BY playerid
-");
-
 // end basking?
 if( $gamerow['state'] == 'bask' && $secs>5 )
 {
-  mysql_query("UPDATE game SET state='gather',winner=0 WHERE id=$gameid");
+  mysql_query("UPDATE game SET state='gather',winner=0,czar=0 WHERE id=$gameid");
   mysql_query("UPDATE hand SET state='discard' WHERE gameid=$gameid AND state='consider'");
   mysql_query("UPDATE stack SET state='discard' WHERE gameid=$gameid AND state='up'");
+  mysql_query("UPDATE player SET abandon=0 WHERE gameid=$gameid");
 }
 
-$qr = mysql_query("SELECT RELEASE_LOCK('sah-game')");
+// abandon the Czar?
+if( $gamerow['state'] == 'select' )
+{
+  if(    ($abandoners == $actives)
+      || ($abandoners > 0 && $secs > 120)
+      || ($idleabandoners > 0 && $secs > 240)
+  ){
+    mysql_query("UPDATE game SET state='bask' WHERE id=$gameid");
+    mysql_query("UPDATE hand SET state='hand' WHERE gameid=$gameid AND state='consider'");
+    mysql_query("UPDATE player SET idle=idle+1 WHERE gameid=$gameid AND id=$czar");
+  }
+}
+
+$qr = mysql_query("SELECT RELEASE_LOCK('$lockname')");
 
 echo json_encode($json);

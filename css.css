@@ -1,21 +1,38 @@
 html, body, td {
   font:16px sans-serif;
 }
+html {
+  background:#f5f5f5;
+}
+body {
+  max-width:1200px;
+  margin:0 auto;
+  /* position:relative; */
+}
 h1 {
   font-weight:normal;
-  margin:10px 10px 30px 10px;
+  font-size:20px;
+  margin:0;
+}
+h1.wintitle {
+  font-size:28px;
+  margin:0 0 20px 0;
 }
 h2 {
+  font-size:28px;
   font-weight:normal;
-  margin-top:0;
+  margin:0;
+  float:right;
+}
+.leftcol {
+  margin-right:300px;
 }
 .hand {
   clear:left;
 }
 .holder {
   margin:5px;
-  padding:-4px;
-  border-radius:10px;
+  border-radius:8px;
   border:2px dashed #ccc;
   width:158px;
   height:208px;
@@ -24,7 +41,7 @@ h2 {
 .card {
   padding:15px;
   margin:-2px;
-  border-radius:10px;
+  border-radius:8px;
   background:white;
   border:1px solid #333;
   width:130px;
@@ -35,6 +52,14 @@ h2 {
 .card.slot {
   background:none;
   border:1px dashed transparent;
+  box-shadow:none;
+}
+.holder.buttons {
+  border-color:transparent;
+}
+.holder.buttons .card {
+  background:transparent;
+  border-color:transparent;
   box-shadow:none;
 }
 .blackcard {
@@ -98,32 +123,61 @@ h2 {
   display:none;
 }
 .clear {
-  clear:left;
+  clear:both;
 }
 .scoresheet {
-  margin:30px 10px;
+  margin:10px 10px 0;
+  padding:15px 20px 20px;
+  box-shadow:1px 1px 6px 0 #777;
+  float:right;
+  background:white;
+}
+.scoresheet table {
   border-spacing:0;
-  float:left;
+  margin:5px 0 0;
 }
-.scoresheet th, .scoresheet td {
-  padding:7px 9px 3px;
+.scoresheet table th, .scoresheet table td {
+  padding:5px 0 3px;
   text-align:right;
+  width:50px;
+  max-width:50px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
-.scoresheet th {
+.scoresheet table th:first-child, .scoresheet table td:first-child {
+  text-align:left;
+  width:120px;
+  max-width:120px;
+}
+.scoresheet table th:last-child, .scoresheet table td:last-child {
+  padding-left:8px;
+  padding-right:0;
+}
+.scoresheet table th {
   font-weight:normal;
   color:#aaa;
 }
-.scoresheet td {
+.scoresheet table td {
   border-top:1px solid #aaa;
 }
-h1.clock {
-  float:right;
+.scoresheet table tr.czar td {
+  /* color:#d7005f; */
+}
+.scoresheet table tr.myself td {
+  color:#d7005f;
 }
 button {
-  float:left;
-  padding:10px 40px;
+  margin:0 auto 10px;
+  width:130px;
+  padding:10px 0;
   font-size:20px;
-  margin:40px 10px 10px;
+}
+button.abandon {
+  margin:0;
+  width:130px;
+  padding:5px 0;
+  font-size:15px;
 }
 .shade {
   position:fixed;
@@ -137,7 +191,7 @@ button {
   z-index:100;
 }
 .selectwin {
-  position:fixed;
+  position:absolute;
   top:0;
   left:0;
   width:100%;
@@ -147,8 +201,9 @@ button {
 .selectwin > div {
   background:white;
   opacity:1.0;
-  padding:40px;
-  margin:100px 80px 0;
+  padding:20px 30px;
+  max-width:1140px;
+  margin:90px auto 0;
   box-shadow:2px 2px 3px 0 black;
 }
 .selectwin .card {
@@ -157,7 +212,8 @@ button {
 .selectwin .blackcard {
   width:200px;
   height:300px;
-  margin:0 10px 10px 0;
+  margin:0 20px 20px 0;
+  border-radius:12px;
 }
 .selectwin .blackcard .cardtxt {
   height:280px;
@@ -167,7 +223,7 @@ button {
   box-shadow:1px 1px 6px 0 #777;
   background:#eee;
   padding:10px;
-  margin:0 10px 10px 0;
+  margin:0 20px 20px 0;
   cursor:pointer;
 }
 .aset:hover {
@@ -178,5 +234,13 @@ button {
   box-shadow:1px 1px 6px 0 #87000f;
 }
 .aset.winner .card {
-  background:yellow;
+  text-shadow: 0 1px 1px white;
+  background: #f7d683; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f7d683 0%, #f4f4f4 11%, #fceabb 29%, #fccd4d 42%, #f8b500 69%, #aa5200 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7d683), color-stop(11%,#f4f4f4), color-stop(29%,#fceabb), color-stop(42%,#fccd4d), color-stop(69%,#f8b500), color-stop(100%,#aa5200)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #f7d683 0%,#f4f4f4 11%,#fceabb 29%,#fccd4d 42%,#f8b500 69%,#aa5200 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #f7d683 0%,#f4f4f4 11%,#fceabb 29%,#fccd4d 42%,#f8b500 69%,#aa5200 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #f7d683 0%,#f4f4f4 11%,#fceabb 29%,#fccd4d 42%,#f8b500 69%,#aa5200 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #f7d683 0%,#f4f4f4 11%,#fceabb 29%,#fccd4d 42%,#f8b500 69%,#aa5200 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d683', endColorstr='#aa5200',GradientType=0 ); /* IE6-9 */
 }

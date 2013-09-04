@@ -1,12 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SuperJer Against Humanity</title>
+<link rel=stylesheet type="text/css" href="css.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="ui/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="js.js"></script>
-<link type="text/css" href="ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
-<link type="text/css" href="css.css">
+</head>
+<body>
 
-<h1 class=clock>⌛ <span>0</span></h1>
-<h1>SuperJer Against Humanity</h1>
+<div class=scoresheet>
+  <h2>⌛ <span class=clock>0</span></h2>
+  <h1>SuperJer<br>Against<br>Humanity</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Player</th>
+      <th>Pts</th>
+      <th>Card</th>
+    </tr>
+    <thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+
 <div class=err></div>
+
+<div class=leftcol>
 
 <div class=holder>
   <div class="card blackcard" blackid=0>
@@ -25,6 +46,13 @@
 {{/slots}}
 </div>
 
+<div class="holder buttons">
+  <div class=card>
+    <button disabled class=callit>Call it</button>
+    <button disabled class=draw>Draw</button>
+  </div>
+</div>
+
 <div class=hand>
 {{#hand}}
   <div class=holder slot={{.}}>
@@ -34,33 +62,27 @@
 {{/hand}}
 </div>
 
-<div class=clear></div>
+</div> <!-- leftcol -->
 
-<table class=scoresheet>
-  <thead>
-  <tr>
-    <th>Player</th>
-    <th>Score</th>
-    <th>Cards in</th>
-    <th>Idle turns</th>
-    <th>Czar?</th>
-  </tr>
-  <thead>
-  <tbody>
-  </tbody>
-</table>
-
-<button class=reset>Reset</button>
-<button class=callit>Call it</button>
+{{@reset}}
+<button class=reset style='float:right;display:none;'>Reset</button>
+{{/reset}}
 
 <div class=shade></div>
 
-<div class=selectwin><div>
-  <h2 class=wintitle>Choose winner...</h2>
-  <div class="card blackcard" blackid=0 style='width:200px;height:300px;'>
-    <div class=cardtxt style='height:280px;'></div>
-    <div class=num>Play <div>0</div></div>
+<div class=selectwin>
+  <div>
+    <button class=abandon style='float:right;visibility:hidden;'>Abandon</button>
+    <h1 class=wintitle>Choose winner...</h1>
+    <div class=clear></div>
+    <div class="card blackcard" blackid=0 style='width:200px;height:300px;'>
+      <div class=cardtxt style='height:280px;'></div>
+      <div class=num>Play <div>0</div></div>
+    </div>
+    <div class=contenders></div>
+    <div class=clear></div>
   </div>
-  <div class=contenders></div>
-  <div class=clear></div>
-</div></div>
+</div>
+
+</body>
+</html>
