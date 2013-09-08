@@ -66,15 +66,27 @@ $qr = mysql_query("
 echo mysql_error();
 $gamerow = mysql_fetch_assoc($qr);
 $json['game'] = $gamerow;
-$secs = explode( ':', $gamerow['deltat'] );
-$secs = $secs[0]*60*60 + $secs[1]*60 + $secs[2];
+$secs = diff2secs( $gamerow['deltat'] );
 $json['game']['secs'] = $secs;
 $czar = $gamerow['czar'];
+
+// keep player ts up to date
+$idlebit = "";
+$in['movement'] and $idlebit = "idle=0,";
+mysql_query("UPDATE player SET $idlebit ts=NOW() WHERE id=$playerid");
 
 // choose czar?
 if( !$czar )
 {
-  $qr = mysql_query("SELECT id FROM player WHERE gameid=$gameid AND !idle ORDER BY czarts LIMIT 1");
+  $qr = mysql_query("
+    SELECT id
+    FROM player
+    WHERE gameid=$gameid AND !idle
+    ORDER BY
+      IF(idle or ts < NOW() - INTERVAL 20 SECOND, 0, 1),
+      czarts
+    LIMIT 1
+  ");
   if( mysql_num_rows($qr) > 0 )
   {
     $czar = $gamerow['czar'] = $json['game']['czar'] = mysql_result($qr,0);
@@ -121,6 +133,18 @@ switch( $in['action'] )
       mysql_query("UPDATE player SET abandon=1 WHERE id=$playerid");
     break;
 
+  case 'vote':
+    if( $in['color'] == 'white' ) { $vtable = 'vote_w'; $idcol = 'whiteid'; }
+    else                          { $vtable = 'vote_b'; $idcol = 'blackid'; }
+    $cardid = intval($in['id']);
+    $yeanay = $in['yeanay'] == 'yea' ? 1 : -1;
+    mysql_query("
+      INSERT INTO $vtable
+      SET user=$userid, $idcol=$cardid, vote=$yeanay
+      ON DUPLICATE KEY UPDATE vote=$yeanay
+    ");
+    break;
+
   case 'callit':
     if( $czar != $playerid )
     {
@@ -155,7 +179,11 @@ $abandoners = 0;
 $idleabandoners = 0;
 $idlers = 0;
 $qr = mysql_query("
-  SELECT p.*,COUNT(h.state) whatup,u.name 
+  SELECT
+    p.*,
+    TIMEDIFF(NOW(), p.ts) deltat,
+    COUNT(h.state) whatup,
+    u.name
   FROM player p
   LEFT JOIN superjer.users u ON p.user=u.id
   LEFT JOIN hand h ON h.gameid=$gameid AND h.playerid=p.id AND h.state='play'
@@ -165,13 +193,15 @@ $qr = mysql_query("
 ");
 while( $r = mysql_fetch_assoc($qr) )
 {
+  $gonefor = diff2secs( $r['deltat'] );
   $json['players'][] = array(
     'name'   => $r['name'],
     'score'  => ($r['score']  ? $r['score']  : ''),
     'whatup' => ($r['whatup'] ? $r['whatup'] : ''),
     'idle'   => ($r['idle']   ? $r['idle']   : ''),
+    'gone'   => ($gonefor > 10              ? 1 : 0),
     'czar'   => ($gamerow['czar']==$r['id'] ? 1 : 0),
-    'myself' => ($playerid==$r['id'] ? 1 : 0),
+    'myself' => ($playerid==$r['id']        ? 1 : 0),
   );
   $playercount++;
   if( $r['abandon'] )
@@ -200,17 +230,19 @@ if( $black_up < 1 )
   ");
 }
 $qr = mysql_query("
-  SELECT s.*, b.*
+  SELECT s.*, b.*, SUM(v.vote) votes
   FROM stack s
   LEFT JOIN black b ON s.blackid=b.id
+  LEFT JOIN vote_b v ON s.blackid=v.blackid
   WHERE gameid=$gameid AND state='up'
+  GROUP BY s.blackid
 ");
 $r = mysql_fetch_assoc($qr);
 $json['black']['id']     = $r['id'];
 $json['black']['txt']    = str_replace("_","_____",$r['txt']);
 $json['black']['nr']     = $playnr = $r['number'];
-$json['black']['height'] = mt_rand(0,20);
-$json['black']['class']  = mt_rand(0,1) ? 'love' : 'hate';
+$json['black']['height'] = max(0, 20 - abs($r['votes']));
+$json['black']['class']  = $r['votes'] > 0 ? 'love' : 'hate';
 
 // calling it?
 while( $callingit )
@@ -288,10 +320,12 @@ if( $json['handcount'] < 10 && $in['action'] == 'draw' )
 $json['slots'] = array(array(),array(),array());
 $consider = array();
 $qr = mysql_query("
-  SELECT w.*,h.*
+  SELECT w.*, h.*, SUM(v.vote) votes
   FROM hand h
   LEFT JOIN white w ON h.whiteid=w.id
+  LEFT JOIN vote_w v ON h.whiteid=v.whiteid
   WHERE gameid=$gameid AND (playerid=$playerid OR state='consider') AND state IN ('hand','play','consider')
+  GROUP BY h.whiteid
   ORDER BY h.position,w.txt
 ");
 while( $r = mysql_fetch_assoc($qr) )
@@ -305,8 +339,8 @@ while( $r = mysql_fetch_assoc($qr) )
   $card = array(
     'whiteid'      => $r['id'],
     'txt'          => $txt,
-    'thermoheight' => mt_rand(0,20),
-    'thermoclass'  => mt_rand(0,1) ? 'love' : 'hate',
+    'thermoheight' => max(0, 20 - abs($r['votes'])),
+    'thermoclass'  => $r['votes'] > 0 ? 'love' : 'hate',
     'inplay'       => $inplay,
   );
 
@@ -360,3 +394,10 @@ if( $gamerow['state'] == 'select' )
 $qr = mysql_query("SELECT RELEASE_LOCK('$lockname')");
 
 echo json_encode($json);
+
+
+function diff2secs( $timediff )
+{
+  $secs = explode( ':', $timediff );
+  return $secs[0]*60*60 + $secs[1]*60 + $secs[2];
+}

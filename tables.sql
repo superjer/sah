@@ -31,7 +31,7 @@ CREATE TABLE `black` (
   `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `txt` (`txt`)
-) ENGINE=MyISAM AUTO_INCREMENT=233 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `game` (
   `state` enum('gather','select','bask') NOT NULL,
   `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +90,7 @@ CREATE TABLE `player` (
   `czarts` timestamp NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `gameid` (`gameid`,`user`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,6 +110,38 @@ CREATE TABLE `stack` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `vote_b`
+--
+
+DROP TABLE IF EXISTS `vote_b`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vote_b` (
+  `blackid` int(10) unsigned NOT NULL,
+  `user` int(10) unsigned NOT NULL,
+  `vote` tinyint(4) NOT NULL default '0',
+  `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`blackid`,`user`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vote_w`
+--
+
+DROP TABLE IF EXISTS `vote_w`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vote_w` (
+  `whiteid` int(10) unsigned NOT NULL,
+  `user` int(10) unsigned NOT NULL,
+  `vote` tinyint(4) NOT NULL default '0',
+  `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`whiteid`,`user`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `white`
 --
 
@@ -124,7 +156,7 @@ CREATE TABLE `white` (
   `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `txt` (`txt`)
-) ENGINE=MyISAM AUTO_INCREMENT=581 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -136,4 +168,4 @@ CREATE TABLE `white` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-09-04  2:30:49
+-- Dump completed on 2013-09-08  3:34:47

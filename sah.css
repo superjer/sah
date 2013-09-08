@@ -86,23 +86,20 @@ h2 {
 .thermo {
   width:4px;
   height:20px;
-  box-shadow:0 0 2px 0 #777;
+  box-shadow:0 0 6px 0 #777;
   float:left;
-  opacity:0.3;
-  /* visibility:hidden; */
+  position:relative;
 }
 .thermo:hover {
-  box-shadow:0 0 6px 0 #777;
   cursor:pointer;
 }
 .card:hover .thermo {
-  opacity:1.0;
   visibility:visible;
 }
-.thermo div {
+.thermo .bar {
   background-color:white;
 }
-.blackcard .thermo div {
+.blackcard .thermo .bar {
   background-color:black;
 }
 .thermo.love {
@@ -138,16 +135,16 @@ h2 {
 .scoresheet table th, .scoresheet table td {
   padding:5px 0 3px;
   text-align:right;
-  width:50px;
-  max-width:50px;
+  width:45px;
+  max-width:45px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 .scoresheet table th:first-child, .scoresheet table td:first-child {
   text-align:left;
-  width:120px;
-  max-width:120px;
+  width:110px;
+  max-width:110px;
 }
 .scoresheet table th:last-child, .scoresheet table td:last-child {
   padding-left:8px;
@@ -242,4 +239,29 @@ button.abandon {
   background: -ms-linear-gradient(top,  #f7d683 0%,#f4f4f4 11%,#fceabb 29%,#fccd4d 42%,#f8b500 69%,#aa5200 100%); /* IE10+ */
   background: linear-gradient(to bottom,  #f7d683 0%,#f4f4f4 11%,#fceabb 29%,#fccd4d 42%,#f8b500 69%,#aa5200 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d683', endColorstr='#aa5200',GradientType=0 ); /* IE6-9 */
+}
+.voteup, .votedown {
+  position:absolute;
+  top:0;
+  display:none;
+  z-index:50;
+  width:20px;
+  height:20px;
+  font-size:16px;
+  line-height:10px;
+  font-weight:bold;
+  color:black;
+  border:0;
+  padding:0;
+  margin:0;
+  cursor:pointer;
+  box-shadow:0 0 3px 0 #777;
+}
+.voteup {
+  background:#2d3;
+  left:10px;
+}
+.votedown {
+  background:#f40;
+  left:35px;
 }

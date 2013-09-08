@@ -8,11 +8,13 @@ var playersmd5 = '0';
 var handcount = -1;
 var amczar = false;
 var czar = 'No one';
+var movement = 0;
 
 function dropme($x) {
   $x.droppable({
     tolerance: "intersect",
     drop: function( event, ui ){
+      movement++;
       var $slot = $(event.target).first();
       var $card = $(ui.draggable);
       var $parent = $card.parent();
@@ -36,7 +38,11 @@ function dragme($x) {
     revert: "invalid",
     stack: ".draggable",
   })
-  .disableSelection();
+  .disableSelection()
+  .off('mouseleave')
+  .on('mouseleave', function() {
+    $(this).find('.voteup, .votedown').hide();
+  });
 }
 
 function checkin( json ) {
@@ -44,6 +50,8 @@ function checkin( json ) {
   clearTimeout(to);
 
   if( typeof json == 'undefined' ) json = {};
+  json.movement = movement;
+  movement = 0;
   json = JSON.stringify(json);
 
   $xhr = $.post("ajax.php", json, function(data){
@@ -59,9 +67,10 @@ function checkin( json ) {
       $clock.text(clock = game.secs);
 
     var $black = $('.blackcard');
+    $black.attr('blackid',d.black.id);
     $black.find('.cardtxt').text(d.black.txt);
     $black.find('.num div').text(d.black.nr);
-    $black.find('.thermo').removeClass('love').removeClass('hate').addClass(d.black.class);
+    $black.find('.thermo').removeClass('love hate').addClass(d.black.class);
     $black.find('.thermo div').css('height',d.black.height);
 
     if( d.handcount != handcount ){
@@ -78,16 +87,21 @@ function checkin( json ) {
       amczar = false;
       for( var i in d.players ) {
         var pl = d.players[i];
+        if( pl.idle > 1 && pl.gone && pl.score < 1 )
+          continue;
         var classes = "";
         if(pl.czar && pl.myself)
           amczar = true;
         if( pl.czar ) { czar = pl.name; classes += " czar"; }
         if( pl.myself ) classes += " myself";
-        html += '<tr class="'+classes+'" '+(pl.idle ? 'title="Idle '+pl.idle+' turns"' : '')
-              +   '><td>' + pl.name   +
-              '</td><td>' + pl.score  +
-              '</td><td>' + (pl.czar ? 'Czar' : pl.idle ? 'Idle' : pl.whatup) +
-              '</td></tr>';
+        var stat = (pl.gone ? 'Out' : pl.idle ? 'Idle' : '');
+        var whatup = (pl.czar ? 'Czar' : pl.whatup);
+        var title = (pl.idle ? 'title="Idle '+pl.idle+' turns"' : '');
+        html += '<tr class="'+classes+'" '+title+'><td>' + pl.name
+             +  '</td><td>' + stat
+             +  '</td><td>' + pl.score
+             +  '</td><td>' + whatup
+             +  '</td></tr>';
       }
       $('.scoresheet tbody').html(html);
       if( amczar )
@@ -119,15 +133,17 @@ function checkin( json ) {
     for( var i in d.hand ){
       var card = d.hand[i];
       var $it = $mycards.filter('[whiteid='+card.whiteid+']');
-      if( $it.length > 0 )
+      if( $it.length > 0 ) {
         $mycards = $mycards.not($it);
-      else {
+        $it.find('.bar').css('height', card.thermoheight+'px');
+        $it.find('.thermo').removeClass('love hate').addClass(card.thermoclass);
+      } else {
         var start = (card.inplay ? 'startinplay=1' : '');
         var $elem = $(
             '<div class="card draggable" whiteid='+card.whiteid+' '+start+'>'
           +   '<div class=cardtxt></div>'
           +   '<div class="thermo '+card.thermoclass+'">'
-          +     '<div style="height:'+card.thermoheight+'px;"></div>'
+          +     '<div class=bar style="height:'+card.thermoheight+'px;"></div>'
           +   '</div>'
           + '</div>'
         );
@@ -210,15 +226,36 @@ function upclock() {
   $clock.text( ++clock );
 }
 
+$(document).on('mousemove click keydown', function() { movement++; });
+
 $(function() {
   dropme( $(".slot") );
   dragme( $(".draggable") );
   checkin();
   $clock = $('.clock');
   setInterval( upclock, 1002 );
+  $('html').disableSelection();
+
   $('.reset'  ).click( function(){ checkin({action:'reset'  }); } );
   $('.callit' ).click( function(){ checkin({action:'callit' }); quickly = true; } );
   $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
   $('.abandon').click( function(){ checkin({action:'abandon'}); $('.abandon').attr('disabled',true); } );
-  $('html').disableSelection();
+
+  $(document).on('click', '.thermo', function(event){
+    var $this = $(this);
+    var $buttons = $this.find('button:visible');
+    if( $buttons.length > 0 ) {
+      $buttons.hide();
+      return;
+    }
+    $this.prepend( $('.votedown').show().remove() );
+    $this.prepend( $('.voteup').show().remove() );
+    var color = $this.parents('.blackcard').length > 0 ? 'black' : 'white';
+    var id = $this.parents('.card').attr(color+'id');
+    $('.voteup, .votedown').off('click').on( 'click', function(){
+      var $this = $(this);
+      var yeanay = $this.hasClass('voteup') ? 'yea' : 'nay';
+      checkin({action:'vote', color:color, id:id, yeanay:yeanay});
+    });
+  });
 });
