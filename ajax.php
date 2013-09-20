@@ -230,7 +230,7 @@ if( $black_up < 1 )
   ");
 }
 $qr = mysql_query("
-  SELECT s.*, b.*, SUM(v.vote) votes
+  SELECT s.*, b.*, SUM(v.vote) votesum, COUNT(v.vote) ttlvotes
   FROM stack s
   LEFT JOIN black b ON s.blackid=b.id
   LEFT JOIN vote_b v ON s.blackid=v.blackid
@@ -238,11 +238,12 @@ $qr = mysql_query("
   GROUP BY s.blackid
 ");
 $r = mysql_fetch_assoc($qr);
+$thermoheight = get_height( $r['votesum'], $r['ttlvotes'] );
 $json['black']['id']     = $r['id'];
-$json['black']['txt']    = str_replace("_","_____",$r['txt']);
+$json['black']['txt']    = str_replace("_","_______",$r['txt']);
 $json['black']['nr']     = $playnr = $r['number'];
-$json['black']['height'] = max(0, 20 - abs($r['votes']));
-$json['black']['class']  = $r['votes'] > 0 ? 'love' : 'hate';
+$json['black']['height'] = $thermoheight;
+$json['black']['class']  = $r['votesum'] > 0 ? 'love' : 'hate';
 
 // calling it?
 while( $callingit )
@@ -320,7 +321,7 @@ if( $json['handcount'] < 10 && $in['action'] == 'draw' )
 $json['slots'] = array(array(),array(),array());
 $consider = array();
 $qr = mysql_query("
-  SELECT w.*, h.*, SUM(v.vote) votes
+  SELECT w.*, h.*, SUM(v.vote) votesum, COUNT(v.vote) ttlvotes
   FROM hand h
   LEFT JOIN white w ON h.whiteid=w.id
   LEFT JOIN vote_w v ON h.whiteid=v.whiteid
@@ -336,11 +337,13 @@ while( $r = mysql_fetch_assoc($qr) )
 
   $inplay = ($r['state'] == 'play');
 
+  $thermoheight = get_height( $r['votesum'], $r['ttlvotes'] );
+
   $card = array(
     'whiteid'      => $r['id'],
     'txt'          => $txt,
-    'thermoheight' => max(0, 20 - abs($r['votes'])),
-    'thermoclass'  => $r['votes'] > 0 ? 'love' : 'hate',
+    'thermoheight' => $thermoheight,
+    'thermoclass'  => $r['votesum'] > 0 ? 'love' : 'hate',
     'inplay'       => $inplay,
   );
 
@@ -400,4 +403,10 @@ function diff2secs( $timediff )
 {
   $secs = explode( ':', $timediff );
   return $secs[0]*60*60 + $secs[1]*60 + $secs[2];
+}
+
+function get_height( $votesum, $ttlvotes )
+{
+  $denom = min(20, $ttlvotes + 2);
+  return min(20, 20 - intval(abs($votesum)*20 / $denom));
 }

@@ -38,11 +38,7 @@ function dragme($x) {
     revert: "invalid",
     stack: ".draggable",
   })
-  .disableSelection()
-  .off('mouseleave')
-  .on('mouseleave', function() {
-    $(this).find('.voteup, .votedown').hide();
-  });
+  .disableSelection();
 }
 
 function checkin( json ) {
@@ -118,7 +114,7 @@ function checkin( json ) {
         $('.selectwin, .shade').show();
         $('.abandon').css('visibility','hidden').removeAttr('disabled').text('Abandon');
         $('.draggable').draggable('disable');
-        $('.wintitle').text( amczar ? 'You are the Czar. Choose the winner:' : 'Waiting for '+czar+' to choose...' );
+        $('.wintitle').text( amczar ? 'You are the Czar. Choose the winner:' : 'Waiting for Czar '+czar+' to choose...' );
       }
     }
 
@@ -189,19 +185,38 @@ function checkin( json ) {
           $cont = $( "<div class=aset playerid="+d.consider[i].playerid+"></div>" );
           for( j in d.consider[i].cards ){
             var card = d.consider[i].cards[j];
-            $elem = $( "<div class=card><div class=cardtxt></div><div>" );
+            $elem = $(
+              "<div class=card>" +
+              " <div class=cardtxt></div>" +
+              " <div class=thermo><div class=bar></div></div>" +
+              "<div>"
+            );
             $elem.attr('whiteid',card.whiteid);
             $elem.find('.cardtxt').text(card.txt);
+            $elem.find('.thermo').addClass(card.thermoclass);
+            $elem.find('.bar').css('height',card.thermoheight);
             $cont.append($elem);
           }
           $cons.append($cont);
         }
         $('.aset').click(function(event){
           if( !amczar ) return;
+          $targ = $(event.target);
+          if( $targ.hasClass('.thermo') || $targ.parents('.thermo').length > 0 )
+            return;
           var playerid = $(this).attr('playerid');
           checkin( {action:'choose', playerid:playerid} );
           quickly = true;
         });
+      }else{ // no repop
+        for( i in d.consider ){
+          for( j in d.consider[i].cards ){
+            var card = d.consider[i].cards[j];
+            var $thermo = $('.aset .card[whiteid='+card.whiteid+'] .thermo');
+            $thermo.removeClass('love hate').addClass(card.thermoclass);
+            $thermo.find('.bar').css('height',card.thermoheight);
+          }
+        }
       }
 
       if( game.winner > 0 ){
@@ -219,14 +234,13 @@ function checkin( json ) {
 }
 
 function err(s) {
-  $('.err').text(s).css('display','block');
+  $('.err span').text(s);
+  $('.err').show();
 }
 
 function upclock() {
   $clock.text( ++clock );
 }
-
-$(document).on('mousemove click keydown', function() { movement++; });
 
 $(function() {
   dropme( $(".slot") );
@@ -241,21 +255,30 @@ $(function() {
   $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
   $('.abandon').click( function(){ checkin({action:'abandon'}); $('.abandon').attr('disabled',true); } );
 
+  $(document).on('mousemove click keydown', function() { movement++; });
+
+  $('.err button').click( function(){ $('.err').slideUp(); });
+
   $(document).on('click', '.thermo', function(event){
     var $this = $(this);
-    var $buttons = $this.find('button:visible');
-    if( $buttons.length > 0 ) {
-      $buttons.hide();
+    var $votebutts = $this.find('button');
+    if( $votebutts.length > 0 ) {
+      $votebutts.remove();
       return;
     }
-    $this.prepend( $('.votedown').show().remove() );
-    $this.prepend( $('.voteup').show().remove() );
+    $votebutts = $('<button class=voteup>+</button><button class=votedown>-</button>');
+    $this.prepend( $votebutts );
     var color = $this.parents('.blackcard').length > 0 ? 'black' : 'white';
-    var id = $this.parents('.card').attr(color+'id');
-    $('.voteup, .votedown').off('click').on( 'click', function(){
+    var $parentcard = $this.parents('.card');
+    var id = $parentcard.attr(color+'id');
+    $parentcard.off('mouseleave').on('mouseleave', function() {
+      $(this).find('button').remove();
+    });
+    $votebutts.on( 'click', function(event){
       var $this = $(this);
       var yeanay = $this.hasClass('voteup') ? 'yea' : 'nay';
       checkin({action:'vote', color:color, id:id, yeanay:yeanay});
+      $this.parent().find('button').remove();
     });
   });
 });
