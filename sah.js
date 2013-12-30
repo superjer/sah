@@ -9,6 +9,7 @@ var handcount = -1;
 var amczar = false;
 var czar = 'No one';
 var movement = 0;
+var chosen = 0;
 
 function dropme($x) {
   $x.droppable({
@@ -112,14 +113,19 @@ function checkin( json ) {
         $('.draggable').draggable('enable');
       }else{
         $('.selectwin, .shade').show();
-        $('.abandon').css('visibility','hidden').removeAttr('disabled').text('Abandon');
+        $('.abandon').css('display','none').removeAttr('disabled').text('Abandon');
+        $('.confirm').css('display','none').attr('disabled',true);
         $('.draggable').draggable('disable');
         $('.wintitle').text( amczar ? 'You are the Czar. Choose the winner:' : 'Waiting for Czar '+czar+' to choose...' );
       }
     }
 
+    if( game.state == 'select' && amczar ){
+      $('.confirm').css('display','block');
+    }
+
     if( game.state == 'select' && clock > 30 && !amczar ){
-      $('.abandon').css('visibility','visible');
+      $('.abandon').css('display','block');
       if( d.abandonratio )
         $('.abandon').text(d.abandonratio);
     }
@@ -137,13 +143,12 @@ function checkin( json ) {
         var start = (card.inplay ? 'startinplay=1' : '');
         var $elem = $(
             '<div class="card draggable" whiteid='+card.whiteid+' '+start+'>'
-          +   '<div class=cardtxt></div>'
+          +   '<div class="cardtxt">'+card.txt+'</div>'
           +   '<div class="thermo '+card.thermoclass+'">'
           +     '<div class=bar style="height:'+card.thermoheight+'px;"></div>'
           +   '</div>'
           + '</div>'
         );
-        $elem.find('.cardtxt').text(card.txt/*+' '+card.whiteid*/);
         newlist.push( $elem );
       }
     }
@@ -182,7 +187,7 @@ function checkin( json ) {
       if( repop ){
         $cons.html('');
         for( i in d.consider ){
-          $cont = $( "<div class=aset playerid="+d.consider[i].playerid+"></div>" );
+          $cont = $( '<div class="aset" playerid='+d.consider[i].playerid+'></div>' );
           for( j in d.consider[i].cards ){
             var card = d.consider[i].cards[j];
             $elem = $(
@@ -196,30 +201,41 @@ function checkin( json ) {
             $elem.find('.thermo').addClass(card.thermoclass);
             $elem.find('.bar').css('height',card.thermoheight);
             $cont.append($elem);
+            if( card.state=='hidden' )
+              $cont.addClass('mystery');
           }
           $cons.append($cont);
         }
         $('.aset').click(function(event){
           if( !amczar ) return;
           $targ = $(event.target);
-          if( $targ.hasClass('.thermo') || $targ.parents('.thermo').length > 0 )
+          if( $targ.hasClass('thermo') || $targ.parents('.thermo').length > 0 )
             return;
           var playerid = $(this).attr('playerid');
-          checkin( {action:'choose', playerid:playerid} );
+          checkin( {action:'reveal', playerid:playerid} );
+          $('.aset').removeClass('potential');
+          $('.aset[playerid='+playerid+']').removeClass('mystery').addClass('potential');
+          $('.confirm').removeAttr('disabled');
+          chosen = playerid;
           quickly = true;
         });
       }else{ // no repop
         for( i in d.consider ){
           for( j in d.consider[i].cards ){
+            var playerid = d.consider[i].playerid;
             var card = d.consider[i].cards[j];
             var $thermo = $('.aset .card[whiteid='+card.whiteid+'] .thermo');
             $thermo.removeClass('love hate').addClass(card.thermoclass);
             $thermo.find('.bar').css('height',card.thermoheight);
+            console.log(card.state);
+            if( card.state=='consider' )
+              $('.aset[playerid='+playerid+']').removeClass('mystery');
           }
         }
       }
 
       if( game.winner > 0 ){
+        $('.aset').removeClass('potential');
         $('.aset[playerid='+game.winner+']').addClass('winner');
         $('.wintitle').text('A winner is '+game.winnername+'!');
       }else if( game.state == 'bask' ){
@@ -254,6 +270,7 @@ $(function() {
   $('.callit' ).click( function(){ checkin({action:'callit' }); quickly = true; } );
   $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
   $('.abandon').click( function(){ checkin({action:'abandon'}); $('.abandon').attr('disabled',true); } );
+  $('.confirm').click( function(){ checkin({action:'choose', playerid:chosen}); quickly = true; $('.confirm').attr('disabled',true); } );
 
   $(document).on('mousemove click keydown', function() { movement++; });
 
@@ -279,6 +296,8 @@ $(function() {
       var yeanay = $this.hasClass('voteup') ? 'yea' : 'nay';
       checkin({action:'vote', color:color, id:id, yeanay:yeanay});
       $this.parent().find('button').remove();
+      event.stopPropagation();
     });
+    event.stopPropagation();
   });
 });

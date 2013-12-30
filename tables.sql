@@ -63,7 +63,7 @@ CREATE TABLE `hand` (
   `gameid` int(10) unsigned NOT NULL,
   `playerid` int(10) unsigned NOT NULL,
   `whiteid` int(10) unsigned NOT NULL,
-  `state` enum('hand','play','consider','discard') NOT NULL default 'hand',
+  `state` enum('hand','play','hidden','consider','discard') NOT NULL default 'hand',
   `position` tinyint(3) unsigned NOT NULL default '0',
   `alttxt` varchar(255) NOT NULL default '',
   `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,

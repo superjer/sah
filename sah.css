@@ -176,11 +176,12 @@ button {
   padding:10px 0;
   font-size:20px;
 }
-button.abandon {
+button.abandon, button.confirm {
   margin:0;
   width:130px;
   padding:5px 0;
   font-size:15px;
+  float:right;
 }
 .shade {
   position:fixed;
@@ -221,6 +222,12 @@ button.abandon {
 .selectwin .blackcard .cardtxt {
   height:280px;
 }
+.mystery .cardtxt {
+  visibility:hidden;
+}
+.mystery .thermo {
+  display:none;
+}
 .aset {
   float:left;
   box-shadow:1px 1px 6px 0 #777;
@@ -231,10 +238,16 @@ button.abandon {
 }
 .aset:hover {
   background:#d7005f;
-  box-shadow:1px 1px 8px 0 #444;
+  /* box-shadow:1px 1px 8px 0 #444; */
 }
 .aset:hover .card {
   box-shadow:1px 1px 6px 0 #87000f;
+}
+.aset.potential {
+  background:#f7d700;
+}
+.aset.potential .card {
+  box-shadow:1px 1px 6px 0 #878700;
 }
 .voteup, .votedown {
   position:absolute;

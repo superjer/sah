@@ -112,6 +112,18 @@ switch( $in['action'] )
     ");
     break;
 
+  case 'reveal':
+    if( $czar != $playerid )
+    {
+      $json['msg'] = "You're not the Card Czar!";
+      break;
+    }
+    if( $gamerow['state'] != 'select' )
+      break;
+    $revealmy = intval($in['playerid']);
+    mysql_query("UPDATE hand SET state='consider' WHERE gameid=$gameid AND playerid=$revealmy AND state='hidden'");
+    break;
+
   case 'choose':
     if( $czar != $playerid )
     {
@@ -121,6 +133,8 @@ switch( $in['action'] )
     if( $gamerow['state'] != 'select' )
       break;
     $winner = intval($in['playerid']);
+    if( !$winner )
+      break;
     mysql_query("UPDATE game SET state='bask',winner=$winner WHERE id=$gameid");
     mysql_query("UPDATE player SET score=score+1 WHERE id=$winner");
     break;
@@ -289,7 +303,7 @@ while( $callingit )
   {
     mysql_query("
       UPDATE hand
-      SET state='consider'
+      SET state='hidden'
       WHERE gameid=$gameid AND whiteid IN (".implode(',',$whites).")"
     );
     mysql_query("UPDATE game SET state='select' WHERE id=$gameid");
@@ -301,7 +315,7 @@ while( $callingit )
 $qr = mysql_query("
   SELECT COUNT(*)
   FROM hand
-  WHERE gameid=$gameid AND playerid=$playerid AND state IN ('hand','play','consider')
+  WHERE gameid=$gameid AND playerid=$playerid AND state IN ('hand','play','hidden','consider')
   ");
 $json['handcount'] = mysql_result($qr, 0);
 if( $json['handcount'] < 10 && $in['action'] == 'draw' )
@@ -325,7 +339,7 @@ $qr = mysql_query("
   FROM hand h
   LEFT JOIN white w ON h.whiteid=w.id
   LEFT JOIN vote_w v ON h.whiteid=v.whiteid
-  WHERE gameid=$gameid AND (playerid=$playerid OR state='consider') AND state IN ('hand','play','consider')
+  WHERE gameid=$gameid AND (playerid=$playerid OR state IN ('hidden','consider')) AND state IN ('hand','play','hidden','consider')
   GROUP BY h.whiteid
   ORDER BY h.position,w.txt
 ");
@@ -345,9 +359,10 @@ while( $r = mysql_fetch_assoc($qr) )
     'thermoheight' => $thermoheight,
     'thermoclass'  => $r['votesum'] > 0 ? 'love' : 'hate',
     'inplay'       => $inplay,
+    'state'        => $r['state'],
   );
 
-  if( $r['state'] == 'consider' )
+  if( in_array($r['state'], array('hidden','consider')) )
     $consider[$r['playerid']][] = $card;
   else
     $json['hand'][] = $card;
@@ -376,7 +391,7 @@ if( $consider )
 if( $gamerow['state'] == 'bask' && $secs>5 )
 {
   mysql_query("UPDATE game SET state='gather',winner=0,czar=0 WHERE id=$gameid");
-  mysql_query("UPDATE hand SET state='discard' WHERE gameid=$gameid AND state='consider'");
+  mysql_query("UPDATE hand SET state='discard' WHERE gameid=$gameid AND state IN ('hidden','consider')");
   mysql_query("UPDATE stack SET state='discard' WHERE gameid=$gameid AND state='up'");
   mysql_query("UPDATE player SET abandon=0 WHERE gameid=$gameid");
 }
@@ -389,7 +404,7 @@ if( $gamerow['state'] == 'select' )
       || ($idleabandoners > 0 && $secs > 240)
   ){
     mysql_query("UPDATE game SET state='bask' WHERE id=$gameid");
-    mysql_query("UPDATE hand SET state='hand' WHERE gameid=$gameid AND state='consider'");
+    mysql_query("UPDATE hand SET state='hand' WHERE gameid=$gameid AND state IN ('hidden','consider')");
     mysql_query("UPDATE player SET idle=idle+1 WHERE gameid=$gameid AND id=$czar");
   }
 }
