@@ -194,7 +194,8 @@ function checkin( json ) {
       if( repop ){
         $cons.html('');
         for( i in d.consider ){
-          $cont = $( '<div class="aset" playerid='+d.consider[i].playerid+'></div>' );
+          $cont = $('<div class="aset" playerid='+d.consider[i].playerid+'></div>');
+          $cont.attr('repltxt',d.consider[i].repltxt);
           for( j in d.consider[i].cards ){
             var card = d.consider[i].cards[j];
             $elem = $(
@@ -217,29 +218,23 @@ function checkin( json ) {
           var $targ = $(event.target);
           if( $targ.hasClass('thermo') || $targ.parents('.thermo').length > 0 )
             return;
-          var $bct = $('.selectwin .blackcard .cardtxt');
-          var txt = blacktxt;
           var $cards = $(this).find('.card');
-          var i;
-          var repl;
-          for( i=0; i < $cards.length; i++ ){
-            repl = $cards.eq(i).text().trim(' ');
-            txt = txt.replace(/_+/, repl);
-          }
-          txt = txt.replace(/_+/g, repl); // get any stragglers
-          txt = txt.replace(/([!?]+)[.]/, "$1");
-          $bct.text(txt);
+          var $bct = $('.selectwin .blackcard .cardtxt');
           var playerid = $(this).attr('playerid');
+          var $aset = $('.aset[playerid='+playerid+']');
+          if( !amczar && $aset.hasClass('mystery') )
+            return;
           $('.aset').removeClass('potential');
-          $('.aset[playerid='+playerid+']').addClass('potential');
+          $aset.addClass('potential');
+          $bct.html($(this).attr('repltxt'));
           if( !amczar ) return;
-          $('.aset[playerid='+playerid+']').removeClass('mystery');
+          $aset.removeClass('mystery');
           $('.confirm').removeAttr('disabled');
           checkin( {action:'reveal', playerid:playerid} );
           chosen = playerid;
           quickly = true;
         });
-        $('.aset').mouseleave(function(event){
+        $('.aset').mouseenter(function(event){
           $('.selectwin .blackcard .cardtxt').text(blacktxt);
         });
       }else{ // no repop

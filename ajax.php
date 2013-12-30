@@ -253,8 +253,9 @@ $qr = mysql_query("
 ");
 $r = mysql_fetch_assoc($qr);
 $thermoheight = get_height( $r['votesum'], $r['ttlvotes'] );
+$blacktxt = $r['txt'];
 $json['black']['id']     = $r['id'];
-$json['black']['txt']    = str_replace("_","_______",$r['txt']);
+$json['black']['txt']    = str_replace("_","_______",$blacktxt);
 $json['black']['nr']     = $playnr = $r['number'];
 $json['black']['height'] = $thermoheight;
 $json['black']['class']  = $r['votesum'] > 0 ? 'love' : 'hate';
@@ -356,6 +357,7 @@ while( $r = mysql_fetch_assoc($qr) )
   $card = array(
     'whiteid'      => $r['id'],
     'txt'          => $txt,
+    'rawtxt'       => $r['txt'],
     'thermoheight' => $thermoheight,
     'thermoclass'  => $r['votesum'] > 0 ? 'love' : 'hate',
     'inplay'       => $inplay,
@@ -378,8 +380,23 @@ while( $r = mysql_fetch_assoc($qr) )
 if( $consider )
 {
   $json['consider'] = array();
-  foreach( $consider as $cplr => $c )
-    $json['consider'][] = array('playerid'=>$cplr, 'cards'=>$c);
+  $hasemail = (strpos($blacktxt, '_@_') !== false);
+  $blankstart = ($blacktxt[0] == '_');
+  foreach( $consider as $cplr => $cards ){
+    $repltxt = $blacktxt;
+    $i = 0;
+    foreach( $cards as $c ){
+      $rawtxt = $c['rawtxt'];
+      if( $hasemail )
+        $rawtxt = str_replace(' ','-',$rawtxt);
+      if( $blankstart && $i==0 )
+        $rawtxt = ucfirst($rawtxt);
+      $cnt = (++$i == count($cards) ? -1 : 1);
+      $repltxt = preg_replace('/_/', "<span>$rawtxt</span>", $repltxt, $cnt);
+    }
+    $repltxt = ucfirst($repltxt);
+    $json['consider'][] = array('playerid'=>$cplr, 'repltxt'=>$repltxt, 'cards'=>$cards);
+  }
 
   function comp($a,$b){
     return strcmp($a['cards'][0]['txt'], $b['cards'][0]['txt']);

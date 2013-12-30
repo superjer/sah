@@ -222,6 +222,9 @@ button.abandon, button.confirm {
 .selectwin .blackcard .cardtxt {
   height:280px;
 }
+.selectwin .blackcard .cardtxt span {
+  color:#f7d700;
+}
 .mystery .cardtxt {
   visibility:hidden;
 }
