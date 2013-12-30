@@ -10,6 +10,8 @@ var amczar = false;
 var czar = 'No one';
 var movement = 0;
 var chosen = 0;
+var blackid = 0;
+var blacktxt = '';
 
 function dropme($x) {
   $x.droppable({
@@ -63,12 +65,17 @@ function checkin( json ) {
     if( clock - 1 != game.secs )
       $clock.text(clock = game.secs);
 
-    var $black = $('.blackcard');
-    $black.attr('blackid',d.black.id);
-    $black.find('.cardtxt').text(d.black.txt);
-    $black.find('.num div').text(d.black.nr);
-    $black.find('.thermo').removeClass('love hate').addClass(d.black.class);
-    $black.find('.thermo div').css('height',d.black.height);
+    if( blackid != d.black.id )
+    {
+      blackid = d.black.id;
+      blacktxt = d.black.txt;
+      var $black = $('.blackcard');
+      $black.attr('blackid',blackid);
+      $black.find('.cardtxt').text(blacktxt);
+      $black.find('.num div').text(d.black.nr);
+      $black.find('.thermo').removeClass('love hate').addClass(d.black.class);
+      $black.find('.thermo div').css('height',d.black.height);
+    }
 
     if( d.handcount != handcount ){
       handcount = d.handcount;
@@ -207,17 +214,33 @@ function checkin( json ) {
           $cons.append($cont);
         }
         $('.aset').click(function(event){
-          if( !amczar ) return;
-          $targ = $(event.target);
+          var $targ = $(event.target);
           if( $targ.hasClass('thermo') || $targ.parents('.thermo').length > 0 )
             return;
+          var $bct = $('.selectwin .blackcard .cardtxt');
+          var txt = blacktxt;
+          var $cards = $(this).find('.card');
+          var i;
+          var repl;
+          for( i=0; i < $cards.length; i++ ){
+            repl = $cards.eq(i).text().trim(' ');
+            txt = txt.replace(/_+/, repl);
+          }
+          txt = txt.replace(/_+/g, repl); // get any stragglers
+          txt = txt.replace(/([!?]+)[.]/, "$1");
+          $bct.text(txt);
           var playerid = $(this).attr('playerid');
-          checkin( {action:'reveal', playerid:playerid} );
           $('.aset').removeClass('potential');
-          $('.aset[playerid='+playerid+']').removeClass('mystery').addClass('potential');
+          $('.aset[playerid='+playerid+']').addClass('potential');
+          if( !amczar ) return;
+          $('.aset[playerid='+playerid+']').removeClass('mystery');
           $('.confirm').removeAttr('disabled');
+          checkin( {action:'reveal', playerid:playerid} );
           chosen = playerid;
           quickly = true;
+        });
+        $('.aset').mouseleave(function(event){
+          $('.selectwin .blackcard .cardtxt').text(blacktxt);
         });
       }else{ // no repop
         for( i in d.consider ){
@@ -227,7 +250,6 @@ function checkin( json ) {
             var $thermo = $('.aset .card[whiteid='+card.whiteid+'] .thermo');
             $thermo.removeClass('love hate').addClass(card.thermoclass);
             $thermo.find('.bar').css('height',card.thermoheight);
-            console.log(card.state);
             if( card.state=='consider' )
               $('.aset[playerid='+playerid+']').removeClass('mystery');
           }
