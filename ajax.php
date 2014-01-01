@@ -102,6 +102,8 @@ $withatleast = array(1=>0, 2=>0, 3=>0);
 switch( $in['action'] )
 {
   case 'move':
+    if( $gamerow['state'] != 'gather' )
+      break;
     $state   = $in['inplay'] ? 'play' : 'hand';
     $slot    = intval($in['slot']);
     $whiteid = intval($in['whiteid']);
@@ -255,7 +257,7 @@ $r = mysql_fetch_assoc($qr);
 $thermoheight = get_height( $r['votesum'], $r['ttlvotes'] );
 $blacktxt = $r['txt'];
 $json['black']['id']     = $r['id'];
-$json['black']['txt']    = str_replace("_","_______",$blacktxt);
+$json['black']['txt']    = str_replace("_","<span>_______</span>",$blacktxt);
 $json['black']['nr']     = $playnr = $r['number'];
 $json['black']['height'] = $thermoheight;
 $json['black']['class']  = $r['votesum'] > 0 ? 'love' : 'hate';

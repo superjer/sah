@@ -223,6 +223,7 @@ button.abandon, button.confirm {
   height:280px;
 }
 .selectwin .blackcard .cardtxt span {
+  /* display:block; */
   color:#f7d700;
 }
 .mystery .cardtxt {

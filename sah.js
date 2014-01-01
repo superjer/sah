@@ -71,7 +71,7 @@ function checkin( json ) {
       blacktxt = d.black.txt;
       var $black = $('.blackcard');
       $black.attr('blackid',blackid);
-      $black.find('.cardtxt').text(blacktxt);
+      $black.find('.cardtxt').html(blacktxt);
       $black.find('.num div').text(d.black.nr);
       $black.find('.thermo').removeClass('love hate').addClass(d.black.class);
       $black.find('.thermo div').css('height',d.black.height);
@@ -235,7 +235,7 @@ function checkin( json ) {
           quickly = true;
         });
         $('.aset').mouseenter(function(event){
-          $('.selectwin .blackcard .cardtxt').text(blacktxt);
+          $('.selectwin .blackcard .cardtxt').html(blacktxt);
         });
       }else{ // no repop
         for( i in d.consider ){
