@@ -236,13 +236,21 @@ $black_up = mysql_result($qr,0);
 if( $black_up < 1 )
 {
   $qr = mysql_query("
+    SELECT COUNT(*)
+    FROM black b
+    LEFT JOIN stack s ON b.id=s.blackid AND gameid=$gameid
+    WHERE s.blackid IS NULL
+  ");
+  $r = mysql_fetch_row($qr);
+  $rand = mt_rand(0, $r[0]-1);
+  $qr = mysql_query("
     INSERT INTO stack (gameid, blackid)
     SELECT $gameid, b.id
     FROM black b
     LEFT JOIN stack s ON b.id=s.blackid AND gameid=$gameid
     WHERE s.blackid IS NULL
-    ORDER BY RAND()
-    LIMIT 1
+    ORDER BY b.id
+    LIMIT $rand,1
   ");
 }
 $qr = mysql_query("
@@ -324,14 +332,22 @@ $json['handcount'] = mysql_result($qr, 0);
 if( $json['handcount'] < 10 && $in['action'] == 'draw' )
 {
   $qr = mysql_query("
+    SELECT COUNT(*)
+    FROM white w
+    LEFT JOIN hand h ON w.id=h.whiteid AND gameid=$gameid
+    WHERE h.whiteid IS NULL
+  ");
+  $r = mysql_fetch_row($qr);
+  $rand = mt_rand(0, $r[0]-1);
+  $qr = mysql_query("
     INSERT INTO hand (gameid, playerid, whiteid)
     SELECT $gameid, $playerid, w.id
     FROM white w
     LEFT JOIN hand h ON w.id=h.whiteid AND gameid=$gameid
     WHERE h.whiteid IS NULL
-    ORDER BY RAND()
-    LIMIT 1"
-  );
+    ORDER BY w.id
+    LIMIT $rand,1
+  ");
 }
 
 // find white cards
