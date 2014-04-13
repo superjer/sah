@@ -16,6 +16,10 @@ $in = @json_decode($input);
 $in === false and die(json_encode(array('msg'=>$input)));
 $in = (array)$in;
 
+// FIXME lol DEBUG lol!!
+if( $userid == 2 )
+  error_log(print_r($in,true), 3, "/tmp/please" );
+
 $json = array();
 $json['username'] = $username;
 $json['score']    = 0;
@@ -23,14 +27,38 @@ $json['hand']     = array();
 $json['consider'] = array();
 $json['black']    = array();
 $json['players']  = array();
+$json['lobby']    = array();
 
-mysql_select_db('sah');
+mysql_select_db(trim(file_get_contents('dbname')));
+
+// need to process create action early!
+if( $in['action'] == 'create' )
+{
+  $gamename = mysql_real_escape_string($in['name']);
+  mysql_query("
+    INSERT INTO game
+    SET name='$gamename'
+  ");
+  $in['action'] = 'join';
+  $in['gameid'] = mysql_insert_id();
+}
+
+// need to process join action early!
+if( $in['action'] == 'join' )
+{
+  $joingame = intval($in['gameid']);
+  mysql_query("
+    UPDATE player
+    SET gameid=$joingame
+    WHERE user=$userid
+  ");
+}
 
 // what game are we in?
 $qr = mysql_query("SELECT * FROM player WHERE user=$userid");
 if( mysql_num_rows($qr) < 1 )
 {
-  $gameid = 1;
+  $gameid = 0;
 }
 else
 {
@@ -38,6 +66,25 @@ else
   $playerid = $r['id'];
   $gameid = $r['gameid'];
   $json['score'] = $r['score'];
+}
+
+if( !$gameid )
+{
+  $json['inlobby'] = 1;
+  $qr = mysql_query("
+    SELECT g.*, TIMEDIFF(NOW(), g.ts) deltat, COALESCE(MAX(p.score), '') high, COUNT(p.id) players
+    FROM game g
+    LEFT JOIN player p ON g.id = p.gameid
+    GROUP BY g.id
+  ");
+  echo mysql_error();
+  while( $r = mysql_fetch_assoc($qr) )
+  {
+    $r['secs'] = diff2secs( $r['deltat'] );
+    $json['lobby'][] = $r;
+  }
+  echo json_encode($json);
+  return;
 }
 
 $lockname = "sah-game-$gameid";
@@ -158,6 +205,14 @@ switch( $in['action'] )
       INSERT INTO $vtable
       SET user=$userid, $idcol=$cardid, vote=$yeanay
       ON DUPLICATE KEY UPDATE vote=$yeanay
+    ");
+    break;
+
+  case 'leave':
+    mysql_query("
+      UPDATE player
+      SET gameid=0, score=0
+      WHERE id=$playerid
     ");
     break;
 

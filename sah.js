@@ -45,7 +45,7 @@ function dragme($x) {
 }
 
 function checkin( json ) {
-  if( $xhr ) { $xhr.abort(); xhr = null; }
+  if( $xhr ) { $xhr.abort(); $xhr = null; }
   clearTimeout(to);
 
   if( typeof json == 'undefined' ) json = {};
@@ -56,6 +56,29 @@ function checkin( json ) {
   $xhr = $.post("ajax.php", json, function(data){
     d = $.parseJSON(data);
     if( d.msg ) { err( d.msg ); return; }
+
+    if( d.inlobby )
+    {
+      $('.selectwin').hide();
+      $('.lobbywin, .shade').show();
+
+      var html = '';
+      for( var l in d.lobby )
+      {
+        var lob = d.lobby[l];
+        html += "<tr><td>" + lob.name
+              + "</td><td>" + lob.players
+              + "</td><td>" + lob.high
+              + "</td><td><button gameid=" + lob.id + ">SuperJoin</button>"
+              + "</td></tr>";
+      }
+      $('.lobbywin table tbody').html(html);
+
+      return;
+    }
+
+    if( $('.lobbywin').is(':visible') )
+      $('.lobbywin, .shade').hide();
 
     var statechange = (!game || d.game.state != game.state);
     game = d.game;
@@ -288,6 +311,16 @@ $(function() {
   $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
   $('.abandon').click( function(){ checkin({action:'abandon'}); $('.abandon').attr('disabled',true); } );
   $('.confirm').click( function(){ checkin({action:'choose', playerid:chosen}); quickly = true; $('.confirm').attr('disabled',true); } );
+  $('.leave'  ).click( function(){ checkin({action:'leave'  }); quickly = true; } );
+  $('.create' ).click( function(){ var n = $('input#name'); checkin({action:'create', name:n.val()}); quickly = true; n.val(''); } );
+
+  $(document).on('click', '.lobbywin table button', function(){
+    checkin({
+      action: 'join',
+      gameid: $(this).attr('gameid')
+    });
+    quickly = true;
+  } );
 
   $(document).on('mousemove click keydown', function() { movement++; });
 

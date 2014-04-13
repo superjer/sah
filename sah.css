@@ -170,6 +170,34 @@ h2 {
 .scoresheet table tr.myself td {
   color:#d7005f;
 }
+.lobbywin table {
+  border-spacing:0;
+  margin:5px 0 0;
+}
+.lobbywin table th, .lobbywin table td {
+  padding:5px 0 3px;
+  text-align:right;
+  min-width:70px;
+  max-width:300px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.lobbywin table th:first-child, .lobbywin table td:first-child {
+  text-align:left;
+  padding-left:0;
+}
+.lobbywin table th:last-child, .lobbywin table td:last-child {
+  padding-left:16px;
+  padding-right:0;
+}
+.lobbywin table th {
+  font-weight:normal;
+  color:#aaa;
+}
+.lobbywin table td {
+  border-top:1px solid #aaa;
+}
 button {
   margin:0 auto 10px;
   width:130px;
@@ -183,6 +211,24 @@ button.abandon, button.confirm {
   font-size:15px;
   float:right;
 }
+.lobbywin button {
+  margin:0;
+  width:130px;
+  padding:0;
+  font-size:12px;
+  opacity:0.5;
+}
+.lobbywin table tr:hover button {
+  opacity:1.0;
+}
+.lobbywin input {
+  margin-top:20px;
+}
+button.leave {
+  width:130px;
+  padding:0;
+  margin:20px auto 0;
+}
 .shade {
   position:fixed;
   top:0;
@@ -194,7 +240,7 @@ button.abandon, button.confirm {
   display:none;
   z-index:100;
 }
-.selectwin {
+.selectwin, .lobbywin {
   position:absolute;
   top:0;
   left:0;
@@ -202,7 +248,7 @@ button.abandon, button.confirm {
   display:none;
   z-index:200;
 }
-.selectwin > div {
+.selectwin > div, .lobbywin > div {
   background:white;
   opacity:1.0;
   padding:20px 30px;
