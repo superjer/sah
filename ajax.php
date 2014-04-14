@@ -16,10 +16,6 @@ $in = @json_decode($input);
 $in === false and die(json_encode(array('msg'=>$input)));
 $in = (array)$in;
 
-// FIXME lol DEBUG lol!!
-if( $userid == 2 )
-  error_log(print_r($in,true), 3, "/tmp/please" );
-
 $json = array();
 $json['username'] = $username;
 $json['score']    = 0;
@@ -31,6 +27,26 @@ $json['lobby']    = array();
 
 mysql_select_db(trim(file_get_contents('dbname')));
 
+mysql_query("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.id)");
+$json['msg'] = mysql_error();
+
+// what game are we in?
+$qr = mysql_query("SELECT * FROM player WHERE user=$userid");
+if( mysql_num_rows($qr) < 1 )
+{
+  mysql_query("INSERT INTO player SET gameid=0, user=$userid");
+  $playerid = mysql_insert_id() or $playerid = 0;
+  $gameid = 0;
+  $json['score'] = 0;
+}
+else
+{
+  $r = mysql_fetch_assoc($qr);
+  $playerid = $r['id'];
+  $gameid = $r['gameid'];
+  $json['score'] = $r['score'];
+}
+
 // need to process create action early!
 if( $in['action'] == 'create' )
 {
@@ -40,7 +56,7 @@ if( $in['action'] == 'create' )
     SET name='$gamename'
   ");
   $in['action'] = 'join';
-  $in['gameid'] = mysql_insert_id();
+  $gameid = $in['gameid'] = mysql_insert_id();
 }
 
 // need to process join action early!
@@ -51,21 +67,7 @@ if( $in['action'] == 'join' )
     UPDATE player
     SET gameid=$joingame
     WHERE user=$userid
-  ");
-}
-
-// what game are we in?
-$qr = mysql_query("SELECT * FROM player WHERE user=$userid");
-if( mysql_num_rows($qr) < 1 )
-{
-  $gameid = 0;
-}
-else
-{
-  $r = mysql_fetch_assoc($qr);
-  $playerid = $r['id'];
-  $gameid = $r['gameid'];
-  $json['score'] = $r['score'];
+  ") and $gameid = $joingame;
 }
 
 if( !$gameid )
@@ -77,7 +79,6 @@ if( !$gameid )
     LEFT JOIN player p ON g.id = p.gameid
     GROUP BY g.id
   ");
-  echo mysql_error();
   while( $r = mysql_fetch_assoc($qr) )
   {
     $r['secs'] = diff2secs( $r['deltat'] );
@@ -94,7 +95,7 @@ if( mysql_result($qr,0) != 1 )
 
 if( !$playerid )
 {
-  mysql_query("INSERT INTO player SET gameid=$gameid, user=$userid");
+  mysql_query("INSERT INTO player SET gameid=$gameid, user=$userid ON DUPLICATE KEY UPDATE gameid=$gameid" );
   $playerid = mysql_insert_id() or
     die(json_encode(array('msg'=>"Cannot join game twice")));
 }
@@ -110,7 +111,6 @@ $qr = mysql_query("
   LEFT JOIN superjer.users u ON p.user=u.id
   WHERE g.id=$gameid
 ");
-echo mysql_error();
 $gamerow = mysql_fetch_assoc($qr);
 $json['game'] = $gamerow;
 $secs = diff2secs( $gamerow['deltat'] );

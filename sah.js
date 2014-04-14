@@ -84,6 +84,7 @@ function checkin( json ) {
     game = d.game;
 
     $('.username').text(d.username);
+    $('.scoresheet p span').text(game.name);
 
     if( clock - 1 != game.secs )
       $clock.text(clock = game.secs);
@@ -312,7 +313,16 @@ $(function() {
   $('.abandon').click( function(){ checkin({action:'abandon'}); $('.abandon').attr('disabled',true); } );
   $('.confirm').click( function(){ checkin({action:'choose', playerid:chosen}); quickly = true; $('.confirm').attr('disabled',true); } );
   $('.leave'  ).click( function(){ checkin({action:'leave'  }); quickly = true; } );
-  $('.create' ).click( function(){ var n = $('input#name'); checkin({action:'create', name:n.val()}); quickly = true; n.val(''); } );
+
+  $('.create' ).click(function(){
+    var n = $('input#name');
+    if( n.val() )
+    {
+      checkin({action:'create', name:n.val()});
+      quickly = true;
+      n.val('');
+    }
+  });
 
   $(document).on('click', '.lobbywin table button', function(){
     checkin({

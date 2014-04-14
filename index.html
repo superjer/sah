@@ -9,6 +9,8 @@
 </head>
 <body>
 
+<div class=err><span></span><button>X</button></div>
+
 <div class=scoresheet>
   <h2>⌛ <span class=clock>0</span></h2>
   <h1>SuperJer<br>Against<br>Humanity</h1>
@@ -24,12 +26,11 @@
     <tbody>
     </tbody>
   </table>
-  <button class=leave>Exit game</button>
+  <p>Room: <span></span></p>
+  <button class=leave>Exit</button>
 </div>
 
 <div class=leftcol>
-
-<div class=err><span></span><button>X</button></div>
 
 <div class=holder>
   <div class="card blackcard" blackid=0>
@@ -87,18 +88,18 @@
 
 <div class=lobbywin>
   <div>
-    <h1 class=wintitle>Choose game...</h1>
+    <h1 class=wintitle>Choose game room...</h1>
     <div class=clear></div>
     <table>
       <thead>
-        <tr><th>Game</th><th>Players</th><th>High</th><th></th></tr>
+        <tr><th>Room name</th><th>Players</th><th>High</th><th></th></tr>
       </thead>
       <tbody>
       </tbody>
     </table>
     <div class=clear></div>
     <input id=name name=name value=''>
-    <button class=create>Create game</button>
+    <button class=create>Create room</button>
   </div>
 </div>
 
