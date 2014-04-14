@@ -291,7 +291,7 @@ function checkin( json ) {
 }
 
 function err(s) {
-  $('.err span').text(s);
+  $('.err span').html(s);
   $('.err').show();
 }
 

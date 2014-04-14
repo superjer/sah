@@ -124,6 +124,10 @@ h2 {
   padding:10px 10px;
   box-shadow:1px 1px 6px 0 #333;
 }
+.err a {
+  color:white;
+  font-weight:bold;
+}
 .err button {
   padding:0;
   float:right;

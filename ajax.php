@@ -5,7 +5,7 @@ error_reporting(E_ALL&~E_NOTICE);
 include "../inc/config.inc";
 
 isset($_SESSION['userid']) or
-  die(json_encode(array('msg'=>"You need to log in to the forum")));
+  die(json_encode(array('msg'=>"Please <a href=../!login.php?return=sah>log in</a> to the forum to play.")));
 
 $username = $_SESSION['selfname'];
 $userid = intval( $_SESSION['userid'] );
@@ -30,12 +30,12 @@ mysql_select_db(trim(file_get_contents('dbname')));
 mysql_query("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.id)");
 $json['msg'] = mysql_error();
 
-// what game are we in?
+// do we already have a player record?
 $qr = mysql_query("SELECT * FROM player WHERE user=$userid");
 if( mysql_num_rows($qr) < 1 )
 {
   mysql_query("INSERT INTO player SET gameid=0, user=$userid");
-  $playerid = mysql_insert_id() or $playerid = 0;
+  $playerid = mysql_insert_id() or die(json_encode(array('msg'=>'Error creating player record')));
   $gameid = 0;
   $json['score'] = 0;
 }
@@ -92,13 +92,6 @@ $lockname = "sah-game-$gameid";
 $qr = mysql_query("SELECT GET_LOCK('$lockname',10)");
 if( mysql_result($qr,0) != 1 )
   die(json_encode(array('msg'=>"Cannot get lock for game $gameid")));
-
-if( !$playerid )
-{
-  mysql_query("INSERT INTO player SET gameid=$gameid, user=$userid ON DUPLICATE KEY UPDATE gameid=$gameid" );
-  $playerid = mysql_insert_id() or
-    die(json_encode(array('msg'=>"Cannot join game twice")));
-}
 
 // get game
 $qr = mysql_query("
