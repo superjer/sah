@@ -74,6 +74,7 @@ function checkin( json ) {
       }
       $('.lobbywin table tbody').html(html);
 
+      to = setTimeout( checkin, 3000 );
       return;
     }
 
