@@ -245,15 +245,17 @@ button.abandon, button.confirm {
   list-style:none;
   display:inline-block;
   border:1px solid #aaa;
-  border-bottom:0;
   padding:8px 10px;
   position:relative;
   top:1px;
-  background:#aaa;
+  background:#eee;
+  color:#888;
   margin-left:10px;
 }
 .lobbywin li.selected {
+  border-bottom:1px solid #fff;
   background:#fff;
+  color:#d7005f;
 }
 .key {
   color:#d7005f;
