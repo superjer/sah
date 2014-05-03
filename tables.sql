@@ -44,6 +44,7 @@ DROP TABLE IF EXISTS `game`;
 CREATE TABLE `game` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
+  `pass` varchar(255) NOT NULL default '',
   `czar` int(10) unsigned NOT NULL default '0',
   `winner` int(10) unsigned NOT NULL default '0',
   `goal` int(10) unsigned NOT NULL default '11',

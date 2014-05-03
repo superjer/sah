@@ -88,7 +88,7 @@
 
 <div class=lobbywin>
   <div>
-    <h1 class=wintitle>Cards Against SuperJer Lobby</h1>
+    <h1 class=lobtitle>Cards Against SuperJer Lobby</h1>
     <ul>
       <li class="jointab selected">Join a room</li>
       <li class="createtab">Create a new room</li>
@@ -97,7 +97,7 @@
       <div class=clear></div>
       <table>
         <thead>
-          <tr><th>Room name</th><th>Players</th><th>High</th><th>Status</th><th></th></tr>
+          <tr><th>Room name</th><th>Players</th><th>High</th><th>Status</th><th></th><th></th></tr>
         </thead>
         <tbody>
         </tbody>
@@ -107,6 +107,11 @@
       <label title='Type in a name for your room.'>
         Room name<br>
         <input id=name name=roomname value=''>
+      </label>
+      <br>
+      <label title='Set a password to keep your room private.'>
+        Room password<br>
+        <input id=pass name=roompass value=''>
       </label>
       <br>
       <label title='The game will end when a player reaches this score.'>

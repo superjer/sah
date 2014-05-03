@@ -28,7 +28,6 @@ $json['lobby']    = array();
 mysql_select_db(trim(file_get_contents('dbname')));
 
 mysql_query("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.id)");
-$json['msg'] = mysql_error();
 
 // do we already have a player record?
 $qr = mysql_query("SELECT * FROM player WHERE user=$userid");
@@ -56,6 +55,7 @@ if( $in['action'] == 'create' )
   $gamegoal    = intval($in['goal'       ]) and $sets .= ", goal=$gamegoal";
   $roundsecs   = intval($in['roundsecs'  ]) and $sets .= ", roundsecs=$roundsecs";
   $abandonsecs = intval($in['abandonsecs']) and $sets .= ", abandonsecs=$abandonsecs";
+  $pass        = mysql_real_escape_string($in['pass']) and $sets .= ", pass='$pass'";
 
   mysql_query("
     INSERT INTO game
@@ -69,11 +69,18 @@ if( $in['action'] == 'create' )
 if( $in['action'] == 'join' )
 {
   $joingame = intval($in['gameid']);
-  mysql_query("
-    UPDATE player
-    SET gameid=$joingame
-    WHERE user=$userid
-  ") and $gameid = $joingame;
+
+  $qr = mysql_query("SELECT pass FROM game WHERE id=$joingame");
+  list($gamepass) = mysql_fetch_row($qr);
+
+  if( $gamepass && $gamepass != $in['pass'] )
+    $json['msg'] = "Sorry, wrong password.";
+  else
+    mysql_query("
+      UPDATE player
+      SET gameid=$joingame
+      WHERE user=$userid
+    ") and $gameid = $joingame;
 }
 
 if( !$gameid )
@@ -88,6 +95,7 @@ if( !$gameid )
   while( $r = mysql_fetch_assoc($qr) )
   {
     $r['secs'] = diff2secs( $r['deltat'] );
+    $r['pass'] = strlen($r['pass']) ? 1 : 0;
     $json['lobby'][] = $r;
   }
   echo json_encode($json);

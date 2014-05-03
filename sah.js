@@ -61,19 +61,34 @@ function checkin( json ) {
     {
       $('.selectwin').hide();
       $('.lobbywin, .shade').show();
+      $('.lobbywin tr').attr('hit', 0);
+      $('.lobbywin tr').eq(0).attr('hit', 1);
 
       var html = '';
       for( var l in d.lobby )
       {
         var lob = d.lobby[l];
-        html += "<tr><td>" + lob.name
-              + "</td><td>" + lob.players
-              + "</td><td>" + lob.high
-              + "</td><td>" + (lob.secs > 240 ? 'crickets' : 'active')
-              + "</td><td><button gameid=" + lob.id + ">SuperJoin</button>"
-              + "</td></tr>";
+        var trsel = '.lobbywin tr[gameid=' + lob.id + ']';
+
+        if( $(trsel).length == 0 )
+          $('.lobbywin table tbody').append( $(
+            "<tr gameid=" + lob.id + ">"
+            + "<td></td><td></td><td></td><td></td>"
+            + "<td>" + (lob.pass ? "<input type=text value='' placeholder=password>" : "") + "</td>"
+            + "<td><button gameid=" + lob.id + ">Join</button></td>"
+            + "</tr>"
+          ) );
+
+        $(trsel).attr('hit', 1);
+        var $td = $(trsel).find('td');
+        $td.eq(0).html( lob.name + (lob.pass ? ' <span class=key>⚷</span>' : '') );
+        $td.eq(1).text( lob.players );
+        $td.eq(2).text( lob.high );
+        $td.eq(3).text( lob.secs > 240 ? 'crickets' : 'active' );
       }
-      $('.lobbywin table tbody').html(html);
+
+      // remove any games that no longer exist
+      $('.lobbywin tr[hit=0]').remove();
 
       to = setTimeout( checkin, 3000 );
       return;
@@ -322,21 +337,25 @@ $(function() {
 
   $('.create' ).click(function(){
     var n = $('input#name');
+    var p = $('input#pass');
     var goal = $('input#goal');
     var roundsecs = $('input#roundsecs');
     var abandonsecs = $('input#abandonsecs');
     if( n.val() )
     {
-      checkin({action:'create', name:n.val(), goal:goal.val(), roundsecs:roundsecs.val(), abandonsecs:abandonsecs.val()});
+      checkin({action:'create', name:n.val(), pass:p.val(), goal:goal.val(), roundsecs:roundsecs.val(), abandonsecs:abandonsecs.val()});
       quickly = true;
       n.val('');
+      p.val('');
+      $('.jointab').click();
     }
   });
 
   $(document).on('click', '.lobbywin table button', function(){
     checkin({
       action: 'join',
-      gameid: $(this).attr('gameid')
+      gameid: $(this).closest('tr').attr('gameid'),
+      pass: $(this).closest('tr').find('input').val()
     });
     quickly = true;
   } );

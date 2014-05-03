@@ -13,7 +13,7 @@ h1 {
   font-size:20px;
   margin:0;
 }
-h1.wintitle {
+h1.wintitle, h1.lobtitle {
   font-size:28px;
   margin:0 0 20px 0;
 }
@@ -223,9 +223,15 @@ button.abandon, button.confirm {
 }
 .lobbywin table button {
   margin:0;
-  width:130px;
+  width:80px;
   padding:0;
   font-size:12px;
+}
+.lobbywin table input {
+  margin:0;
+  width:100px;
+  padding:0;
+  font-size:14px;
 }
 .lobbywin input {
 }
@@ -249,12 +255,16 @@ button.abandon, button.confirm {
 .lobbywin li.selected {
   background:#fff;
 }
+.key {
+  color:#d7005f;
+}
 .createpage {
   display:none;
 }
 .scoresheet p {
   color:#aaa;
   margin:20px 0 10px;
+  max-width:250px;
 }
 button.leave {
   width:auto;
