@@ -69,6 +69,7 @@ function checkin( json ) {
         html += "<tr><td>" + lob.name
               + "</td><td>" + lob.players
               + "</td><td>" + lob.high
+              + "</td><td>" + (lob.secs > 240 ? '' : 'active')
               + "</td><td><button gameid=" + lob.id + ">SuperJoin</button>"
               + "</td></tr>";
       }
@@ -90,16 +91,19 @@ function checkin( json ) {
     if( clock - 1 != game.secs )
       $clock.text(clock = game.secs);
 
-    if( blackid != d.black.id )
+    if( blackid != d.black.id || blackclass != d.black.class || blackheight != d.black.height )
     {
       blackid = d.black.id;
       blacktxt = d.black.txt;
+      blackclass = d.black.class;
+      blackheight = d.black.height;
+
       var $black = $('.blackcard');
       $black.attr('blackid',blackid);
       $black.find('.cardtxt').html(blacktxt);
       $black.find('.num div').text(d.black.nr);
-      $black.find('.thermo').removeClass('love hate').addClass(d.black.class);
-      $black.find('.thermo div').css('height',d.black.height);
+      $black.find('.thermo').removeClass('love hate').addClass(blackclass);
+      $black.find('.thermo div').css('height',blackheight);
     }
 
     if( d.handcount != handcount ){
@@ -259,7 +263,9 @@ function checkin( json ) {
           chosen = playerid;
           quickly = true;
         });
-        $('.aset').mouseenter(function(event){
+        $('.selectwin .blackcard').click(function(event){
+          chosen = 0;
+          $('.aset').removeClass('potential');
           $('.selectwin .blackcard .cardtxt').html(blacktxt);
         });
       }else{ // no repop
