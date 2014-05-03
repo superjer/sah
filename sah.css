@@ -284,7 +284,7 @@ button.leave {
   display:none;
   z-index:100;
 }
-.selectwin, .lobbywin {
+.win {
   position:absolute;
   top:0;
   left:0;
@@ -292,13 +292,26 @@ button.leave {
   display:none;
   z-index:200;
 }
-.selectwin > div, .lobbywin > div {
+.win > div {
   background:white;
   opacity:1.0;
   padding:20px 30px;
-  max-width:1140px;
+  max-width:1100px;
   margin:90px auto 0;
   box-shadow:2px 2px 3px 0 black;
+}
+.champwin > div {
+  background-color:#d7005f;
+  text-align:center;
+  color:#fff;
+  padding:40px 0;
+}
+.champwin h1 {
+  font-size:28px;
+  margin:30px 0;
+}
+.champwin p {
+  letter-spacing:2px;
 }
 .selectwin .card {
   margin:0;

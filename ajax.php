@@ -286,13 +286,35 @@ while( $r = mysql_fetch_assoc($qr) )
     'czar'   => ($gamerow['czar']==$r['id'] ? 1 : 0),
     'myself' => ($playerid==$r['id']        ? 1 : 0),
   );
+
   $playercount++;
+
   if( $r['abandon'] )
   {
     if( $r['idle'] ) $idleabandoners++; else $abandoners++;
   }
-  if( $r['idle']    ) $idlers++;
+
+  if( $r['idle'] ) $idlers++;
+
+  if( $r['score'] >= $gamerow['goal'] )
+  {
+    static $winmsgs = array(
+      '%s cheated!',
+      'Cheats detected on %s\'s computer!',
+      '%s had the best cheats',
+      '%s only had to cheat a little to win',
+      '%s cheated the most',
+      '%s is todays best cheater',
+      'Nice cheats, %s',
+      'No one cheated as well as %s',
+      'Someone check %s for cheats',
+      '%s was cheating and then won. Coincidence?',
+    );
+    $winmsg = $winmsgs[ $gameid % count($winmsgs) ];
+    $json['champ'] = sprintf( $winmsg, $r['name'] );
+  }
 }
+
 $actives = $playercount - $idlers - 1;
 $json['playersmd5'] = md5(serialize($json['players']));
 $json['abandonratio'] = $abandoners ? "$abandoners/$actives" : '';

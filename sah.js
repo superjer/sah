@@ -59,7 +59,7 @@ function checkin( json ) {
 
     if( d.inlobby )
     {
-      $('.selectwin').hide();
+      $('.win').hide();
       $('.lobbywin, .shade').show();
       $('.lobbywin tr').attr('hit', 0);
       $('.lobbywin tr').eq(0).attr('hit', 1);
@@ -96,6 +96,13 @@ function checkin( json ) {
 
     if( $('.lobbywin').is(':visible') )
       $('.lobbywin, .shade').hide();
+
+    if( d.champ )
+    {
+      $('.champwin h1').text(d.champ);
+      $('.win').hide();
+      $('.champwin, .shade').show();
+    }
 
     var statechange = (!game || d.game.state != game.state);
     game = d.game;
@@ -160,7 +167,7 @@ function checkin( json ) {
 
     if( statechange ){
       if( game.state == 'gather' ){
-        $('.selectwin, .shade').hide();
+        $('.win, .shade').hide();
         $('.draggable').draggable('enable');
       }else{
         $('.selectwin, .shade').show();
