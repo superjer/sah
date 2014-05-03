@@ -185,7 +185,7 @@ h2 {
   margin:5px 0 0;
 }
 .lobbywin table th, .lobbywin table td {
-  padding:5px 0 3px;
+  padding:5px 0 3px 10px;
   text-align:right;
   min-width:70px;
   max-width:300px;
@@ -228,6 +228,29 @@ button.abandon, button.confirm {
   font-size:12px;
 }
 .lobbywin input {
+}
+.lobbywin ul {
+  border-bottom:1px solid #aaa;
+  margin:0 0 20px 0;
+  padding:0;
+}
+.lobbywin li {
+  cursor:pointer;
+  list-style:none;
+  display:inline-block;
+  border:1px solid #aaa;
+  border-bottom:0;
+  padding:8px 10px;
+  position:relative;
+  top:1px;
+  background:#aaa;
+  margin-left:10px;
+}
+.lobbywin li.selected {
+  background:#fff;
+}
+.createpage {
+  display:none;
 }
 .scoresheet p {
   color:#aaa;

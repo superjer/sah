@@ -69,7 +69,7 @@ function checkin( json ) {
         html += "<tr><td>" + lob.name
               + "</td><td>" + lob.players
               + "</td><td>" + lob.high
-              + "</td><td>" + (lob.secs > 240 ? '' : 'active')
+              + "</td><td>" + (lob.secs > 240 ? 'crickets' : 'active')
               + "</td><td><button gameid=" + lob.id + ">SuperJoin</button>"
               + "</td></tr>";
       }
@@ -312,7 +312,6 @@ $(function() {
   checkin();
   $clock = $('.clock');
   setInterval( upclock, 1002 );
-  $('html').disableSelection();
 
   $('.reset'  ).click( function(){ checkin({action:'reset'  }); } );
   $('.callit' ).click( function(){ checkin({action:'callit' }); quickly = true; } );
@@ -340,6 +339,20 @@ $(function() {
       gameid: $(this).attr('gameid')
     });
     quickly = true;
+  } );
+
+  $('.jointab').click( function(){
+    $('.lobbywin li').removeClass('selected');
+    $(this).addClass('selected');
+    $('.createpage').hide();
+    $('.joinpage').show();
+  } );
+
+  $('.createtab').click( function(){
+    $('.lobbywin li').removeClass('selected');
+    $(this).addClass('selected');
+    $('.joinpage').hide();
+    $('.createpage').show();
   } );
 
   $(document).on('mousemove click keydown', function() { movement++; });

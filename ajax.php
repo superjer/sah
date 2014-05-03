@@ -110,6 +110,11 @@ $qr = mysql_query("
   LEFT JOIN superjer.users u ON p.user=u.id
   WHERE g.id=$gameid
 ");
+
+// exit non-existant game immediately!!
+if( mysql_num_rows($qr) < 1 )
+  mysql_query("UPDATE player SET gameid=0 WHERE id=$playerid");
+
 $gamerow = mysql_fetch_assoc($qr);
 $json['game'] = $gamerow;
 $secs = diff2secs( $gamerow['deltat'] );

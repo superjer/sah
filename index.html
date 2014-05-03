@@ -88,38 +88,45 @@
 
 <div class=lobbywin>
   <div>
-    <h1 class=wintitle>Choose game room...</h1>
+    <h1 class=wintitle>Cards Against SuperJer Lobby</h1>
+    <ul>
+      <li class="jointab selected">Join a room</li>
+      <li class="createtab">Create a new room</li>
+    </ul>
+    <div class=joinpage>
+      <div class=clear></div>
+      <table>
+        <thead>
+          <tr><th>Room name</th><th>Players</th><th>High</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <div class=createpage>
+      <label title='Type in a name for your room.'>
+        Room name<br>
+        <input id=name name=roomname value=''>
+      </label>
+      <br>
+      <label title='The game will end when a player reaches this score.'>
+        Goal score<br>
+        <input id=goal name=goal value=11 size=6>
+      </label>
+      <br>
+      <label title='The round will be called after this many seconds if 2+ players have submitted card(s). The Czar can also call it before this time.'>
+        Round time (seconds)<br>
+        <input id=roundsecs name=roundsecs value=60 size=6>
+      </label>
+      <br>
+      <label title='The round will be abandoned after this many seconds if 1+ active players have voted to abandon. It will also be abandoned after twice this many seconds if 1+ idle players have voted to abandon. If all active players vote to abandon the round is abandoned immediately.'>
+        Abandon time (seconds)<br>
+        <input id=abandonsecs name=abandonsecs value=120 size=6>
+      </label>
+      <br><br>
+      <button class=create>Create</button>
+    </div>
     <div class=clear></div>
-    <table>
-      <thead>
-        <tr><th>Room name</th><th>Players</th><th>High</th><th>Status</th><th></th></tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-    <div class=clear></div>
-    <h3>Create new room</h3>
-    <label title='Type in a name for your room.'>
-      Room name<br>
-      <input id=name name=roomname value=''>
-    </label>
-    <br>
-    <label title='The game will end when a player reaches this score.'>
-      Goal score<br>
-      <input id=goal name=goal value=11 size=6>
-    </label>
-    <br>
-    <label title='The round will be called after this many seconds if 2+ players have submitted card(s). The Czar can also call it before this time.'>
-      Round time (seconds)<br>
-      <input id=roundsecs name=roundsecs value=60 size=6>
-    </label>
-    <br>
-    <label title='The round will be abandoned after this many seconds if 1+ active players have voted to abandon. It will also be abandoned after twice this many seconds if 1+ idle players have voted to abandon. If all active players vote to abandon the round is abandoned immediately.'>
-      Abandon time (seconds)<br>
-      <input id=abandonsecs name=abandonsecs value=120 size=6>
-    </label>
-    <br><br>
-    <button class=create>Create</button>
   </div>
 </div>
 
