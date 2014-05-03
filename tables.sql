@@ -46,6 +46,9 @@ CREATE TABLE `game` (
   `name` varchar(255) NOT NULL default '',
   `czar` int(10) unsigned NOT NULL default '0',
   `winner` int(10) unsigned NOT NULL default '0',
+  `goal` int(10) unsigned NOT NULL default '11',
+  `roundsecs` int(10) unsigned NOT NULL default '60',
+  `abandonsecs` int(10) unsigned NOT NULL default '120',
   `state` enum('gather','select','bask') NOT NULL default 'gather',
   `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)

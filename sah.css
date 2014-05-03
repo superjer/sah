@@ -221,14 +221,13 @@ button.abandon, button.confirm {
   font-size:15px;
   float:right;
 }
-.lobbywin button {
+.lobbywin table button {
   margin:0;
   width:130px;
   padding:0;
   font-size:12px;
 }
 .lobbywin input {
-  margin-top:20px;
 }
 .scoresheet p {
   color:#aaa;

@@ -317,9 +317,12 @@ $(function() {
 
   $('.create' ).click(function(){
     var n = $('input#name');
+    var goal = $('input#goal');
+    var roundsecs = $('input#roundsecs');
+    var abandonsecs = $('input#abandonsecs');
     if( n.val() )
     {
-      checkin({action:'create', name:n.val()});
+      checkin({action:'create', name:n.val(), goal:goal.val(), roundsecs:roundsecs.val(), abandonsecs:abandonsecs.val()});
       quickly = true;
       n.val('');
     }

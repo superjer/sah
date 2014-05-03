@@ -51,9 +51,15 @@ else
 if( $in['action'] == 'create' )
 {
   $gamename = mysql_real_escape_string($in['name']);
+
+  $sets = '';
+  $gamegoal    = intval($in['goal'       ]) and $sets .= ", goal=$gamegoal";
+  $roundsecs   = intval($in['roundsecs'  ]) and $sets .= ", roundsecs=$roundsecs";
+  $abandonsecs = intval($in['abandonsecs']) and $sets .= ", abandonsecs=$abandonsecs";
+
   mysql_query("
     INSERT INTO game
-    SET name='$gamename'
+    SET name='$gamename' $sets
   ");
   $in['action'] = 'join';
   $gameid = $in['gameid'] = mysql_insert_id();
@@ -220,7 +226,7 @@ switch( $in['action'] )
   default:
     if( $gamerow['state'] != 'gather' )
       break;
-    if( $secs < 60 && $in['action'] != 'callit' )
+    if( $secs < $gamerow['callitsecs'] && $in['action'] != 'callit' )
       break;
     $callingit = true;
     $qr = mysql_query("
@@ -483,8 +489,8 @@ if( $gamerow['state'] == 'bask' && $secs>5 )
 if( $gamerow['state'] == 'select' )
 {
   if(    ($abandoners == $actives)
-      || ($abandoners > 0 && $secs > 120)
-      || ($idleabandoners > 0 && $secs > 240)
+      || ($abandoners > 0 && $secs > $gamerow['abandonsecs'] )
+      || ($idleabandoners > 0 && $secs > $gamerow['abandonsecs'] * 2 )
   ){
     mysql_query("UPDATE game SET state='bask' WHERE id=$gameid");
     mysql_query("UPDATE hand SET state='hand' WHERE gameid=$gameid AND state IN ('hidden','consider')");
