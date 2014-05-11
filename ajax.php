@@ -239,7 +239,7 @@ switch( $in['action'] )
   default:
     if( $gamerow['state'] != 'gather' )
       break;
-    if( $secs < $gamerow['callitsecs'] && $in['action'] != 'callit' )
+    if( $secs < $gamerow['roundsecs'] && $in['action'] != 'callit' )
       break;
     $callingit = true;
     $qr = mysql_query("
