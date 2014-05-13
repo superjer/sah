@@ -8,6 +8,13 @@ mysql_select_db(trim(file_get_contents('dbname')));
 
 $blackid = intval($_SERVER['QUERY_STRING']);
 
+if( !strlen($_SERVER['QUERY_STRING']) )
+{
+  $qr = mysql_query("SELECT COUNT(*) FROM black");
+  $r = mysql_fetch_row($qr);
+  $blackid = mt_rand(0, $r[0]);
+}
+
 if( $blackid )
 {
   $qr = mysql_query("SELECT * FROM black WHERE id=$blackid");
@@ -15,7 +22,7 @@ if( $blackid )
   $blacktxt = $r['txt'];
   $number = $r['number'];
 }
-else
+else if( $_SERVER['QUERY_STRING'] )
 {
   $blacktxt = urldecode( $_SERVER['QUERY_STRING'] );
   $blacktxt = preg_replace( '/_+/', '_', $blacktxt );
@@ -37,28 +44,43 @@ while( $r = mysql_fetch_assoc($qr) )
 }
 
 ?>
+<br><br><br>
+<form>
+<label>Text or black ID: <br><textarea rows=4 cols=80 style='font-size:18px;'><?= $blacktxt ?></textarea></label><br>
+<input type=submit value=Go>
+</form>
+<br><br>
+<a href="./test.php?">Try it with less choices!</a>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-var n = 0;
-$('input').change(function(){
-  $(this).attr('clicknr',++n);
-  $chk = $('input:checked');
+$(function(){
+  var n = 0;
 
-  var vals = [];
-  var i;
+  $('input').change(function(){
+    $(this).attr('clicknr',++n);
+    $chk = $('input:checked');
 
-  for( i = 0; i < $chk.length; i++ )
-    vals[ $chk.eq(i).attr('clicknr') ] = $chk.eq(i).parent().text();
+    var vals = [];
+    var i;
 
-  var $slots = $('.slot');
-  var s = 0;
+    for( i = 0; i < $chk.length; i++ )
+      vals[ $chk.eq(i).attr('clicknr') ] = $chk.eq(i).parent().text();
 
-  $slots.text('_');
+    var $slots = $('.slot');
+    var s = 0;
 
-  for( i in vals )
-    $slots.eq(s++).text(vals[i]);
+    $slots.text('_');
 
-  while( s < $slots.length )
-    $slots.eq(s++).text(vals[i]);
+    for( i in vals )
+      $slots.eq(s++).text(vals[i]);
+
+    while( s < $slots.length )
+      $slots.eq(s++).text(vals[i]);
+  });
+
+  $('form').submit(function(){
+    window.location.href = "?" + $('textarea').val();
+    return false;
+  });
 });
 </script>
