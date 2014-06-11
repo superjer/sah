@@ -263,6 +263,9 @@ button.abandon, button.confirm {
 .createpage {
   display:none;
 }
+.norooms {
+  display:none;
+}
 .scoresheet p {
   color:#aaa;
   margin:20px 0 10px;

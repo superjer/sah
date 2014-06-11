@@ -90,6 +90,11 @@ function checkin( json ) {
       // remove any games that no longer exist
       $('.lobbywin tr[hit=0]').remove();
 
+      if( d.lobby.length == 0 )
+        $('.norooms').show();
+      else
+        $('.norooms').hide();
+
       to = setTimeout( checkin, 3000 );
       return;
     }
@@ -394,16 +399,16 @@ $(function() {
     }
     $votebutts = $('<button class=voteup>+</button><button class=votedown>-</button>');
     $this.prepend( $votebutts );
-    var color = $this.parents('.blackcard').length > 0 ? 'black' : 'white';
     var $parentcard = $this.parents('.card');
-    var id = $parentcard.attr(color+'id');
+    var id = $parentcard.attr('whiteid');
+    if( !id ) id = $parentcard.attr('blackid');
     $parentcard.off('mouseleave').on('mouseleave', function() {
       $(this).find('button').remove();
     });
     $votebutts.on( 'click', function(event){
       var $this = $(this);
       var yeanay = $this.hasClass('voteup') ? 'yea' : 'nay';
-      checkin({action:'vote', color:color, id:id, yeanay:yeanay});
+      checkin({action:'vote', id:id, yeanay:yeanay});
       $this.parent().find('button').remove();
       event.stopPropagation();
     });

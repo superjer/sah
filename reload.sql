@@ -1,4 +1,5 @@
 
-truncate white; load data local infile 'cards-white.tab' into table white;
-truncate black; load data local infile 'cards-black.tab' into table black;
+truncate card;
+load data local infile 'cards.tab' into table card
+  (author, color, number, txt);
 
