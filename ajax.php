@@ -383,7 +383,7 @@ while( $callingit )
     if( count($pfwd) < $playnr ) break;
     $stillkickin[] = $pfplr;
     for( $i=0; $i<$playnr; $i++ )
-      $whites[] = $pfwd[$i]['whiteid'];
+      $whites[] = $pfwd[$i]['cardid'];
   }
   if( count($stillkickin) > 1 )
   {
@@ -559,18 +559,28 @@ function q($q)
 
   $start = microtime(true);
   $qr = mysql_query($q);
+  $err = mysql_error();
   $time = microtime(true) - $start;
-  error_log(
-    str_pad(number_format($time, 3), 6, ' ', STR_PAD_LEFT)
-      . ' ' . substr(preg_replace("/\s+/", " ", $q), 0, 60) . "\n",
-    3,
-    '/tmp/query-time.log'
-  );
   $tqt += $time;
+
+  if( $err )
+    error_log("(" . getmypid() . ") $err--$q\n\n", 3, '/tmp/query-error.log');
+
+  if( $tqt > 1 )
+    error_log(
+      "(" . getmypid() . ") "
+        . str_pad(number_format($time, 3), 6, ' ', STR_PAD_LEFT)
+        . ' ' . substr(preg_replace("/\s+/", " ", $q), 0, 60) . "\n",
+      3,
+      '/tmp/query-time.log'
+    );
 
   return $qr;
 }
 
-$tqt = q("TOTAL QUERY TIME");
 $tst = microtime(true) - $starttime;
-error_log("Total query time: $tqt\nTotal script time: $tst\n", 3, "/tmp/query-time.log");
+if( $tst > 1 )
+{
+  $tqt = q("TOTAL QUERY TIME");
+  error_log("(" . getmypid() . ") Total query time: $tqt\nTotal script time: $tst\n", 3, "/tmp/query-time.log");
+}
