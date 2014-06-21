@@ -326,7 +326,9 @@ function checkin( json ) {
 
 function err(s) {
   $('.err span').html(s);
-  $('.err').show();
+  $('.err').show()
+    .css({'background-color':'yellow','color':'black'})
+    .animate({'background-color':'red','color':'white'});
 }
 
 function upclock() {
