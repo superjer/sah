@@ -10,14 +10,17 @@ $blackid = intval($_SERVER['QUERY_STRING']);
 
 if( !strlen($_SERVER['QUERY_STRING']) )
 {
-  $qr = mysql_query("SELECT COUNT(*) FROM black");
+  $qr = mysql_query("SELECT COUNT(*) FROM card WHERE color='black'");
   $r = mysql_fetch_row($qr);
-  $blackid = mt_rand(0, $r[0]);
+  $rand = mt_rand(0, $r[0]);
+  $qr = mysql_query("SELECT id FROM card WHERE color='black' LIMIT $rand,1");
+  $r = mysql_fetch_row($qr);
+  $blackid = $r[0];
 }
 
 if( $blackid )
 {
-  $qr = mysql_query("SELECT * FROM black WHERE id=$blackid");
+  $qr = mysql_query("SELECT * FROM card WHERE id=$blackid");
   $r = mysql_fetch_assoc($qr);
   $blacktxt = $r['txt'];
   $number = $r['number'];
@@ -35,7 +38,7 @@ echo "<div id=black>";
 echo str_replace( '_', '<span class=slot>_</span>', $blacktxt );
 echo "</div><hr>";
 
-$qr = mysql_query("SELECT * FROM white ORDER BY RAND() LIMIT 10");
+$qr = mysql_query("SELECT * FROM card WHERE color='white' ORDER BY RAND() LIMIT 10");
 while( $r = mysql_fetch_assoc($qr) )
 {
   $whitetxt = $r['txt'];
@@ -50,7 +53,7 @@ while( $r = mysql_fetch_assoc($qr) )
 <input type=submit value=Go>
 </form>
 <br><br>
-<a href="./test.php?">Try it with less choices!</a>
+<a href="./test.php?">Try it with fewer choices!</a>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
 $(function(){

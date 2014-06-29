@@ -10,14 +10,17 @@ $blackid = intval($_SERVER['QUERY_STRING']);
 
 if( !strlen($_SERVER['QUERY_STRING']) )
 {
-  $qr = mysql_query("SELECT COUNT(*) FROM black");
+  $qr = mysql_query("SELECT COUNT(*) FROM card WHERE color='black'");
   $r = mysql_fetch_row($qr);
-  $blackid = mt_rand(0, $r[0]);
+  $rand = mt_rand(0, $r[0]);
+  $qr = mysql_query("SELECT id FROM card WHERE color='black' LIMIT $rand,1");
+  $r = mysql_fetch_row($qr);
+  $blackid = $r[0];
 }
 
 if( $blackid )
 {
-  $qr = mysql_query("SELECT * FROM black WHERE id=$blackid");
+  $qr = mysql_query("SELECT * FROM card WHERE id=$blackid");
   $r = mysql_fetch_assoc($qr);
   $blacktxt = $r['txt'];
   $number = $r['number'];
@@ -29,11 +32,13 @@ else
   $number = substr_count( $blacktxt, '_' );
 }
 
-$qr = mysql_query("SELECT * FROM white ORDER BY RAND() LIMIT $number");
+$fulltxt = $blacktxt;
+
+$qr = mysql_query("SELECT * FROM card WHERE color='white' ORDER BY RAND() LIMIT $number");
 while( $r = mysql_fetch_assoc($qr) )
 {
   $whitetxt = $r['txt'];
-  $fulltxt = preg_replace( '/_/', "<b>$whitetxt</b>", $blacktxt, 1 );
+  $fulltxt = preg_replace( '/_/', "<b>$whitetxt</b>", $fulltxt, 1 );
 }
 
 $fulltxt = str_replace( '_', "<b>$whitetxt</b>", $fulltxt );
