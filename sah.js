@@ -164,10 +164,13 @@ function checkin( json ) {
              +  '</td></tr>';
       }
       $('.scoresheet tbody').html(html);
-      if( amczar )
+      if( amczar ) {
         $('.callit').removeAttr('disabled');
-      else
+        $('.play').addClass('czarbg');
+      } else {
         $('.callit').attr('disabled',true);
+        $('.play').removeClass('czarbg');
+      }
     }
 
     if( statechange ){
@@ -349,7 +352,7 @@ $(function() {
   $('.confirm').click( function(){ checkin({action:'choose', playerid:chosen}); quickly = true; $('.confirm').attr('disabled',true); } );
   $('.leave'  ).click( function(){ checkin({action:'leave'  }); quickly = true; } );
 
-  $('.create' ).click(function(){
+  $('.create').click(function(){
     var n = $('input#name');
     var p = $('input#pass');
     var goal = $('input#goal');
@@ -363,6 +366,12 @@ $(function() {
       p.val('');
       $('.jointab').click();
     }
+  });
+
+  $('.help').click( function(){
+    var newwin = window.open("./help.html", 'Help', 'height=600,width=500,location=0,menubar=0,status=0,toolbar=0,scrollbars=1,resizable=1,top=200,left=400');
+    if( window.focus ) { newwin.focus(); }
+    return false;
   });
 
   $(document).on('click', '.lobbywin table button', function(){

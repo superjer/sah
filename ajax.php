@@ -76,13 +76,24 @@ if( $in['action'] == 'join' )
   list($gamepass) = mysql_fetch_row($qr);
 
   if( $gamepass && $gamepass != $in['pass'] )
+  {
     $json['msg'] = "Sorry, wrong password.";
+  }
   else
+  {
+    $qr = q("SELECT MAX(czarts) FROM player WHERE gameid=$gameid");
+    list($maxczarts) = mysql_fetch_row($qr);
     q("
       UPDATE player
-      SET gameid=$joingame
+      SET
+        gameid=$joingame,
+        score=0,
+        idle=0,
+        abandon=0,
+        czarts='$maxczarts' - INTERVAL 1 SECOND
       WHERE user=$userid
     ") and $gameid = $joingame;
+  }
 }
 
 if( !$gameid )
@@ -222,7 +233,7 @@ switch( $in['action'] )
   case 'leave':
     q("
       UPDATE player
-      SET gameid=0, score=0
+      SET gameid=0
       WHERE id=$playerid
     ");
     break;

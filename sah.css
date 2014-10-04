@@ -383,6 +383,12 @@ button.leave {
   background:#f40;
   left:35px;
 }
+a.help {
+  float:right;
+}
+.play.czarbg .holder {
+  background: url('czarbg.png') no-repeat center center;
+}
 .aset.winner .card {
   text-shadow: 0 1px 1px white;
   background: #f7d683; /* Old browsers */
