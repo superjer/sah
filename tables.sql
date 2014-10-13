@@ -47,7 +47,7 @@ CREATE TABLE `game` (
   `pass` varchar(255) NOT NULL default '',
   `czar` int(10) unsigned NOT NULL default '0',
   `winner` int(10) unsigned NOT NULL default '0',
-  `state` enum('gather','select','bask') NOT NULL,
+  `state` enum('gather','select','bask','champ') NOT NULL,
   `goal` int(10) unsigned NOT NULL default '11',
   `roundsecs` int(10) unsigned NOT NULL default '60',
   `abandonsecs` int(10) unsigned NOT NULL default '120',
