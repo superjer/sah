@@ -13,6 +13,9 @@ h1 {
   font-size:20px;
   margin:0;
 }
+.scoresheet h1 span {
+  display:block;
+}
 h1.wintitle, h1.lobtitle {
   font-size:28px;
   margin:0 0 20px 0;
@@ -60,6 +63,9 @@ h2 {
   background:transparent;
   border-color:transparent;
   box-shadow:none;
+}
+.holder.buttons button:first-child {
+  margin-bottom:40px;
 }
 .blackcard {
   color:white;
@@ -408,4 +414,19 @@ a.help {
   background: -ms-linear-gradient(-45deg,  #f7d683 0%,#fceabb 14%,#fceabb 16%,#ffffff 26%,#ffffff 35%,#fceabb 39%,#fccd4d 56%,#f8b500 59%,#aa5200 97%); /* IE10+ */
   background: linear-gradient(135deg,  #f7d683 0%,#fceabb 14%,#fceabb 16%,#ffffff 26%,#ffffff 35%,#fceabb 39%,#fccd4d 56%,#f8b500 59%,#aa5200 97%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d683', endColorstr='#aa5200',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+@media (max-width: 1100px) {
+  .leftcol {
+    margin-right:0;
+  }
+
+  .scoresheet {
+    float:none;
+    margin-bottom:20px;
+  }
+
+  .scoresheet h1 span {
+    display:inline;
+  }
 }

@@ -118,8 +118,16 @@ $qr = q("SELECT GET_LOCK('$lockname',10)");
 if( mysql_result($qr,0) != 1 )
   die(json_encode(array('msg'=>"Cannot get lock for game $gameid")));
 
-if( mt_rand(0,100) == 0 )
-  q("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.id)");
+// delete empty or very old games
+switch( mt_rand(0,100) )
+{
+  case 0:
+    q("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.id)");
+    break;
+  case 1:
+    q("DELETE FROM game WHERE ts < NOW() - INTERVAL 2 WEEK");
+    break;
+}
 
 // get game
 $qr = q("
