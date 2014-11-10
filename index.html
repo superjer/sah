@@ -5,6 +5,7 @@
 <link rel=stylesheet type="text/css" href="sah.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="jquery.ui.touch-punch.min.js"></script>
 <script src="sah.js"></script>
 </head>
 <body>
@@ -120,6 +121,14 @@
     </ul>
     <div class=joinpage>
       <div class=clear></div>
+      <div class=filters>
+        <label>
+          Filter: <input class=filter type=text>
+        </label>
+        <label>
+          <input class=activeonly type=checkbox> Active only
+        </label>
+      </div>
       <table>
         <thead>
           <tr><th>Room name</th><th>Players</th><th>High</th><th>Status</th><th></th><th></th></tr>

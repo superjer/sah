@@ -79,6 +79,28 @@ function checkin_cb( data )
         {
             var lob = d.lobby[l];
             var trsel = '.lobbywin tr[gameid=' + lob.id + ']';
+            var status =  lob.secs > 240 ? 'crickets' : 'active';
+
+            if( l > 1000 )
+              break;
+
+            if( $('input.activeonly').is(':checked') && status != 'active' )
+              continue;
+
+            var filter = $('input.filter').val().split(' ');
+            var valids = 0;
+            var matches = 0;
+            for( var x in filter ) {
+              var word = filter[x].toLowerCase();
+              if( word.length < 1 )
+                continue;
+              valids++;
+              if( lob.name.toLowerCase().indexOf(word) > -1 )
+                matches++;
+            }
+
+            if( valids > matches )
+             continue;
 
             if( $(trsel).length == 0 )
                 $('.lobbywin table tbody').append( $(
@@ -94,7 +116,7 @@ function checkin_cb( data )
             $td.eq(0).html( lob.name + (lob.pass ? ' <span class=key>⚷</span>' : '') );
             $td.eq(1).text( lob.players );
             $td.eq(2).text( lob.high );
-            $td.eq(3).text( lob.secs > 240 ? 'crickets' : 'active' );
+            $td.eq(3).text( status );
         }
 
         // remove any games that no longer exist
