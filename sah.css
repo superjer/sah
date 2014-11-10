@@ -278,6 +278,9 @@ button.abandon, button.confirm {
 .createpage {
   display:none;
 }
+.createpage label div {
+  margin:10px 0 0;
+}
 .norooms {
   display:none;
 }
@@ -428,5 +431,45 @@ a.help {
 
   .scoresheet h1 span {
     display:inline;
+  }
+}
+
+@media (max-width: 850px) {
+  .lobbywin table {
+    display:block;
+  }
+
+  .lobbywin thead {
+    display:none;
+  }
+
+  .lobbywin tbody {
+    display:block;
+    width:100%;
+  }
+
+  .lobbywin table tr {
+    display:block;
+    width:100%;
+    clear:left;
+    border-top:1px solid #AAA;
+  }
+
+  .lobbywin table td {
+    display:block;
+    float:left;
+    border:0;
+    min-width:0;
+    max-width:auto;
+  }
+
+  .lobbywin table td:nth-child(4) {
+    clear:left;
+  }
+
+  .lobbywin table td:nth-child(2),
+  .lobbywin table td:nth-child(3),
+  .lobbywin table td:nth-child(4) {
+    float:right;
   }
 }
