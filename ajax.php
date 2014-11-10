@@ -29,8 +29,6 @@ $json['lobby']    = array();
 
 mysql_select_db(trim(file_get_contents('dbname')));
 
-q("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.id)");
-
 // do we already have a player record?
 $qr = q("SELECT * FROM player WHERE user=$userid");
 if( mysql_num_rows($qr) < 1 )
@@ -119,6 +117,9 @@ $lockname = "sah-game-$gameid";
 $qr = q("SELECT GET_LOCK('$lockname',10)");
 if( mysql_result($qr,0) != 1 )
   die(json_encode(array('msg'=>"Cannot get lock for game $gameid")));
+
+if( mt_rand(0,100) == 0 )
+  q("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.id)");
 
 // get game
 $qr = q("
@@ -525,7 +526,8 @@ if( $consider )
 // end basking?
 if( $gamerow['state'] == 'bask' && $secs>5 )
 {
-  q("UPDATE game SET state='gather',winner=0,czar=0 WHERE id=$gameid");
+  $newstate = $json['champ'] ? 'champ' : 'gather';
+  q("UPDATE game SET state='$newstate',winner=0,czar=0 WHERE id=$gameid");
   q("UPDATE hand SET state='discard' WHERE gameid=$gameid AND state IN ('hidden','consider')");
   q("UPDATE stack SET state='discard' WHERE gameid=$gameid AND state='up'");
   q("UPDATE player SET abandon=0 WHERE gameid=$gameid");
@@ -575,23 +577,29 @@ function q($q)
   $tqt += $time;
 
   if( $err )
-    error_log("(" . getmypid() . ") $err--$q\n\n", 3, '/tmp/query-error.log');
+    L("err -- $q\n", '/tmp/query-error.log');
 
   if( $tqt > 1 )
-    error_log(
-      "(" . getmypid() . ") "
-        . str_pad(number_format($time, 3), 6, ' ', STR_PAD_LEFT)
-        . ' ' . substr(preg_replace("/\s+/", " ", $q), 0, 60) . "\n",
-      3,
+    L(
+      str_pad(number_format($time, 3), 6, ' ', STR_PAD_LEFT) . "\t" .
+      substr(preg_replace("/\s+/", " ", $q), 0, 60),
       '/tmp/query-time.log'
     );
 
   return $qr;
 }
 
+function L($msg, $file="/tmp/sah.log")
+{
+  $msg = date('Y-m-d H:i:s') . "\t(" . getmypid() . "\t$msg\n";
+  error_log($msg, 3, $file);
+}
+
 $tst = microtime(true) - $starttime;
 if( $tst > 1 )
 {
   $tqt = q("TOTAL QUERY TIME");
-  error_log("(" . getmypid() . ") Total query time: $tqt\nTotal script time: $tst\n", 3, "/tmp/query-time.log");
+  L("Query: $tqt\tScript: $tst", "/tmp/query-time.log");
 }
+
+// vim: sw=2 ts=2 et

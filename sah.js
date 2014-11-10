@@ -67,6 +67,7 @@ function checkin_cb( data )
 
     if( d.inlobby )
     {
+        game = null;
         $('.win').hide();
         $('.lobbywin, .shade').show();
         $('.lobbywin tr').attr('hit', 0);
@@ -114,8 +115,16 @@ function checkin_cb( data )
     var statechange = (!game || d.game.state != game.state);
     game = d.game;
 
-    $('.username').text(d.username);
-    $('.scoresheet p span').text(game.name);
+    if( statechange )
+    {
+        $('.username').text(d.username);
+        $('.scoresheet p span').text(game.name);
+        var hovtext = 'Goal score: ' + game.goal
+                    + '\nRound time: ' + game.roundsecs
+                    + '\nAbandon time: ' + game.abandonsecs
+                    + '\nPassword: ' + game.pass;
+        $('.scoresheet p').attr('title', hovtext);
+    }
 
     if( clock - 1 != game.secs )
         $clock.text(clock = game.secs);
@@ -176,7 +185,9 @@ function checkin_cb( data )
                  +  '</td><td>' + whatup
                  +  '</td></tr>';
         }
-        $('.scoresheet tbody').html(html);
+
+        if( statechange || game.state != 'champ' )
+            $('.scoresheet tbody').html(html);
 
         if( amczar )
         {
@@ -190,7 +201,7 @@ function checkin_cb( data )
         }
     }
 
-    if( statechange && !d.champ ) switch( game.state )
+    if( statechange ) switch( game.state )
     {
         case 'gather':
             $('.win, .shade').hide();
@@ -514,4 +525,4 @@ $(function()
     });
 });
 
-// vim: ts=4 sw=4 noet
+// vim: ts=4 sw=4 et

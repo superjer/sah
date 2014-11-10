@@ -145,9 +145,17 @@ h2 {
   float:right;
   background:white;
 }
+.champwin .scoresheet {
+  box-shadow:1px 1px 6px 0 #704;
+  width:300px;
+  margin:0 auto;
+  float:none;
+  color:black;
+}
 .scoresheet table {
   border-spacing:0;
-  margin:5px 0 0;
+  margin:5px 0 10px;
+  width:100%;
 }
 .scoresheet table th, .scoresheet table td {
   padding:5px 0 3px;
@@ -268,7 +276,7 @@ button.abandon, button.confirm {
 }
 .scoresheet p {
   color:#aaa;
-  margin:20px 0 10px;
+  margin:10px 0 10px;
   max-width:250px;
 }
 button.leave {
