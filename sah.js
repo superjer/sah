@@ -12,6 +12,7 @@ var movement = 0;
 var chosen = 0;
 var blackid = 0;
 var blacktxt = '';
+var myscore = 0;
 
 function dropme($x)
 {
@@ -188,6 +189,9 @@ function checkin_cb( data )
 
             if( pl.idle > 1 && pl.gone && pl.score < 1 )
                 continue;
+
+            if( pl.myself )
+                myscore = pl.score;
 
             var classes = "";
 
@@ -454,7 +458,22 @@ $(function()
     $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
     $('.abandon').click( function(){ checkin({action:'abandon'}); $('.abandon').attr('disabled',true); } );
     $('.confirm').click( function(){ checkin({action:'choose', playerid:chosen}); quickly = true; $('.confirm').attr('disabled',true); } );
-    $('.leave'  ).click( function(){ checkin({action:'leave'  }); quickly = true; } );
+
+    $('.leave'  ).click(function()
+    {
+        var msg = 'Exit this room?';
+
+        if( myscore == 1 )
+            msg += ' You will lose your point!';
+        else if( myscore > 1 )
+            msg += ' You will lose your points!';
+
+        if( game.state == 'champ' || confirm(msg) )
+        {
+            checkin({action:'leave'  });
+            quickly = true;
+        }
+    });
 
     $('.create').click(function()
     {

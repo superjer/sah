@@ -288,8 +288,9 @@ button.abandon, button.confirm {
   color:#aaa;
   margin:10px 0 10px;
   max-width:250px;
+  word-break: break-all;
 }
-button.leave {
+.scoresheet button, button.leave {
   width:auto;
   padding:0 10px;
   margin:0;
@@ -419,7 +420,27 @@ a.help {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7d683', endColorstr='#aa5200',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-@media (max-width: 1100px) {
+.mobonly {
+  display:none;
+}
+
+@media (max-width: 1175px) {
+  html {
+    overflow-y:scroll;
+  }
+
+  .mobonly {
+    display:block;
+  }
+
+  button.mobonly {
+    display:inline;
+  }
+
+  .nomob {
+    display:none;
+  }
+
   .leftcol {
     margin-right:0;
   }
