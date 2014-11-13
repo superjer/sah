@@ -48,9 +48,12 @@ CREATE TABLE `game` (
   `czar` int(10) unsigned NOT NULL default '0',
   `winner` int(10) unsigned NOT NULL default '0',
   `state` enum('gather','select','bask','champ') NOT NULL,
+  `round` int(10) unsigned NOT NULL default '1',
+  `maxrounds` int(10) unsigned NOT NULL default '55',
   `goal` int(10) unsigned NOT NULL default '11',
-  `roundsecs` int(10) unsigned NOT NULL default '60',
-  `abandonsecs` int(10) unsigned NOT NULL default '120',
+  `roundsecs` int(10) unsigned NOT NULL default '180',
+  `abandonsecs` int(10) unsigned NOT NULL default '180',
+  `slowstart` tinyint(3) unsigned NOT NULL default '1',
   `ts` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;

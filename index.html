@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>SuperJer Against Humanity</title>
+<meta name=viewport content="initial-scale=1 width=720, user-scalable=yes">
 <link rel=stylesheet type="text/css" href="sah.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -32,6 +33,7 @@
   <button disabled class='mobonly callit'>Call it</button>
   <button disabled class='mobonly draw'>Draw</button>
   <button class=leave>Exit</button>
+  <button class=scale>Scale</button>
 </div>
 
 <div class=leftcol>
@@ -153,13 +155,22 @@
         <div>Goal score</div>
         <input id=goal name=goal value=11 size=6>
       </label>
+      <label title='The game will end after this many rounds.'>
+        <div>Max rounds</div>
+        <input id=maxrounds name=maxrounds value=55 size=6>
+      </label>
       <label title='The round will be called after this many seconds if 2+ players have submitted card(s). The Czar can also call it before this time.'>
         <div>Round time (seconds)</div>
-        <input id=roundsecs name=roundsecs value=60 size=6>
+        <input id=roundsecs name=roundsecs value=180 size=6>
       </label>
       <label title='The round will be abandoned after this many seconds if 1+ active players have voted to abandon. It will also be abandoned after twice this many seconds if 1+ idle players have voted to abandon. If all active players vote to abandon the round is abandoned immediately.'>
         <div>Abandon time (seconds)</div>
-        <input id=abandonsecs name=abandonsecs value=120 size=6>
+        <input id=abandonsecs name=abandonsecs value=180 size=6>
+      </label>
+      <label title='If checked, the first round will never be called automatically. This allows you to wait for players to arrive.'>
+        <div>
+          <input type=checkbox id=slowstart name=slowstart checked> Slow start
+        </div>
       </label>
       <br><br>
       <button class=create>Create</button>

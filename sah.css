@@ -236,6 +236,9 @@ button.abandon, button.confirm {
   font-size:15px;
   float:right;
 }
+button.scale {
+  display:none;
+}
 .lobbywin table button {
   margin:0;
   width:80px;
@@ -452,6 +455,16 @@ a.help {
 
   .scoresheet h1 span {
     display:inline;
+  }
+
+  .scoresheet button {
+    width:100px;
+    padding:10px;
+    margin:0 10px 10px 0;
+  }
+
+  .scoresheet .help {
+    display:none;
   }
 }
 

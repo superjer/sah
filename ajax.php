@@ -49,17 +49,19 @@ else
 // need to process create action early!
 if( $in['action'] == 'create' )
 {
-  $gamename = mysql_real_escape_string($in['name']);
+  $gamename  = mysql_real_escape_string($in['name']);
+  $slowstart = $in['slowstart'] ? 1 : 0;
 
   $sets = '';
   $gamegoal    = intval($in['goal'       ]) and $sets .= ", goal=$gamegoal";
+  $maxrounds   = intval($in['maxrounds'  ]) and $sets .= ", maxrounds=$maxrounds";
   $roundsecs   = intval($in['roundsecs'  ]) and $sets .= ", roundsecs=$roundsecs";
   $abandonsecs = intval($in['abandonsecs']) and $sets .= ", abandonsecs=$abandonsecs";
   $pass        = mysql_real_escape_string($in['pass']) and $sets .= ", pass='$pass'";
 
   q("
     INSERT INTO game
-    SET name='$gamename' $sets
+    SET name='$gamename', slowstart=$slowstart $sets
   ");
   $in['action'] = 'join';
   $gameid = $in['gameid'] = mysql_insert_id();
@@ -253,13 +255,20 @@ switch( $in['action'] )
       $json['msg'] = "You're not the Card Czar!";
       break;
     }
+
+    $manualcall = true;
     // fall thru ...
 
   default:
     if( $gamerow['state'] != 'gather' )
       break;
-    if( $secs < $gamerow['roundsecs'] && $in['action'] != 'callit' )
+
+    $outtatime  = $secs >= $gamerow['roundsecs'];
+    $autocall   = !$gamerow['slowstart'] || $gamerow['round'] > 1;
+
+    if( !($outtatime && $autocall) && !$manualcall )
       break;
+
     $callingit = true;
     $qr = q("
       SELECT *
@@ -267,11 +276,14 @@ switch( $in['action'] )
       WHERE gameid=$gameid AND state='play' AND playerid!=$czar
       ORDER BY playerid,position
     ");
+
     while( $r = mysql_fetch_assoc($qr) )
       $putforward[ $r['playerid'] ][] = $r;
+
     foreach( $putforward as $_ => $pfwd )
       for( $i=1; $i<=count($pfwd); $i++ )
         $withatleast[$i]++;
+
     break;
 }
 
@@ -280,6 +292,8 @@ $playercount = 0;
 $abandoners = 0;
 $idleabandoners = 0;
 $idlers = 0;
+$hiscore = 0.5;
+$prows = array();
 $qr = q("
   SELECT
     p.*,
@@ -293,7 +307,18 @@ $qr = q("
   GROUP BY p.user
   ORDER BY p.idle,p.id
 ");
+
 while( $r = mysql_fetch_assoc($qr) )
+{
+  $prows[] = $r;
+
+  if( $r['score'] == $hiscore )
+    $hiscore += 0.5;
+  else if( $r['score'] > $hiscore )
+    $hiscore = $r['score'];
+}
+
+foreach( $prows as $r )
 {
   $gonefor = diff2secs( $r['deltat'] );
   $json['players'][] = array(
@@ -315,7 +340,12 @@ while( $r = mysql_fetch_assoc($qr) )
 
   if( $r['idle'] ) $idlers++;
 
-  if( $r['score'] >= $gamerow['goal'] )
+  // a little wonky using >=, but the round is incremented after the champ-state-check
+  $outtarounds = $gamerow['round'] >= $gamerow['maxrounds'];
+  $highestscore = $r['score'] == $hiscore;
+  $goalscore = $r['score'] >= $gamerow['goal'];
+
+  if( $goalscore || ($highestscore && $outtarounds) )
   {
     static $winmsgs = array(
       '%s cheated!',
@@ -323,7 +353,7 @@ while( $r = mysql_fetch_assoc($qr) )
       '%s had the best cheats',
       '%s only had to cheat a little to win',
       '%s cheated the most',
-      '%s is todays best cheater',
+      '%s is today\'s best cheater',
       'Nice cheats, %s',
       'No one cheated as well as %s',
       'Someone check %s for cheats',
@@ -534,8 +564,18 @@ if( $consider )
 // end basking?
 if( $gamerow['state'] == 'bask' && $secs>5 )
 {
-  $newstate = $json['champ'] ? 'champ' : 'gather';
-  q("UPDATE game SET state='$newstate',winner=0,czar=0 WHERE id=$gameid");
+  if( $json['champ'] )
+  {
+    $newstate = 'champ';
+    $roundinc = "";
+  }
+  else
+  {
+    $newstate = 'gather';
+    $roundinc = ",round=round+1";
+  }
+
+  q("UPDATE game SET state='$newstate',winner=0,czar=0$roundinc WHERE id=$gameid");
   q("UPDATE hand SET state='discard' WHERE gameid=$gameid AND state IN ('hidden','consider')");
   q("UPDATE stack SET state='discard' WHERE gameid=$gameid AND state='up'");
   q("UPDATE player SET abandon=0 WHERE gameid=$gameid");

@@ -142,7 +142,9 @@ function checkin_cb( data )
     {
         $('.username').text(d.username);
         $('.scoresheet p span').text(game.name);
-        var hovtext = 'Goal score: ' + game.goal
+        var hovtext = 'Round: ' + game.round
+                    + '\nMax rounds: ' + game.maxrounds
+                    + '\nGoal score: ' + game.goal
                     + '\nRound time: ' + game.roundsecs
                     + '\nAbandon time: ' + game.abandonsecs
                     + '\nPassword: ' + game.pass;
@@ -453,6 +455,9 @@ $(function()
     $clock = $('.clock');
     setInterval( upclock, 1002 );
 
+    if( 'ontouchstart' in document )
+      $('button.scale').show();
+
     $('.reset'  ).click( function(){ checkin({action:'reset'  }); } );
     $('.callit' ).click( function(){ checkin({action:'callit' }); quickly = true; } );
     $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
@@ -475,17 +480,42 @@ $(function()
         }
     });
 
+    var scale = 'thin';
+
+    $('.scale').click(function()
+    {
+        var wide = "width=1175, user-scalable=no, maximum-scale=1, minimum-scale=1"
+        var thin = "width=720, user-scalable=yes"
+        var content;
+
+        if( scale == 'wide' ) { scale = 'thin'; content = thin; }
+        else                  { scale = 'wide'; content = wide; }
+
+        $('head meta[name=viewport]').attr('content', content);
+    });
+
     $('.create').click(function()
     {
         var n = $('input#name');
         var p = $('input#pass');
         var goal = $('input#goal');
+        var maxrounds = $('input#maxrounds');
         var roundsecs = $('input#roundsecs');
         var abandonsecs = $('input#abandonsecs');
+        var slowstart = $('input#slowstart');
 
         if( n.val() )
         {
-            checkin({action:'create', name:n.val(), pass:p.val(), goal:goal.val(), roundsecs:roundsecs.val(), abandonsecs:abandonsecs.val()});
+            checkin({
+                action:'create',
+                name:n.val(),
+                pass:p.val(),
+                goal:goal.val(),
+                maxrounds:maxrounds.val(),
+                roundsecs:roundsecs.val(),
+                abandonsecs:abandonsecs.val(),
+                slowstart:slowstart.val()
+            });
             quickly = true;
             n.val('');
             p.val('');
