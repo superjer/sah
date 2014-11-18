@@ -1,3 +1,4 @@
 *.swp
 notes
 dbname
+node_modules

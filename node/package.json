@@ -1,0 +1,8 @@
+{
+  "name": "SuperJer Against Humanity",
+  "version": "A MILLION",
+  "description": "See http://github.com/superjer/sah",
+  "dependencies": {
+    "socket.io": "^1.2.0"
+  }
+}
