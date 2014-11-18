@@ -136,8 +136,10 @@ $qr = q("
   SELECT
     g.*,
     TIMEDIFF(NOW(),g.ts) deltat,
-    u.name winnername
+    u.name winnername,
+    c.id czarpresent
   FROM game g
+  LEFT JOIN player c ON g.czar=c.id AND c.gameid=$gameid
   LEFT JOIN player p ON g.winner=p.id
   LEFT JOIN superjer.users u ON p.user=u.id
   WHERE g.id=$gameid
@@ -159,7 +161,7 @@ $in['movement'] and $idlebit = "idle=0,";
 q("UPDATE player SET $idlebit ts=NOW() WHERE id=$playerid");
 
 // choose czar?
-if( !$czar )
+if( !$czar || !$gamerow['czarpresent'] )
 {
   $qr = q("
     SELECT id

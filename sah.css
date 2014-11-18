@@ -251,6 +251,9 @@ button.scale {
   padding:0;
   font-size:14px;
 }
+.lobbywin table td:nth-child(5) {
+  display:none;
+}
 .lobbywin input {
 }
 .lobbywin ul {
@@ -497,13 +500,20 @@ a.help {
     max-width:auto;
   }
 
-  .lobbywin table td:nth-child(4) {
+  .lobbywin table td:nth-child(6) {
     clear:left;
+    padding-left:0;
   }
 
   .lobbywin table td:nth-child(2),
   .lobbywin table td:nth-child(3),
   .lobbywin table td:nth-child(4) {
+    display:none;
+  }
+
+  .lobbywin table td:nth-child(5),
+  .lobbywin table td:nth-child(6) {
     float:right;
+    display:block;
   }
 }

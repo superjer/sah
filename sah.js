@@ -80,12 +80,15 @@ function checkin_cb( data )
         {
             var lob = d.lobby[l];
             var trsel = '.lobbywin tr[gameid=' + lob.id + ']';
-            var status =  lob.secs > 240 ? 'crickets' : 'active';
+            var status = lob.state == 'champ' ? 'game over' :
+                         lob.secs > 600       ? 'crickets'  :
+                         lob.secs > 240       ? 'simmer'    :
+                                                'active'    ;
 
             if( l > 1000 )
               break;
 
-            if( $('input.activeonly').is(':checked') && status != 'active' )
+            if( $('input.activeonly').is(':checked') && status != 'active' && status != 'simmer' )
               continue;
 
             var filter = $('input.filter').val().split(' ');
@@ -103,10 +106,27 @@ function checkin_cb( data )
             if( valids > matches )
              continue;
 
+            var round = lob.round < 2                                  ? 'new'            :
+                        lob.round % 100 >= 11 && lob.round % 100 <= 13 ? lob.round + 'th' :
+                        lob.round % 10 == 1                            ? lob.round + 'st' :
+                        lob.round % 10 == 2                            ? lob.round + 'nd' :
+                        lob.round % 10 == 3                            ? lob.round + 'rd' :
+                                                                         lob.round + 'th' ;
+
+            var players = parseInt(lob.players);
+            players = players < 1 ? 'empty'                        :
+                      players < 7 ? new Array(players+1).join('⚇') :
+                                    '⚇x' + players                 ;
+
             if( $(trsel).length == 0 )
                 $('.lobbywin table tbody').append( $(
                     "<tr gameid=" + lob.id + ">"
-                    + "<td></td><td></td><td></td><td></td>"
+                    + "<td></td>"
+                    + "<td></td>"
+                    + "<td></td>"
+                    + "<td></td>"
+                    + "<td></td>"
+                    + "<td></td>"
                     + "<td>" + (lob.pass ? "<input type=text value='' placeholder=password>" : "") + "</td>"
                     + "<td><button gameid=" + lob.id + ">Join</button></td>"
                     + "</tr>"
@@ -115,9 +135,11 @@ function checkin_cb( data )
             $(trsel).attr('hit', 1);
             var $td = $(trsel).find('td');
             $td.eq(0).html( lob.name + (lob.pass ? ' <span class=key>⚷</span>' : '') );
-            $td.eq(1).text( lob.players );
-            $td.eq(2).text( lob.high );
-            $td.eq(3).text( status );
+            $td.eq(1).text( round );
+            $td.eq(2).text( players );
+            $td.eq(3).text( lob.high );
+            $td.eq(4).text( round + ', ' + players );
+            $td.eq(5).text( status );
         }
 
         // remove any games that no longer exist
@@ -434,7 +456,7 @@ function checkin_cb( data )
     to = setTimeout( checkin, ms );
 }
 
-function err(s) 
+function err(s)
 {
     $('.err span').html(s);
     $('.err').show()
