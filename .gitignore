@@ -2,3 +2,4 @@
 notes
 dbname
 node_modules
+*.log
