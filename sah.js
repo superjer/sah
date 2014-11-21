@@ -79,7 +79,7 @@ function checkin_cb( data )
         for( var l in d.lobby )
         {
             var lob = d.lobby[l];
-            var trsel = '.lobbywin tr[gameid=' + lob.id + ']';
+            var trsel = '.lobbywin tr[gameid=' + lob.gameid + ']';
             var status = lob.state == 'champ' ? 'game over' :
                          lob.secs > 600       ? 'crickets'  :
                          lob.secs > 240       ? 'simmer'    :
@@ -120,7 +120,7 @@ function checkin_cb( data )
 
             if( $(trsel).length == 0 )
                 $('.lobbywin table tbody').append( $(
-                    "<tr gameid=" + lob.id + ">"
+                    "<tr gameid=" + lob.gameid + ">"
                     + "<td></td>"
                     + "<td></td>"
                     + "<td></td>"
@@ -128,7 +128,7 @@ function checkin_cb( data )
                     + "<td></td>"
                     + "<td></td>"
                     + "<td>" + (lob.pass ? "<input type=text value='' placeholder=password>" : "") + "</td>"
-                    + "<td><button gameid=" + lob.id + ">Join</button></td>"
+                    + "<td><button gameid=" + lob.gameid + ">Join</button></td>"
                     + "</tr>"
                 ) );
 
@@ -176,9 +176,9 @@ function checkin_cb( data )
     if( clock - 1 != game.secs )
         $clock.text(clock = game.secs);
 
-    if( blackid != d.black.id || blackclass != d.black.class || blackheight != d.black.height )
+    if( blackid != d.black.cardid || blackclass != d.black.class || blackheight != d.black.height )
     {
-        blackid = d.black.id;
+        blackid = d.black.cardid;
         blacktxt = d.black.txt;
         blackclass = d.black.class;
         blackheight = d.black.height;

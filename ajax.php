@@ -41,7 +41,7 @@ if( mysql_num_rows($qr) < 1 )
 else
 {
   $r = mysql_fetch_assoc($qr);
-  $playerid = $r['id'];
+  $playerid = $r['playerid'];
   $gameid = $r['gameid'];
   $json['score'] = $r['score'];
 }
@@ -72,7 +72,7 @@ if( $in['action'] == 'join' )
 {
   $joingame = intval($in['gameid']);
 
-  $qr = q("SELECT pass FROM game WHERE id=$joingame");
+  $qr = q("SELECT pass FROM game WHERE gameid=$joingame");
   list($gamepass) = mysql_fetch_row($qr);
 
   if( $gamepass && $gamepass != $in['pass'] )
@@ -100,10 +100,10 @@ if( !$gameid )
 {
   $json['inlobby'] = 1;
   $qr = q("
-    SELECT g.*, TIMEDIFF(NOW(), g.ts) deltat, COALESCE(MAX(p.score), '') high, COUNT(p.id) players
+    SELECT g.*, TIMEDIFF(NOW(), g.ts) deltat, COALESCE(MAX(p.score), '') high, COUNT(p.playerid) players
     FROM game g
-    LEFT JOIN player p ON g.id = p.gameid
-    GROUP BY g.id
+    LEFT JOIN player p ON g.gameid = p.gameid
+    GROUP BY g.gameid
   ");
   while( $r = mysql_fetch_assoc($qr) )
   {
@@ -124,7 +124,7 @@ if( mysql_result($qr,0) != 1 )
 switch( mt_rand(0,100) )
 {
   case 0:
-    q("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.id)");
+    q("DELETE FROM game WHERE NOT EXISTS(SELECT * FROM player WHERE gameid=game.gameid)");
     break;
   case 1:
     q("DELETE FROM game WHERE ts < NOW() - INTERVAL 2 WEEK");
@@ -137,17 +137,17 @@ $qr = q("
     g.*,
     TIMEDIFF(NOW(),g.ts) deltat,
     u.name winnername,
-    c.id czarpresent
+    c.playerid czarpresent
   FROM game g
-  LEFT JOIN player c ON g.czar=c.id AND c.gameid=$gameid
-  LEFT JOIN player p ON g.winner=p.id
+  LEFT JOIN player c ON g.czar=c.playerid AND c.gameid=$gameid
+  LEFT JOIN player p ON g.winner=p.playerid
   LEFT JOIN superjer.users u ON p.user=u.id
-  WHERE g.id=$gameid
+  WHERE g.gameid=$gameid
 ");
 
 // exit non-existant game immediately!!
 if( mysql_num_rows($qr) < 1 )
-  q("UPDATE player SET gameid=0 WHERE id=$playerid");
+  q("UPDATE player SET gameid=0 WHERE playerid=$playerid");
 
 $gamerow = mysql_fetch_assoc($qr);
 $json['game'] = $gamerow;
@@ -158,13 +158,13 @@ $czar = $gamerow['czar'];
 // keep player ts up to date
 $idlebit = "";
 $in['movement'] and $idlebit = "idle=0,";
-q("UPDATE player SET $idlebit ts=NOW() WHERE id=$playerid");
+q("UPDATE player SET $idlebit ts=NOW() WHERE playerid=$playerid");
 
 // choose czar?
 if( !$czar || !$gamerow['czarpresent'] )
 {
   $qr = q("
-    SELECT id
+    SELECT playerid
     FROM player
     WHERE gameid=$gameid AND !idle
     ORDER BY
@@ -175,8 +175,8 @@ if( !$czar || !$gamerow['czarpresent'] )
   if( mysql_num_rows($qr) > 0 )
   {
     $czar = $gamerow['czar'] = $json['game']['czar'] = mysql_result($qr,0);
-    q("UPDATE game SET czar=$czar WHERE id=$gameid");
-    q("UPDATE player SET czarts=CURRENT_TIMESTAMP() WHERE id=$czar");
+    q("UPDATE game SET czar=$czar WHERE gameid=$gameid");
+    q("UPDATE player SET czarts=CURRENT_TIMESTAMP() WHERE playerid=$czar");
   }
 }
 
@@ -222,8 +222,8 @@ switch( $in['action'] )
     $winner = intval($in['playerid']);
     if( !$winner )
       break;
-    q("UPDATE game SET state='bask',winner=$winner WHERE id=$gameid");
-    q("UPDATE player SET score=score+1 WHERE id=$winner");
+    q("UPDATE game SET state='bask',winner=$winner WHERE gameid=$gameid");
+    q("UPDATE player SET score=score+1 WHERE playerid=$winner");
     break;
 
   case 'draw':
@@ -231,11 +231,11 @@ switch( $in['action'] )
 
   case 'abandon':
     if( $gamerow['state'] == 'select' )
-      q("UPDATE player SET abandon=1 WHERE id=$playerid");
+      q("UPDATE player SET abandon=1 WHERE playerid=$playerid");
     break;
 
   case 'vote':
-    $cardid = intval($in['id']);
+    $cardid = intval($in['cardid']);
     $yeanay = $in['yeanay'] == 'yea' ? 1 : -1;
     q("
       REPLACE INTO vote
@@ -247,7 +247,7 @@ switch( $in['action'] )
     q("
       UPDATE player
       SET gameid=0
-      WHERE id=$playerid
+      WHERE playerid=$playerid
     ");
     break;
 
@@ -304,10 +304,10 @@ $qr = q("
     u.name
   FROM player p
   LEFT JOIN superjer.users u ON p.user=u.id
-  LEFT JOIN hand h ON h.gameid=$gameid AND h.playerid=p.id AND h.state='play'
+  LEFT JOIN hand h ON h.gameid=$gameid AND h.playerid=p.playerid AND h.state='play'
   WHERE p.gameid=$gameid
   GROUP BY p.user
-  ORDER BY p.idle,p.id
+  ORDER BY p.idle,p.playerid
 ");
 
 while( $r = mysql_fetch_assoc($qr) )
@@ -328,9 +328,9 @@ foreach( $prows as $r )
     'score'  => ($r['score']  ? $r['score']  : ''),
     'whatup' => ($r['whatup'] ? $r['whatup'] : ''),
     'idle'   => ($r['idle']   ? $r['idle']   : ''),
-    'gone'   => ($gonefor > 10              ? 1 : 0),
-    'czar'   => ($gamerow['czar']==$r['id'] ? 1 : 0),
-    'myself' => ($playerid==$r['id']        ? 1 : 0),
+    'gone'   => ($gonefor > 10                    ? 1 : 0),
+    'czar'   => ($gamerow['czar']==$r['playerid'] ? 1 : 0),
+    'myself' => ($playerid==$r['playerid']        ? 1 : 0),
   );
 
   $playercount++;
@@ -378,18 +378,18 @@ if( $black_up < 1 )
   $qr = q("
     SELECT COUNT(*)
     FROM card b
-    LEFT JOIN stack s ON b.id=s.cardid AND gameid=$gameid
+    LEFT JOIN stack s ON b.cardid=s.cardid AND gameid=$gameid
     WHERE s.cardid IS NULL AND b.color='black'
   ");
   $r = mysql_fetch_row($qr);
   $rand = mt_rand(0, $r[0]-1);
   $qr = q("
     INSERT INTO stack (gameid, cardid)
-    SELECT $gameid, b.id
+    SELECT $gameid, b.cardid
     FROM card b
-    LEFT JOIN stack s ON b.id=s.cardid AND gameid=$gameid
+    LEFT JOIN stack s ON b.cardid=s.cardid AND gameid=$gameid
     WHERE s.cardid IS NULL AND b.color='black'
-    ORDER BY b.id
+    ORDER BY b.cardid
     LIMIT $rand,1
   ");
 }
@@ -397,7 +397,7 @@ if( $black_up < 1 )
 $qr = q("
   SELECT s.*, b.*, SUM(v.vote) votesum, COUNT(v.vote) ttlvotes
   FROM stack s
-  LEFT JOIN card b ON s.cardid=b.id
+  LEFT JOIN card b ON s.cardid=b.cardid
   LEFT JOIN vote v ON s.cardid=v.cardid
   WHERE gameid=$gameid AND state='up'
   GROUP BY s.cardid
@@ -405,7 +405,7 @@ $qr = q("
 $r = mysql_fetch_assoc($qr);
 $thermoheight = get_height( $r['votesum'], $r['ttlvotes'] );
 $blacktxt = $r['txt'];
-$json['black']['id']     = $r['id'];
+$json['black']['cardid'] = $r['cardid'];
 $json['black']['txt']    = str_replace("_","<span>_______</span>",$blacktxt);
 $json['black']['nr']     = $playnr = $r['number'];
 $json['black']['height'] = $thermoheight;
@@ -443,12 +443,12 @@ while( $callingit )
     q("
       UPDATE player
       SET idle=idle+1
-      WHERE gameid=$gameid AND id NOT IN ($stillkickin)"
+      WHERE gameid=$gameid AND playerid NOT IN ($stillkickin)"
     );
     q("
       UPDATE player
       SET idle=0
-      WHERE gameid=$gameid AND id IN ($stillkickin)
+      WHERE gameid=$gameid AND playerid IN ($stillkickin)
     ");
   }
   if( count($whites) )
@@ -458,7 +458,7 @@ while( $callingit )
       SET state='hidden'
       WHERE gameid=$gameid AND cardid IN (".implode(',',$whites).")"
     );
-    q("UPDATE game SET state='select' WHERE id=$gameid");
+    q("UPDATE game SET state='select' WHERE gameid=$gameid");
   }
   break;
 }
@@ -475,18 +475,18 @@ if( $json['handcount'] < 10 && $in['action'] == 'draw' )
   $qr = q("
     SELECT COUNT(*)
     FROM card w
-    LEFT JOIN hand h ON w.id=h.cardid AND gameid=$gameid
+    LEFT JOIN hand h ON w.cardid=h.cardid AND gameid=$gameid
     WHERE h.cardid IS NULL AND w.color='white'
   ");
   $r = mysql_fetch_row($qr);
   $rand = mt_rand(0, $r[0]-1);
   $qr = q("
     INSERT INTO hand (gameid, playerid, cardid)
-    SELECT $gameid, $playerid, w.id
+    SELECT $gameid, $playerid, w.cardid
     FROM card w
-    LEFT JOIN hand h ON w.id=h.cardid AND gameid=$gameid
+    LEFT JOIN hand h ON w.cardid=h.cardid AND gameid=$gameid
     WHERE h.cardid IS NULL AND w.color='white'
-    ORDER BY w.id
+    ORDER BY w.cardid
     LIMIT $rand,1
   ");
 }
@@ -497,7 +497,7 @@ $consider = array();
 $qr = q("
   SELECT w.*, h.*, SUM(v.vote) votesum, COUNT(v.vote) ttlvotes
   FROM hand h
-  LEFT JOIN card w ON h.cardid=w.id
+  LEFT JOIN card w ON h.cardid=w.cardid
   LEFT JOIN vote v ON h.cardid=v.cardid
   WHERE gameid=$gameid AND (playerid=$playerid OR state IN ('hidden','consider')) AND state IN ('hand','play','hidden','consider')
   GROUP BY h.cardid
@@ -514,7 +514,7 @@ while( $r = mysql_fetch_assoc($qr) )
   $thermoheight = get_height( $r['votesum'], $r['ttlvotes'] );
 
   $card = array(
-    'whiteid'      => $r['id'],
+    'whiteid'      => $r['cardid'],
     'txt'          => $txt,
     'rawtxt'       => $r['txt'],
     'thermoheight' => $thermoheight,
@@ -530,7 +530,7 @@ while( $r = mysql_fetch_assoc($qr) )
 
   if( $inplay )
     $json['slots'][ $r['position'] ] = array(
-      'whiteid'      => $r['id'],
+      'whiteid'      => $r['cardid'],
       'txt'          => $txt,
     );
 }
@@ -577,7 +577,7 @@ if( $gamerow['state'] == 'bask' && $secs>5 )
     $roundinc = ",round=round+1";
   }
 
-  q("UPDATE game SET state='$newstate',winner=0,czar=0$roundinc WHERE id=$gameid");
+  q("UPDATE game SET state='$newstate',winner=0,czar=0$roundinc WHERE gameid=$gameid");
   q("UPDATE hand SET state='discard' WHERE gameid=$gameid AND state IN ('hidden','consider')");
   q("UPDATE stack SET state='discard' WHERE gameid=$gameid AND state='up'");
   q("UPDATE player SET abandon=0 WHERE gameid=$gameid");
@@ -590,9 +590,9 @@ if( $gamerow['state'] == 'select' )
       || ($abandoners > 0 && $secs > $gamerow['abandonsecs'] )
       || ($idleabandoners > 0 && $secs > $gamerow['abandonsecs'] * 2 )
   ){
-    q("UPDATE game SET state='bask' WHERE id=$gameid");
+    q("UPDATE game SET state='bask' WHERE gameid=$gameid");
     q("UPDATE hand SET state='hand' WHERE gameid=$gameid AND state IN ('hidden','consider')");
-    q("UPDATE player SET idle=idle+1 WHERE gameid=$gameid AND id=$czar");
+    q("UPDATE player SET idle=idle+1 WHERE gameid=$gameid AND playerid=$czar");
   }
 }
 
