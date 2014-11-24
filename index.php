@@ -1,3 +1,8 @@
+<?php
+
+  header( "Access-Control-Allow-Origin: *" );
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,8 +11,9 @@
 <link rel=stylesheet type="text/css" href="sah.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="//www.superjer.com:1337/socket.io/socket.io.js"></script>
 <script src="jquery.ui.touch-punch.min.js"></script>
-<script src="sah.js"></script>
+<script src="node/client.js"></script>
 </head>
 <body>
 

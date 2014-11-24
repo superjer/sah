@@ -1,5 +1,6 @@
 *.swp
+*.log
 notes
 dbname
 node_modules
-*.log
+node/cache
