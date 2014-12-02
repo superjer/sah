@@ -3,13 +3,9 @@ SuperJer Against Humanity
 
 An web-based implementation of the card game Cards Against Humanity for the SuperJer.com Forums.
 
-See it in action at:
+Play it with friends at:
 
 <http://www.superjer.com/forum/sah>
-
-You will need to log in to the forum itself first at:
-
-<http://www.superjer.com/forum>
 
 Instructions
 ============
