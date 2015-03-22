@@ -26,7 +26,7 @@ div {
 
   mysql_select_db(trim(file_get_contents('dbname')));
 
-  $qr = mysql_query("SELECT color,txt FROM card ORDER BY LENGTH(txt)");
+  $qr = mysql_query("SELECT color,txt FROM card ORDER BY CHAR_LENGTH(txt)");
 
   while( list($c, $t) = mysql_fetch_row($qr) )
   {
