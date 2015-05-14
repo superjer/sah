@@ -1577,7 +1577,7 @@
 373	green	1	_?! It must be the future!
 373	black	1	You know how some movies inspire you to make your own movie? This one inspires me to make _.
 373	black	1	Her mother doesn’t like anything. Especially _.
-373	black	2	_ stars as _ in this year’s most thrilling, action packed, cyber adventure.
+373	green	2	_ stars as _ in this year’s most thrilling, action packed, cyber adventure.
 373	green	1	I’m starting to agree with the Taliban militia: _ should not be allowed.
 373	green	2	There are 3 kinds of _. Those who seek strength. Those who live for pride. And those who are _.
 373	green	1	_ has become a killing word.
@@ -1787,7 +1787,7 @@
 1	black	2	The tastiest part of _ is _.
 1	black	3	These wounds were given to me by the beast of legend. Part of it was _, part was _, and it was crowned with _.
 1	black	3	Early rugby’s rules: carry the ball as _, score points by crossing _, and _ shall not be on the field.
-1	black	2	In the fossil record you can see the development of _, now iconic, as well as the decline of _ to vestigiality.
+1	black	2	These fossils show the development of _, now iconic, as well as the decline of _ to vestigiality.
 1	black	2	Being unstable while free, _ will decay with a half-life of 10 minutes into _ and an electron.
 1	black	2	The thief was caught stealing _ from the sultan, and so was thrown into the pit of _.
 1	green	2	Well who hasn’t used _ as _ when shit got a bit too real?
@@ -2260,11 +2260,11 @@
 1	white	0	an above/below the table snuggle
 1	black	1	Woah, _! I’m gonna put my mouth on it!
 1	black	3	In a world with _ _, one man must become _. Coming this summer.
-1	white	0	See now black people walk like _. But white people -- white people walk like they’re _!
+1	black	1	See now black people walk like _. But white people -- white people walk like they’re _!
 1	black	1	What’s in the fridge? Soda, OJ, _... Sweet! Sunny-D!
 1	white	0	black magic orgasms
 1	white	0	purple stuff
-1	white	0	The name for Idaho was derived from a Shoshone language term meaning “_.”
 1	black	2	Howdy neighbor, love _! Let's get _ sometime!
 1	black	2	I didn't think this house would sell with _ in the attic. Anyway, I'm _.
 1	black	1	Welcome to the neighborhood! I live in _ across the street.
+1	black	1	The name for Idaho was derived from a Shoshone language term meaning “_.”
