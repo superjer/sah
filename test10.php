@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SAH Test 10</title>
+<meta name=viewport content="initial-scale=1.0, width=device-width, user-scalable=yes">
+<style>
+input[type=submit], input[type=button] {width:100px; font-size:22px;}
+</style>
+</head>
+<body>
 <?
 
 ini_set('display_errors',true);
@@ -47,10 +57,14 @@ while( $r = mysql_fetch_assoc($qr) )
 }
 
 ?>
-<br><br><br>
+<br>
 <form>
-<label>Text or black ID: <br><textarea rows=4 cols=80 style='font-size:18px;'><?= $blacktxt ?></textarea></label><br>
+<label>Text or black ID: <br><textarea
+  style='font-size:18px; width:100%; max-width: 800px;'
+><?= $blacktxt ?></textarea></label><br>
 <input type=submit value=Go>
+<input type=submit name=select value=Select>
+<input type=submit name=rando value=Rando>
 </form>
 <br><br>
 <a href="./test.php?">Try it with fewer choices!</a>
@@ -81,9 +95,21 @@ $(function(){
       $slots.eq(s++).text(vals[i]);
   });
 
+  $('input[name=rando]').click(function(){
+    $('textarea').val('');
+  });
+
+  $('input[name=select]').click(function(e){
+    $('textarea').select();
+    e.preventDefault();
+    return false;
+  });
+
   $('form').submit(function(){
     window.location.href = "?" + $('textarea').val();
     return false;
   });
 });
 </script>
+</body>
+</html>
