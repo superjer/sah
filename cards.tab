@@ -1510,7 +1510,7 @@
 2	black	1	I’m having a picnic no one will forget! Bring _.
 2	black	2	Don’t email me at work! Email me at my personal address: _@_.net
 2	black	1	Go, go, Gadget _!
-2	black	2	I’ve been dancing to the new single by “_ and _”?
+2	black	2	I’ve been dancing to the new single by “_ and _”.
 2	black	1	When the beef came at me it was like _.
 2	black	1	There is no “I” in “team” but there is an “I” in “_”.
 2	green	1	_? I’m just gonna sit back and watch.
@@ -2260,7 +2260,7 @@
 1	white	0	an above/below the table snuggle
 1	black	1	Woah, _! I’m gonna put my mouth on it!
 1	black	3	In a world with _ _, one man must overcome _. Coming this summer.
-1	black	1	See now black people walk like _. But white people -- white people walk like they’re _!
+1	black	2	See now black people walk like _. But white people -- white people walk like they’re _!
 1	black	1	What’s in the fridge? Soda, OJ, _... Sweet! Sunny-D!
 1	white	0	black magic orgasms
 1	white	0	purple stuff
@@ -2317,7 +2317,7 @@
 1	white	0	a fistful of glitter
 1	white	0	a charcoal briquette
 1	white	0	a succulent jumbo prawn
-1	white	0	a anthill
+1	white	0	rival anthills
 1	white	0	thousands
 1	white	0	a conference table
 1	white	0	a squirt of mustard
