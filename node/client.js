@@ -4,7 +4,7 @@ var clock = 0;
 var $clock = null;
 var game = null;
 var quickly = false;
-var playersmd5 = '0';
+var players = [];
 var handcount = -1;
 var amczar = false;
 var czar = 'No one';
@@ -43,7 +43,6 @@ function dropme($x)
 function dragme($x)
 {
     $x.draggable({
-        cancel: ".thermo",
         revert: "invalid",
         stack: ".draggable",
     })
@@ -66,7 +65,9 @@ socket.on('state', function(d){
 
     if( d.msg ) { err( d.msg ); return; }
 
-    if( d.inlobby )
+    console.log(d);
+
+    if( d.lobby )
     {
         game = null;
         $('.win').hide();
@@ -113,7 +114,7 @@ socket.on('state', function(d){
                         lob.round % 10 == 3                            ? lob.round + 'rd' :
                                                                          lob.round + 'th' ;
 
-            var players = parseInt(lob.players);
+            var players = lob.playerids.length
             players = players < 1 ? 'empty'                        :
                       players < 7 ? new Array(players+1).join('⚇') :
                                     '⚇x' + players                 ;
@@ -150,7 +151,7 @@ socket.on('state', function(d){
         else
             $('.norooms').hide();
 
-        to = setTimeout( checkin, 3000 );
+        // to = setTimeout( checkin, 9000 );
         return;
     }
 
@@ -176,55 +177,56 @@ socket.on('state', function(d){
     if( clock - 1 != game.secs )
         $clock.text(clock = game.secs);
 
-    if( blackid != d.black.cardid || blackclass != d.black.class || blackheight != d.black.height )
+    var black = d.game.black;
+
+    if( blackid != black.cardid || blacktxt != black.txt )
     {
-        blackid = d.black.cardid;
-        blacktxt = d.black.txt;
-        blackclass = d.black.class;
-        blackheight = d.black.height;
+        blackid = black.cardid;
+        blacktxt = black.txt.replace(/_/g, '<span class=blank>________</span>');
 
         var $black = $('.blackcard');
         $black.attr('blackid',blackid);
         $black.find('.cardtxt').html(blacktxt);
-        $black.find('.num div').text(d.black.nr);
-        $black.find('.thermo').removeClass('love hate').addClass(blackclass);
-        $black.find('.thermo div').css('height',blackheight);
+        $black.find('.num div').text(black.num);
     }
 
-    if( d.handcount != handcount )
-    {
-        handcount = d.handcount;
+    var oldhandcount = handcount;
+    handcount = 0;
+    for( h in d.hand )
+        if( d.hand[h] && d.hand[h].cardid )
+            handcount++;
 
-        if( handcount < 10 )
-            $('.draw').removeAttr('disabled');
-        else
-            $('.draw').attr('disabled',true);
-    }
+    if( handcount < 10 )
+        $('.draw').removeAttr('disabled');
+    else
+        $('.draw').attr('disabled',true);
 
-    if( d.playersmd5 != playersmd5 )
+    if( true ) // check for timestamp or something
     {
-        playersmd5 = d.playersmd5;
         var html = "";
         amczar = false;
 
         for( var i in d.players )
         {
             var pl = d.players[i];
+            var myself = (pl.playerid == d.selfid);
 
             if( pl.idle > 1 && pl.gone && pl.score < 1 )
                 continue;
 
-            if( pl.myself )
-                myscore = pl.score;
-
             var classes = "";
 
-            if(pl.czar && pl.myself)
-                amczar = true;
+            if( myself ) {
+                myscore = pl.score;
+                classes += " myself";
+                if( pl.czar )
+                    amczar = true;
+            }
 
-            if( pl.czar ) { czar = pl.name; classes += " czar"; }
-
-            if( pl.myself ) classes += " myself";
+            if( pl.czar ) {
+                czar = pl.name;
+                classes += " czar";
+            }
 
             var stat = (pl.gone ? 'Out' : pl.idle ? 'Idle' : '');
             var whatup = (pl.czar ? 'Czar' : pl.whatup);
@@ -289,23 +291,20 @@ socket.on('state', function(d){
     for( var i in d.hand )
     {
         var card = d.hand[i];
-        var $it = $mycards.filter('[whiteid='+card.whiteid+']');
+        if( !card )
+            continue;
+        var $it = $mycards.filter('[whiteid='+card.cardid+']');
 
         if( $it.length > 0 )
         {
             $mycards = $mycards.not($it);
-            $it.find('.bar').css('height', card.thermoheight+'px');
-            $it.find('.thermo').removeClass('love hate').addClass(card.thermoclass);
         }
         else
         {
             var start = (card.inplay ? 'startinplay=1' : '');
             var $elem = $(
-                  '<div class="card draggable" whiteid='+card.whiteid+' '+start+'>'
+                  '<div class="card draggable" whiteid='+card.cardid+' '+start+'>'
                 +   '<div class="cardtxt">'+card.txt+'</div>'
-                +   '<div class="thermo '+card.thermoclass+'">'
-                +     '<div class=bar style="height:'+card.thermoheight+'px;"></div>'
-                +   '</div>'
                 + '</div>'
             );
             newlist.push( $elem );
@@ -371,13 +370,10 @@ socket.on('state', function(d){
                     $elem = $(
                         "<div class=card>" +
                         " <div class=cardtxt></div>" +
-                        " <div class=thermo><div class=bar></div></div>" +
                         "<div>"
                     );
                     $elem.attr('whiteid',card.whiteid);
                     $elem.find('.cardtxt').text(card.txt);
-                    $elem.find('.thermo').addClass(card.thermoclass);
-                    $elem.find('.bar').css('height',card.thermoheight);
                     $cont.append($elem);
                     if( card.state=='hidden' )
                         $cont.addClass('mystery');
@@ -388,11 +384,6 @@ socket.on('state', function(d){
 
             $('.aset').click(function(event)
             {
-                var $targ = $(event.target);
-
-                if( $targ.hasClass('thermo') || $targ.parents('.thermo').length > 0 )
-                    return;
-
                 var $cards = $(this).find('.card');
                 var $bct = $('.selectwin .blackcard .cardtxt');
                 var playerid = $(this).attr('playerid');
@@ -429,9 +420,6 @@ socket.on('state', function(d){
                 {
                     var playerid = d.consider[i].playerid;
                     var card = d.consider[i].cards[j];
-                    var $thermo = $('.aset .card[whiteid='+card.whiteid+'] .thermo');
-                    $thermo.removeClass('love hate').addClass(card.thermoclass);
-                    $thermo.find('.bar').css('height',card.thermoheight);
 
                     if( card.state=='consider' )
                         $('.aset[playerid='+playerid+']').removeClass('mystery');
@@ -451,7 +439,7 @@ socket.on('state', function(d){
         }
     }
 
-    var ms = quickly ? 10 : 2500;
+    var ms = quickly ? 10 : 9000;
     quickly = false;
     to = setTimeout( checkin, ms );
 });
@@ -561,8 +549,6 @@ $(function()
             gameid: $(this).closest('tr').attr('gameid'),
             pass: $(this).closest('tr').find('input').val()
         });
-
-        quickly = true;
     } );
 
     $('.jointab').click( function()
@@ -584,40 +570,6 @@ $(function()
     $(document).on('mousemove click keydown', function() { movement++; });
 
     $('.err button').click( function(){ $('.err').slideUp(); });
-
-    $(document).on('click', '.thermo', function(event)
-    {
-        var $this = $(this);
-        var $votebutts = $this.find('button');
-
-        if( $votebutts.length > 0 )
-        {
-            $votebutts.remove();
-            return;
-        }
-
-        $votebutts = $('<button class=voteup>+</button><button class=votedown>-</button>');
-        $this.prepend( $votebutts );
-        var $parentcard = $this.parents('.card');
-        var id = $parentcard.attr('whiteid');
-        if( !id ) id = $parentcard.attr('blackid');
-
-        $parentcard.off('mouseleave').on('mouseleave', function()
-        {
-            $(this).find('button').remove();
-        });
-
-        $votebutts.on( 'click', function(event)
-        {
-            var $this = $(this);
-            var yeanay = $this.hasClass('voteup') ? 'yea' : 'nay';
-            checkin({action:'vote', id:id, yeanay:yeanay});
-            $this.parent().find('button').remove();
-            event.stopPropagation();
-        });
-
-        event.stopPropagation();
-    });
 });
 
 // vim: ts=4 sw=4 et

@@ -71,6 +71,9 @@ h2 {
   color:white;
   background:#111;
 }
+.blackcard .blank {
+  color:#ff3;
+}
 .cardtxt {
   height:160px;
 }
@@ -89,32 +92,7 @@ h2 {
   display:inline-block;
   font-style:normal;
 }
-.thermo {
-  width:4px;
-  height:20px;
-  box-shadow:0 0 3px 1px #777;
-  float:left;
-  position:relative;
-}
-.thermo:hover {
-  cursor:pointer;
-}
-.card:hover .thermo {
-  visibility:visible;
-}
-.thermo .bar {
-  background-color:white;
-}
-.blackcard .thermo .bar {
-  background-color:black;
-}
-.thermo.love {
-  background-color:#2d3;
-}
-.thermo.hate {
-  background-color:#f40;
-}
-.draggable {
+..draggable {
   cursor:move;
 }
 .err {
@@ -360,7 +338,7 @@ button.scale {
 .mystery .cardtxt {
   visibility:hidden;
 }
-.mystery .thermo {
+.mystery {
   display:none;
 }
 .aset {
@@ -383,30 +361,6 @@ button.scale {
 }
 .aset.potential .card {
   box-shadow:1px 1px 6px 0 #878700;
-}
-.voteup, .votedown {
-  position:absolute;
-  top:0;
-  z-index:50;
-  width:20px;
-  height:20px;
-  font-size:16px;
-  line-height:10px;
-  font-weight:bold;
-  color:black;
-  border:0;
-  padding:0;
-  margin:0;
-  cursor:pointer;
-  box-shadow:0 0 3px 1px #777;
-}
-.voteup {
-  background:#2d3;
-  left:10px;
-}
-.votedown {
-  background:#f40;
-  left:35px;
 }
 a.help {
   float:right;

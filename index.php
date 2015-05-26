@@ -47,7 +47,6 @@
 <div class=holder>
   <div class="card blackcard" blackid=0>
     <div class=cardtxt></div>
-    <div class="thermo love"><div class=bar></div></div>
     <div class=num>Play <div>0</div></div>
   </div>
 </div>
@@ -113,7 +112,6 @@
     <div class=clear></div>
     <div class="card blackcard" blackid=0 style='width:200px;height:300px;'>
       <div class=cardtxt style='height:280px;'></div>
-      <div class="thermo love"><div class=bar></div></div>
       <div class=num>Play <div>0</div></div>
     </div>
     <div class=contenders></div>
