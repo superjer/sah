@@ -108,18 +108,13 @@ io.on('connection', function(socket) {
     var hand = [];
     var game = {};
     var game_p = {};
-    var cookies = socket.handshake.headers.cookie.split(';');
+    var cookies = parse_cookies(socket.handshake.headers.cookie);
 
     if( init != 2 )
         console.log('Connection before init!');
 
-    for( var x in cookies ) {
-        var cookie = cookies[x].trim().split('=');
-        if( cookie[0] == 'sj_id' || cookie[0] == 'sj_t_id' )
-            playerid = +cookie[1];
-        else if( cookie[0] == 'sj_name' || cookie[0] == 'sj_t_name' )
-            playername = "" + cookie[1];
-    }
+    playerid = cookies['sj_id'] || cookies['sj_t_id'];
+    playername = cookies['sj_name'] || cookies['sj_t_name'];
 
     if( !playerid ) {
         console.log('Client is not logged in: ' + socket.id);
@@ -427,5 +422,14 @@ var shuffle = function(arr) {
     }
     return arr;
 };
+
+function parse_cookies(str) {
+    var out = {};
+    str && str.split(';').forEach(function(x) {
+        var parts = x.split('=');
+        out[parts.shift().trim()] = unescape(parts.join('=').replace('+',' '));
+    });
+    return out;
+}
 
 // vim: sw=4 ts=4 et
