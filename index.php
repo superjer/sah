@@ -52,9 +52,9 @@
 </div>
 
 <div class=play>
-  <div class=holder slot=0><div class="card slot"></div></div>
-  <div class=holder slot=1><div class="card slot"></div></div>
-  <div class=holder slot=2><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=0><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=1><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=2><div class="card slot"></div></div>
 </div>
 
 <div class="holder buttons nomob">
@@ -65,16 +65,16 @@
 </div>
 
 <div class=hand>
-  <div class=holder slot=0><div class="card slot"></div></div>
-  <div class=holder slot=1><div class="card slot"></div></div>
-  <div class=holder slot=2><div class="card slot"></div></div>
-  <div class=holder slot=3><div class="card slot"></div></div>
-  <div class=holder slot=4><div class="card slot"></div></div>
-  <div class=holder slot=5><div class="card slot"></div></div>
-  <div class=holder slot=6><div class="card slot"></div></div>
-  <div class=holder slot=7><div class="card slot"></div></div>
-  <div class=holder slot=8><div class="card slot"></div></div>
-  <div class=holder slot=9><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=3><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=4><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=5><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=6><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=7><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=8><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=9><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=10><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=11><div class="card slot"></div></div>
+  <div class="holder hasslot" slot=12><div class="card slot"></div></div>
 </div>
 
 </div> <!-- leftcol -->

@@ -31,9 +31,8 @@ function dropme($x)
             $card.css({top:0, left:0});
             json = {
                 action:  'move',
-                whiteid: $card.attr('whiteid'),
-                inplay:  ($card.parents('.play').length > 0),
-                slot:    $card.parent().attr('slot'),
+                cardid:  +$card.attr('cardid'),
+                slot:    +$card.parent().attr('slot'),
             };
             checkin(json);
         },
@@ -285,56 +284,39 @@ socket.on('state', function(d){
             $('.abandon').text(d.abandonratio);
     }
 
-    var $mycards = $('.card.draggable');
-    var newlist = [];
-
-    for( var i in d.hand )
+    for( var i = 0; i < 13; i++ )
     {
         var card = d.hand[i];
-        if( !card )
-            continue;
-        var $it = $mycards.filter('[whiteid='+card.cardid+']');
+        var $card = $('.hasslot[slot=' + i + '] .card');
 
-        if( $it.length > 0 )
-        {
-            $mycards = $mycards.not($it);
+        if( card ) {
+            if( card.cardid != $card.attr('cardid') ) {
+                var r = 0, g = 0, b = 0;
+
+                while( r*0.2126 + g*0.7152 + b*0.0722 < 150 ) {
+                    r = Math.floor(Math.random()*256);
+                    g = Math.floor(Math.random()*256);
+                    b = Math.floor(Math.random()*256);
+                }
+
+                var color = ' style="background-color: rgb('+r+','+g+','+b+')"';
+                var txt = card.txt.charAt(0).toUpperCase() + card.txt.slice(1);
+
+                if( txt.match(/[0-9a-zA-Z]$/) )
+                        txt += '.';
+
+                var $elem = $(
+                    '<div class="card draggable" cardid=' + card.cardid + color + '>'
+                    +   '<div class="cardtxt">' + txt + '</div>'
+                    + '</div>'
+                );
+                $card.replaceWith($elem);
+                dragme($elem);
+            }
+        } else {
+            $card.replaceWith("<div class='card slot slotnew'></div>");
+            dropme( $('.slotnew').removeClass('slotnew') );
         }
-        else
-        {
-            var start = (card.inplay ? 'startinplay=1' : '');
-            var $elem = $(
-                  '<div class="card draggable" whiteid='+card.cardid+' '+start+'>'
-                +   '<div class="cardtxt">'+card.txt+'</div>'
-                + '</div>'
-            );
-            newlist.push( $elem );
-        }
-    }
-
-    if( $mycards.length > 0 )
-    {
-        $mycards.replaceWith("<div class='card slot slotnew'></div>");
-        dropme( $('.slotnew').removeClass('slotnew') );
-    }
-
-    var $handslots = $('.hand .slot');
-    var $playslots = $('.play .slot');
-
-    for( var i in newlist )
-    {
-        var $elem = newlist[i];
-        var $slots = $handslots;
-
-        if( $elem.attr('startinplay') )
-            $slots = $playslots;
-
-        if( $slots.length < 1 ) { err("Nowhere to put new card!"); continue; }
-
-        $aslot = $slots.first();
-        $handslots = $handslots.not($aslot); // reference?
-        $playslots = $playslots.not($aslot);
-        $aslot.replaceWith($elem);
-        dragme($elem);
     }
 
     if( game.state != 'gather' )
@@ -348,7 +330,7 @@ socket.on('state', function(d){
             for( j in d.consider[i].cards )
             {
                 ttlcons++;
-                if( $cons.find('[whiteid='+d.consider[i].cards[j].whiteid+']').length < 1 )
+                if( $cons.find('[cardid='+d.consider[i].cards[j].cardid+']').length < 1 )
                     repop = true;
             }
         }
@@ -372,7 +354,7 @@ socket.on('state', function(d){
                         " <div class=cardtxt></div>" +
                         "<div>"
                     );
-                    $elem.attr('whiteid',card.whiteid);
+                    $elem.attr('cardid',card.cardid);
                     $elem.find('.cardtxt').text(card.txt);
                     $cont.append($elem);
                     if( card.state=='hidden' )

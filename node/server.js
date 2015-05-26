@@ -100,7 +100,7 @@ http.listen(port, function(){
     console.log('Listening on ' + port);
 });
 
-io.on('connection', function (socket) {
+io.on('connection', function(socket) {
     var playerid = 0;
     var playername = "";
     var playerlong = "()";
@@ -155,7 +155,7 @@ io.on('connection', function (socket) {
 
     tell_player(player);
 
-    socket.on('check', function (data) {
+    socket.on('check', function(data) {
         if( data.movement )
             bump_player(player);
 
@@ -163,9 +163,7 @@ io.on('connection', function (socket) {
             player.idle++;
     });
 
-    socket.on('create', function (data) {
-        changes = true;
-
+    socket.on('create', function(data) {
         if( player.gameid ) {
             console.log(playerlong + ' cannot create game');
             socket.emit('state', {msg:'Already in a game'});
@@ -176,10 +174,12 @@ io.on('connection', function (socket) {
         join_game();
         new_round(game);
         tell_player(player);
+        tell_lobby();
         console.log(playerlong + ' created game "' + game.name + '" (' + game.gameid + ')');
+        changes = true;
     });
 
-    socket.on('join', function (data) {
+    socket.on('join', function(data) {
         if( !data.gameid || !games[data.gameid] ) {
             console.log(playerlong + ' tried to join non-existent game');
         } else if( player.gameid ) {
@@ -195,17 +195,18 @@ io.on('connection', function (socket) {
                 game_p = games_p[game.gameid];
                 join_game();
                 console.log(playerlong + ' joined game "' + game.name + '" (' + game.gameid + ')');
+                changes = true;
             }
         }
 
-        tell_player(player);
+        tell_game(game);
     });
 
-    socket.on('draw', function (data) {
+    socket.on('draw', function(data) {
         var handcount = 0;
         var free = 0;
         for( var h = 0; h < 13; h++ ) {
-            if( h in hand && hand[h].cardid )
+            if( hand[h] && hand[h].cardid )
                 handcount++;
             else if( h > 2 && !free )
                 free = h;
@@ -218,18 +219,47 @@ io.on('connection', function (socket) {
 
         bump_player(player);
         tell_player(player);
+        changes = true;
     });
 
-    socket.on('leave', function (data) {
+    socket.on('move', function(data) {
+        var slot = +data.slot;
+        if( slot < 0 || slot > 12 ) {
+            console.log(playerlong + ' tried to move to invalid slot ' + data.slot);
+            return;
+        }
+
+        for( var h = 0; h < 13; h++ ) {
+            if( h == slot )
+                continue;
+            if( hand[h] && hand[h].cardid == data.cardid ) {
+                var tmp = hand[h];
+                hand[h] = hand[slot];
+                hand[slot] = tmp;
+                break;
+            }
+        }
+
+        whatup_player(player);
+        bump_player(player);
+        tell_game(game);
+        changes = true;
+    });
+
+    socket.on('leave', function(data) {
         if( player.gameid ) {
-            console.log(playerlong + ' left game "' + game.name + '" (' + game.gameid + ')');
             player.gameid = 0;
             game.playerids.splice(game.playerids.indexOf(playerid), 1);
+
+            tell_game(game);
+            console.log(playerlong + ' left game "' + game.name + '" (' + game.gameid + ')');
+
             game = {};
             game_p = {};
         }
 
         tell_player(player);
+        changes = true;
     });
 
     socket.on('disconnect', function() {
@@ -270,7 +300,7 @@ io.on('connection', function (socket) {
         player.gameid = game.gameid;
         player.czartime = game.time - 10;
 
-        if( !contains(game.playerids, playerid) )
+        if( game.playerids.indexOf(playerid) == -1 )
             game.playerids.push(player.playerid);
 
         if( !game_p.hands[playerid] )
@@ -298,7 +328,7 @@ var heartbeat = function(){
 
 heartto = setTimeout( heartbeat, 2000 );
 
-var reset_player = function (player) {
+var reset_player = function(player) {
     player.score = 0;
     player.idle = 0;
     player.gone = 0;
@@ -308,10 +338,36 @@ var reset_player = function (player) {
     player.czartime = process.hrtime()[0];
 };
 
+var whatup_player = function(player) {
+    player.whatup = 0;
+    if( !player.gameid ) return;
+    var game_p = games_p[player.gameid];
+    if( !game_p ) return;
+    var hand = game_p.hands[player.playerid];
+    if( !hand ) return;
+    for( var h = 0; h < 3; h++ ) {
+        if( hand[h] && hand[h].cardid )
+            player.whatup++;
+    }
+};
+
 var bump_player = function(player) {
     player.time = process.hrtime[0];
     player.idle = 0;
     player.gone = 0;
+};
+
+var tell_lobby = function() {
+    for( playerid in players )
+        if( !players[playerid].gameid )
+            tell_player(players[playerid]);
+};
+
+var tell_game = function(game) {
+    for( pidx in game.playerids ) {
+        var p = game.playerids[pidx];
+        tell_player(players[p]);
+    }
 };
 
 var tell_player = function(player) {
@@ -370,13 +426,6 @@ var shuffle = function(arr) {
         arr[i] = tmp;
     }
     return arr;
-};
-
-var contains = function(arr, item) {
-    for( var i in arr )
-        if( arr[i] == item )
-            return true;
-    return false;
 };
 
 // vim: sw=4 ts=4 et
