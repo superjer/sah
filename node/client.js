@@ -214,23 +214,24 @@ socket.on('state', function(d){
                 continue;
 
             var classes = "";
+            var plczar = (game.czar == pl.playerid);
 
             if( myself ) {
                 myscore = pl.score;
                 classes += " myself";
-                if( pl.czar )
+                if( plczar )
                     amczar = true;
             }
 
-            if( pl.czar ) {
+            if( plczar ) {
                 czar = pl.name;
                 classes += " czar";
             }
 
             var stat = (pl.gone ? 'Out' : pl.idle ? 'Idle' : '');
-            var whatup = (pl.czar ? 'Czar' : pl.whatup);
+            var whatup = (plczar ? 'Czar' : pl.whatup);
             var title = (pl.idle ? 'title="Idle '+pl.idle+' turns"' : '');
-            html += '<tr class="'+classes+'" '+title+'><td>' + pl.name
+            html += '<tr class="' + classes + '" ' + title + '><td>' + pl.name
                  +  '</td><td>' + stat
                  +  '</td><td>' + pl.score
                  +  '</td><td>' + whatup
@@ -292,11 +293,12 @@ socket.on('state', function(d){
         if( card ) {
             if( card.cardid != $card.attr('cardid') ) {
                 var r = 0, g = 0, b = 0;
+                var seed = card.cardid;
 
                 while( r*0.2126 + g*0.7152 + b*0.0722 < 150 ) {
-                    r = Math.floor(Math.random()*256);
-                    g = Math.floor(Math.random()*256);
-                    b = Math.floor(Math.random()*256);
+                    r = Math.abs(Math.floor(Math.sin(seed+=10000) * 10000)) % 256;
+                    g = Math.abs(Math.floor(Math.sin(seed+=10000) * 10000)) % 256;
+                    b = Math.abs(Math.floor(Math.sin(seed+=10000) * 10000)) % 256;
                 }
 
                 var color = ' style="background-color: rgb('+r+','+g+','+b+')"';

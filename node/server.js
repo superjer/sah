@@ -113,7 +113,7 @@ io.on('connection', function(socket) {
     if( init != 2 )
         console.log('Connection before init!');
 
-    playerid = cookies['sj_id'] || cookies['sj_t_id'];
+    playerid = +cookies['sj_id'] || +cookies['sj_t_id'];
     playername = cookies['sj_name'] || cookies['sj_t_name'];
 
     if( !playerid ) {
@@ -239,6 +239,13 @@ io.on('connection', function(socket) {
         bump_player(player);
         tell_game(game);
         changes = true;
+    });
+
+    socket.on('callit', function(data) {
+        if( playerid == game.czar )
+            callit(game, true);
+        else
+            console.log(playerlong + ' is not the Czar and is trying to call it');
     });
 
     socket.on('leave', function(data) {
@@ -406,9 +413,45 @@ var new_round = function(game) {
             next = player;
     }
 
+    game.round++;
     game.czar = next.playerid;
     game.time = process.hrtime()[0];
     next.czartime = process.hrtime()[0];
+};
+
+var callit = function(game, human) {
+    var secs = process.hrtime()[0] - game.time;
+    var enough = 0;
+    var potents = {};
+
+    if( human && secs < 10 )
+        return;
+
+    if( !human && secs < game.roundsecs )
+        return;
+
+    for( pidx in game.playerids ) {
+        var playerid = game.playerids[pidx];
+        var game_p = games_p[game.gameid];
+
+        if( playerid == game.czar )
+            continue;
+
+        var hand = game_p.hands[playerid];
+        var pot = [];
+        for( var i = 0; i < 3 && pot.length < game.black.num; i++ ) {
+            if( hand[i] )
+                pot.push(i);
+        }
+
+        if( pot.length == game.black.num )
+            potents[playerid] = pot;
+    }
+
+    console.log(potents);
+
+    if( potents < 2 )
+        return;
 };
 
 var shuffle = function(arr) {
