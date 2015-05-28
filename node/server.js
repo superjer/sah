@@ -2,7 +2,7 @@ var http = require('http').Server(/* handler */);
 var io = require('socket.io')(http);
 var fs = require('fs');
 var port = 1337;
-var cardfile = '../cards.tab';
+var cardfile = 'cards.tab';
 var cachefile = 'cache/save.json';
 
 var init = 0;

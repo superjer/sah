@@ -10,4 +10,8 @@ Play it with friends at:
 Instructions
 ============
 
-This is designed to piggy-back off an existing login system. You should just need a mysql table with userids and usernames, if you really want to run it yourself.
+Just run your NodeJS server with node/server.js
+
+It is designed to piggy-back off an existing login system. You will need to somehow give users cookies with usernames and ids.
+
+You also need to somehow serve the static resources: \*.html, css/\*, js/\*, image/\*
