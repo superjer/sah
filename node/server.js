@@ -4,6 +4,7 @@ var fs = require('fs');
 var port = 1337;
 var cardfile = 'cards.tab';
 var cachefile = 'cache/save.json';
+var version = 3;
 
 var init = 0;
 var games = {};
@@ -31,14 +32,13 @@ var autosave = function() {
 
         fs.writeFile(cachefile, JSON.stringify(saveme), {mode:0660}, function(err){
             if( err ) console.log(err);
-            else console.log('Saved');
         });
     }
 
-    setTimeout(autosave, 5000);
+    setTimeout(autosave, 10000);
 };
 
-setTimeout(autosave, 5000);
+setTimeout(autosave, 10000);
 
 fs.readFile(cardfile, {encoding: 'utf8'}, function(err, data){
     init++;
@@ -242,10 +242,66 @@ io.on('connection', function(socket) {
     });
 
     socket.on('callit', function(data) {
-        if( playerid == game.czar )
-            callit(game, true);
-        else
-            console.log(playerlong + ' is not the Czar and is trying to call it');
+        if( playerid != game.czar ) {
+            console.log(playerlong + ' is not the Czar and is trying to call');
+            return;
+        }
+
+        if( game.state != 'gather' ) {
+            console.log(playerlong + ' is trying to call during ' + game.state);
+            return;
+        }
+
+        callit(game, true);
+    });
+
+    socket.on('reveal', function(data) {
+        if( playerid != game.czar ) {
+            console.log(playerlong + ' is not the Czar and is trying to reveal');
+            return;
+        }
+
+        if( game.state != 'select' ) {
+            console.log(playerlong + ' is trying to reveal during ' + game.state);
+            return;
+        }
+
+        if( data.idx in game.consider )
+        {
+            game.consider[data.idx].visible = true;
+            tell_game(game);
+            changes = true;
+        }
+    });
+
+    socket.on('choose', function(data) {
+        if( playerid != game.czar ) {
+            console.log(playerlong + ' is not the Czar and is trying to choose');
+            return;
+        }
+
+        if( game.state != 'select' ) {
+            console.log(playerlong + ' is trying to choose during ' + game.state);
+            return;
+        }
+
+        var idx = +data.idx;
+
+        if( idx < 0 || idx >= game.consider.length ) {
+            console.log(playerlong + ' is trying to choose a bad index');
+            return;
+        }
+
+        game.state = 'bask';
+        game.favorite = idx;
+        game.time = process.hrtime()[0];
+        var favid = game_p.consider[idx].playerid;
+        players[favid].score++;
+        game.favname = players[favid].name;
+        tell_game(game);
+        changes = true;
+
+        setTimeout(function(){ new_round(game); }, 10000);
     });
 
     socket.on('leave', function(data) {
@@ -286,14 +342,17 @@ io.on('connection', function(socket) {
             round      : 0,
             high       : 0,
             czar       : 0,
-            playerids  : []
+            favorite   : null,
+            playerids  : [],
+            consider   : []
         };
 
         game_p = games_p[gameid] = {
             pass: "" + data.game.pass,
             wlist: shuffle(wlist.slice()),
             blist: shuffle(blist.slice()),
-            hands: {}
+            hands: {},
+            consider: []
         };
     };
 
@@ -315,12 +374,9 @@ io.on('connection', function(socket) {
 
 var heartbeat = function(){
     clearTimeout(heartto);
-    var hrtime = process.hrtime();
 
-    for( var gameid in games ) {
-        var game = games[gameid];
-        game.secs = hrtime[0] - game.time;
-    }
+    for( var gameid in games )
+        check_game(games[gameid]);
 
     for( playerid in players )
         tell_player(players[playerid]);
@@ -329,6 +385,16 @@ var heartbeat = function(){
 };
 
 heartto = setTimeout( heartbeat, 2000 );
+
+var check_game = function(game) {
+    var hrtime = process.hrtime()[0];
+
+    // Check for stale games -- i.e. where a setTimeout never went off
+    if( game.state == 'bask' && hrtime - game.time > 15 ) {
+        new_round(game);
+        console.log('Game "' + game.name + '" (' + game.gameid + ') went stale!');
+    }
+}
 
 var reset_player = function(player) {
     player.score = 0;
@@ -373,8 +439,8 @@ var tell_game = function(game) {
 };
 
 var tell_player = function(player) {
-    var hrtime = process.hrtime();
     var socket = sockets[player.playerid];
+    var hrtime = process.hrtime()[0];
 
     if( !socket || !socket.connected ) return;
 
@@ -383,9 +449,13 @@ var tell_player = function(player) {
     var lobby = player.gameid ? null : games;
     var playersout = [];
 
-    if( game ) for( pidx in game.playerids ) {
-        var p = game.playerids[pidx];
-        playersout.push(players[p]);
+    if( game ) {
+        game.secs = hrtime - game.time;
+
+        for( pidx in game.playerids ) {
+            var p = game.playerids[pidx];
+            playersout.push(players[p]);
+        }
     }
 
     socket.emit('state', {
@@ -394,14 +464,15 @@ var tell_player = function(player) {
         players: playersout,
         selfid: player.playerid,
         hand: hand,
-        now: hrtime[0],
-        nano: hrtime[1]
+        now: hrtime,
+        version: version
     });
 };
 
 var new_round = function(game) {
     var game_p = games_p[game.gameid];
-    var blackid = game_p.blist.pop()
+    var blackid = game_p.blist.pop();
+
     game.black = cards[blackid];
     var next = null;
 
@@ -409,20 +480,33 @@ var new_round = function(game) {
         var playerid = game.playerids[pidx];
         var player = players[playerid];
 
+        if( game.high < player.score )
+            game.high = player.score;
+
         if( !next || next.czartime > player.czartime )
             next = player;
     }
 
     game.round++;
+    game.state = 'gather';
     game.czar = next.playerid;
     game.time = process.hrtime()[0];
+    game.secs = 0;
+    game.favorite = null;
+    game.consider = [];
+    game_p.consider = [];
     next.czartime = process.hrtime()[0];
+
+    tell_game(game);
+    changes = true;
 };
 
 var callit = function(game, human) {
     var secs = process.hrtime()[0] - game.time;
     var enough = 0;
-    var potents = {};
+    var potents = [];
+    var game_p = games_p[game.gameid];
+    game_p.consider = [];
 
     if( human && secs < 10 )
         return;
@@ -430,28 +514,49 @@ var callit = function(game, human) {
     if( !human && secs < game.roundsecs )
         return;
 
+    // find if there are enough cards in
     for( pidx in game.playerids ) {
         var playerid = game.playerids[pidx];
-        var game_p = games_p[game.gameid];
 
         if( playerid == game.czar )
             continue;
 
         var hand = game_p.hands[playerid];
-        var pot = [];
-        for( var i = 0; i < 3 && pot.length < game.black.num; i++ ) {
+        var idxs = [];
+        for( var i = 0; i < 3 && idxs.length < game.black.num; i++ ) {
             if( hand[i] )
-                pot.push(i);
+                idxs.push(i);
         }
 
-        if( pot.length == game.black.num )
-            potents[playerid] = pot;
+        if( idxs.length == game.black.num )
+            potents.push({playerid: playerid, idxs: idxs});
     }
 
-    console.log(potents);
-
-    if( potents < 2 )
+    // need at least two players in for the round
+    if( potents.length < 2 )
         return;
+
+    potents = shuffle(potents);
+
+    // take those cards from players
+    for( var i in potents ) {
+        var pot = potents[i];
+        var hand = game_p.hands[pot.playerid];
+        var set = {visible: false, cards: []};
+        var set_p = {playerid: pot.playerid};
+
+        for( var j in pot.idxs ) {
+            set.cards.push(hand[pot.idxs[j]]);
+            hand[pot.idxs[j]] = null;
+        }
+
+        game.consider.push(set);
+        game_p.consider.push(set_p);
+    }
+
+    game.state = 'select';
+    game.time = process.hrtime()[0];
+    tell_game(game);
 };
 
 var shuffle = function(arr) {

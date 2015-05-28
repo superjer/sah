@@ -1392,18 +1392,18 @@
 1	white	0	feeling fat and sassy
 1	white	0	a dusty butthole
 1	white	0	the mysteries of childbirth
-2	green	1	_. The best a man can get.
+2	green	1	_{U}. The best a man can get.
 2	black	2	How high do you have to be to put _ on _?
-2	green	1	_. A real American hero.
+2	green	1	_{U}. A real American hero.
 2	black	1	I’m late to my meeting for _.
-2	black	1	_! _! My kingdom for _!
+2	black	1	_{U}! _{U}! My kingdom for _{U}!
 2	black	1	In future times, the children will work together to build _.
 2	green	2	In a valley with _, there _ lies.
 2	green	1	At least I didn’t fuck _.
-2	black	1	_... like a woman’s.
+2	black	1	_{U}... like a woman’s.
 2	black	2	I reached expectantly into _, but found only _.
 2	black	1	Thank you ladies and gentlemen! For my next performance art piece, I will be _.
-2	green	1	_ shall inherit the Earth.
+2	green	1	_{U} shall inherit the Earth.
 2	green	1	First we take Manhattan. Then we take _.
 2	green	2	He who destroys _ kills _.
 2	black	2	We do _ not because it is easy, but because it is _.
@@ -1416,22 +1416,22 @@
 2	green	1	That which does not kill us makes us _.
 2	green	1	The only thing that saves us from _ is its inefficiency.
 2	green	2	Nobody will ever deprive the American people of _, except _.
-2	black	1	_ is the best provision for old age.
-2	green	1	_ in pairs has sometimes sufficed to cure a person in love.
+2	black	1	_{U} is the best provision for old age.
+2	green	1	_{U} in pairs has sometimes sufficed to cure a person in love.
 2	green	2	After coming into contact with _, I always feel I must wash _.
 2	green	1	The evil that men do lives after them; the good is oft interred with _.
-2	green	1	Who knows what evil lurks in the heart of men? _ knows.
+2	green	1	Who knows what evil lurks in the heart of men? _{U} knows.
 2	black	1	And before I let your steam drill beat me down, I’ll die with _ in my hand.
 2	green	1	To thine own _ be true.
 2	black	1	A fool thinks himself to be wise, but a wise man knows himself to be _.
 2	green	3	Three things are necessary for the salvation of man: to know _, to know _, and to know _.
-2	green	1	Don’t be weird. _ looks up to you.
+2	green	1	Don’t be weird. _{U} looks up to you.
 2	black	1	Their rising all at once was as the sound of _ heard remote.
 2	black	1	Give a man _, and you feed him for a lifetime.
-2	green	2	_ begins where _ ends.
-2	green	1	Good night, good night! _ is such sweet sorrow...
+2	green	2	_{U} begins where _ ends.
+2	green	1	Good night, good night! _{U} is such sweet sorrow...
 2	black	1	Hark! What _ through yonder window breaks?
-2	black	3	Happiness: _, _, and _.
+2	black	3	Happiness: _{U}, _, and _.
 2	green	1	Happiness lies in the joy of achievement and the thrill of _.
 2	black	1	Men, like _, go farthest when they are smoothest.
 2	green	1	Physical strength can never permanently withstand the impact of _.
@@ -1441,11 +1441,11 @@
 2	black	1	I am become _, the destroyer of worlds.
 2	green	1	There are no facts, only _.
 2	black	1	In nothing do men more nearly approach the gods, than in giving _ to men.
-2	green	2	_. Never was a bad one made of _.
+2	green	2	_{U}. Never was a bad one made of _.
 2	green	1	The best weapon against _ is _.
 2	black	1	A good rule for experimenting with _ is this: always assume that it will explode.
 2	green	1	Those who do not remember _ are condemned to repeat it.
-2	black	1	_ was God’s second mistake.
+2	black	1	_{U} was God’s second mistake.
 2	green	2	If _ were so simple we could understand it, _ would be so simple we couldn’t.
 2	green	2	All men can see _ whereby I conquer, but what none can see is _ out of which victory is evolved.
 2	green	1	I don’t want none unless you’ve got _, hun.
@@ -1454,28 +1454,28 @@
 2	green	1	The nation that destroys _ destroys itself.
 2	green	2	Wars may be fought with _, but they are won by _.
 2	black	1	It is well that _ is so terrible, or we should grow too fond of it.
-2	green	1	_ saved is _ earned.
+2	green	1	_{U} saved is _ earned.
 2	green	1	You can learn a lot about a man by looking at _ of his.
 2	black	1	Any man who can drive safely while kissing _ is simply not giving the kiss the attention it deserves.
 2	black	1	It is important to give _ to a man to help him mend his ways, but it is hard to tell how _ should be given.
 2	green	1	Nothing is particularly hard if you divide it into _.
-2	black	1	_ is not particularly hard if you divide it into small jobs.
+2	black	1	_{U} is not particularly hard if you divide it into small jobs.
 2	green	1	There is no greater solitude than _ unless it is that of a tiger in the jungle.
-2	black	1	My house. 8 o’clock. _.
-2	green	1	_ is a tragedy. A million is a statistic.
-2	green	1	“_ knot” is a widely recognized artistic motif attributed to the Celts.
+2	black	1	My house. 8 o’clock. _{U}.
+2	green	1	_{U} is a tragedy. A million is a statistic.
+2	green	1	“_{T} Knot” is a widely recognized artistic motif attributed to the Celts.
 2	green	1	If we don’t end _, _ will end us.
-2	green	2	_ is a necessity to a man. Woe to him who believes in _.
+2	green	2	_{U} is a necessity to a man. Woe to him who believes in _.
 2	green	2	As long as there’s _, there will be _.
 2	black	2	In the study of human anatomy, _ is the teacher of _.
 2	black	2	When _ is ready, _ will appear.
 2	black	1	Some are born with _, some achieve _, and some have _ thrust upon them.
-2	black	1	He also named a city in India “_” after his dead horse.
+2	black	1	He also named a city in India “_{T}” after his dead horse.
 2	green	1	Workers of the world unite, you have nothing to lose but _.
 2	green	1	Numberless are the world’s wonders, but none more wonderful than _.
 2	black	1	Every French soldier carries _ in his knapsack.
 2	green	1	Look upon _ ye mighty and despair.
-2	green	2	What we need more of: _. What we need less of: _.
+2	green	2	What we need more of: _{U}. What we need less of: _{U}.
 2	green	1	What is a man but a miserable pile of _?
 2	green	1	At first they came for _ and I didn’t speak out because I wasn’t _.
 2	black	1	My, how things change. I never thought I’d be _.
@@ -1484,12 +1484,12 @@
 2	black	1	Before you embark on a journey of revenge, consider _.
 2	black	1	I only regret that I have but _ to give my country.
 2	black	1	Don’t get mad, get _.
-2	green	1	_ is delightful to those who have not yet experienced it.
+2	green	1	_{U} is delightful to those who have not yet experienced it.
 2	black	1	The unofficial symbol of the United States is _.
 2	green	1	We live only to discover _. All else is a form of waiting.
 2	green	1	Deep in the human unconsciousness is a pervasive, unfulfillable need for _.
 2	black	1	With great power comes _.
-2	black	2	To achieve great things, two things are needed: _ and _.
+2	black	2	To achieve great things, two things are needed: _{U} and _.
 2	green	1	Generations to come will scarcely believe that such _ walked the Earth in flesh and blood.
 2	green	1	Won’t you join me to share _?
 2	green	1	Such _! Tell me there are more where you got ’em!
@@ -1498,27 +1498,27 @@
 2	green	1	The injury to my pride hurts no more than the injury to _.
 2	black	2	I came home to find _ replaced with _.
 2	black	1	J. Robert Oppenheimer is often called the father of _.
-2	green	2	_ will surely kill me if I put it in _.
+2	green	2	_{U} will surely kill me if I put it in _.
 2	black	1	When he reached the New World, Cortés burned _. As a result, his men were well motivated.
 2	black	1	Ich bin ein _.
-2	green	3	_, _, and _. They fit together perfectly!
+2	green	3	_{U}, _, and _. They fit together perfectly!
 2	green	1	Of the mortal sins I am most guilty of _.
-2	green	1	_ is a dish best served cold.
+2	green	1	_{U} is a dish best served cold.
 2	black	2	The 7 deadly sins: lust, gluttony, _, sloth, wrath, _, and pride.
 2	green	1	The only thing necessary for evil to triumph is for _ to do nothing.
 2	black	1	Your sister is not nearly as good as _.
 2	black	1	I’m having a picnic no one will forget! Bring _.
-2	black	2	Don’t email me at work! Email me at my personal address: _@_.net
-2	black	1	Go, go, Gadget _!
-2	black	2	I’ve been dancing to the new single by “_ and _”.
+2	black	2	Don’t email me at work! Email me at my personal address: _{u-}@_{u-}.net
+2	black	1	Go, go, Gadget _{T}!
+2	black	2	I’ve been dancing to the new single by “_{T} and _{T}”.
 2	black	1	When the beef came at me it was like _.
 2	black	1	There is no “I” in “team” but there is an “I” in “_”.
-2	green	1	_? I’m just gonna sit back and watch.
-2	green	1	A computer that’s just like you: _.
-2	black	1	Class, turn to page 100 and start reading “_”.
+2	green	1	_{U}? I’m just gonna sit back and watch.
+2	green	1	A computer that’s just like you: _{T}.
+2	black	1	Class, turn to page 100 and start reading “_{T}”.
 2	black	2	I’d love to be locked in _ with _.
 2	green	1	Alone and afraid, I hunkered down and thought about _.
-2	black	2	When eating alone I prefer a special kind of sandwich: _ with _ in the middle.
+2	black	2	When eating alone I prefer a special kind of sandwich: _{U} with _ in the middle.
 2	black	2	If I had a nickle for every time I saw _, I could buy _.
 2	green	1	The fresh morning air always brings back memories of _.
 2	green	2	The implications of my getting into _ were obvious: _.
@@ -1532,15 +1532,15 @@
 2	black	1	The doctor held up my x-ray and I could just make out _.
 2	black	1	It’s not delivery. It’s _.
 2	black	1	I surreptitiously crawled into bed, only to find _.
-2	green	1	_. Oh, thank goodness I still have one!
-2	green	1	What just appeared before me straight out of my worst nightmares? _.
+2	green	1	_{U}. Oh, thank goodness I still have one!
+2	green	1	What just appeared before me straight out of my worst nightmares? _{U}.
 2	black	1	At the new Asian-inspired restaurant downtown, the chef will prepare _ right at your table.
 2	black	1	A scandal erupted this week when Bob Dole was caught with _.
-2	green	1	_ is the first chapter in the book of wisdom.
+2	green	1	_{U} is the first chapter in the book of wisdom.
 2	black	1	The best thing for the inside of a child is the outside of _.
 2	black	1	Kirkland mom makes $20,000 a week with _.
 2	black	1	Experts on romance say that for a happy marriage, there has to be more than _.
-2	green	1	You can’t pick up a newspaper these days without seeing a headline about _.
+2	green	1	You can’t pick up a newspaper these days without seeing a headline about _{T}.
 2	green	1	The best thing about _ is that it comes one day at a time.
 2	green	1	You can fool some of the people all the time, and you can fool all the people some of the time, but you cannot fool _.
 2	green	1	Between two evils, I always pick _.
@@ -1549,8 +1549,8 @@
 2	green	1	Mere goodness can achieve little before the power of _.
 2	black	1	A woman is like a teabag. You can’t tell how strong she is until you put her in _.
 2	black	1	Science never solves a problem without creating _.
-2	green	1	Money won’t create success. _ will.
-2	green	2	_ of my enemy is _.
+2	green	1	Money won’t create success. _{U} will.
+2	green	2	_{U} of my enemy is _.
 2	green	1	The good times of today, are _ of tomorrow.
 2	green	1	He who is prudent, and lies in wait for _, will be victorious.
 2	black	1	My guiding principles in life are to be honest, genuine, thoughtful, and _.
@@ -1560,32 +1560,32 @@
 2	black	1	It’s as easy as rubbing _ while I pat my head.
 373	green	1	Arrgh! Sixteen men on _!
 373	black	1	That’s not funny. My dad was killed by _.
-373	green	1	_ is useless, but scares the crap outta me anyway.
+373	green	1	_{U} is useless, but scares the crap outta me anyway.
 373	black	1	Your attempt to get little Susie what’s-her-name drunk on lime vodka ended with _.
 373	green	1	How dare you insult my knowledge of _!
 373	green	2	Have you been shaving _ with _ again?
 373	green	1	At the end of the day, as long as there’s two people left on the planet, someone’s going to want _.
 373	black	1	That’s not _. THIS is _!
-373	green	1	_? Well, as long as they learn to taste good, I don’t really care.
+373	green	1	_{U}? Well, as long as they learn to taste good, I don’t really care.
 373	black	1	I met a strange lady, she made me nervous. She took me in and gave me _.
-373	green	1	Be honest with us. _ really gets your blood going.
+373	green	1	Be honest with us. _{U} really gets your blood going.
 373	green	1	Its like _. You don’t want to stare, but you cant look away.
-373	black	1	_: The President’s unimaginative campaign slogan.
-373	green	1	_ a day keeps the doctor away.
+373	black	1	_{T}: The President’s unimaginative campaign slogan.
+373	green	1	_{U} a day keeps the doctor away.
 373	green	1	That is not a woman! That’s _!
 373	green	1	My job is to keep _ on the table, and nobody asks me how I do it!
-373	green	1	_?! It must be the future!
+373	green	1	_{U.}?! It must be the future!
 373	black	1	You know how some movies inspire you to make your own movie? This one inspires me to make _.
 373	black	1	Her mother doesn’t like anything. Especially _.
-373	green	2	_ stars as _ in this year’s most thrilling, action packed, cyber adventure.
-373	green	1	I’m starting to agree with the Taliban militia: _ should not be allowed.
+373	green	2	_{U} stars as _ in this year’s most thrilling, action packed, cyber adventure.
+373	green	1	I’m starting to agree with the Taliban militia: _{U} should not be allowed.
 373	green	2	There are 3 kinds of _. Those who seek strength. Those who live for pride. And those who are _.
-373	green	1	_ has become a killing word.
+373	green	1	_{U} has become a killing word.
 373	green	1	Now is not the time for _. That comes later.
 373	black	1	Forward progress is made with a snake-like slither and a vigorous thrashing of _.
 373	black	1	Does the Coast Guard have a lot of use for _?
 373	green	1	Prepare not to regret the things you have done, but to regret _.
-373	green	1	_ makes a hard man humble.
+373	green	1	_{U} makes a hard man humble.
 373	green	1	You are _ compared to me!
 373	black	1	I thought I was being attacked, and I defended myself with _.
 373	green	1	These names are all Russian for _.
@@ -1599,16 +1599,16 @@
 373	green	1	I am judge, jury, and _.
 373	green	1	Hey, I’m experiencing _, and frankly... I LOVE IT!
 373	black	2	I hope _ didn’t land on _ in the front yard.
-373	black	1	_ can be yours if The Price is Right!
+373	black	1	_{U} can be yours if The Price is Right!
 373	black	1	This movie is just _ and asses!
-373	green	1	_ in the projection room! Guess we can’t watch the movie!
+373	green	1	_{U} in the projection room! Guess we can’t watch the movie!
 373	green	1	I get _ above the waistline, sunshine!
 373	green	1	Typical Irishmen, bringing _ to a car fight!
 373	green	1	Well, they couldn’t shoot at night because the night belongs to _.
 373	black	1	Throughout human history, _ has been the first activity of explorers of any new region.
 2	black	1	Music without the sounds of _ is hardly music at all.
-2	black	2	Everything I need to live on a desert island: _ with _.
-2	black	1	_? Put that in your pipe and smoke it!
+2	black	2	Everything I need to live on a desert island: _{U} with _.
+2	black	1	_{U}? Put that in your pipe and smoke it!
 22	black	1	During routine surgery, the doctors found _ embedded in my abdomen.
 22	black	1	Military scientists in Syria found traces of _ in the soil.
 22	black	1	Cambodia’s economy is entirely dependent on _.
@@ -1619,8 +1619,8 @@
 2	black	1	Give me your word, your solemn word, that there will be _.
 2	black	2	A new source of free energy: _ powered by _.
 2	black	2	Meet me by the new modern art installation downtown. You know, it’s _ straddled by _.
-2	green	2	Two things are needed to achieve greatness: _ and not quite enough of _.
-2	black	1	Voltron assemble! _ forms the left arm!
+2	green	2	Two things are needed to achieve greatness: _{U} and not quite enough of _.
+2	black	1	Voltron assemble! _{U} forms the left arm!
 2	black	1	I went to cut the cake, and to my delight, _ popped out!
 2	green	1	I went back to Ohio, but my city was _.
 2	green	2	Step 3: attach _ to _ and give it a whirl.
@@ -1629,13 +1629,13 @@
 2	black	1	This is my second kid. My first one came out as _.
 2	black	2	My doctor says I need _ before I can get _.
 2	black	1	Driving late at night, I was horrified to find _ in the back seat.
-2	black	2	_? It’s lucky I brought _!
+2	black	2	_{U}? It’s lucky I brought _!
 2	black	1	I dug around for hours in the trash but never found _.
 2	black	2	What we need is _ on top and _ on the bottom.
 2	green	2	Do you have _ I can wrap around _?
-2	green	2	_ is the best way to appreciate _.
+2	green	2	_{U} is the best way to appreciate _.
 2	black	2	Lock the door, be quiet and put _ on _.
-2	black	1	_ is the only way to say goodbye.
+2	black	1	_{U} is the only way to say goodbye.
 2	black	2	I kicked _ down the road until I realized it was _.
 2	green	2	We’ll see how you feel after I replace _ of yours with _.
 2	green	1	First you take _, then _ takes _, then _ takes you.
@@ -1644,8 +1644,8 @@
 2	green	1	Every artist was first _.
 2	green	1	Some folk want _ buttered.
 2	black	1	There is a wisdom of the head, and a wisdom of _.
-2	green	1	_ is the most beautiful of all lies.
-2	black	2	“_”: A new sport for boys and girls with _.
+2	green	1	_{U} is the most beautiful of all lies.
+2	black	2	“_{T}”: A new sport for boys and girls with _.
 2	green	2	Painting, n.: The art of protecting flat surfaces from _, and exposing them to _.
 2	green	1	It is easier to be faithful to _ than it is to a woman.
 2	black	1	Friendship is love without _.
@@ -1655,11 +1655,11 @@
 2	black	2	Look deep into _, and then you will understand _ better.
 2	black	1	When I told my doctor I couldn’t afford an operation, he offered to touch-up _.
 2	green	1	Santa Claus has the right idea - visit _ only once a year.
-2	green	1	_ is the atmosphere for miracles.
+2	green	1	_{U} is the atmosphere for miracles.
 2	green	1	God gave us memory so that we might have _ in December.
 2	green	1	I came from a family where _ is considered a beverage.
 2	green	1	We are never so defenseless against _ as when we love.
-2	green	1	_. Don’t knock it ’til you’ve tried it!
+2	green	1	_{U}. Don’t knock it ’til you’ve tried it!
 2	green	1	The best way to pay for _ is to enjoy it.
 2	green	1	Parents were invented to make children happy by giving them _ to ignore.
 2	green	2	If _ makes you curious, try _.
@@ -1679,7 +1679,7 @@
 2	black	2	For it was not into my ear you whispered, but into _. It was not my lips you kissed, but _.
 2	green	1	I was born with an enormous need for _, and a terrible need to give it.
 2	green	1	A kiss makes the heart young again and wipes out _.
-2	black	1	_ is like war: easy to begin but very hard to stop.
+2	black	1	_{U} is like war: easy to begin but very hard to stop.
 2	black	2	Life without love is like _ without _ or fruit.
 2	black	1	Love makes _ crawl out from its hiding place.
 2	green	2	A very small degree of _ is sufficient to cause the birth of _.
@@ -1697,9 +1697,9 @@
 2	green	2	Even _ can figure out _.
 2	black	1	All it takes is an awful lot of _ to keep me satisfied.
 2	green	1	You’ve got _ in your eyes, which is probably why you can’t see ’em.
-2	black	1	The NEW Ninja Turtles include: _.
-2	black	2	Aww! My mom packed a terrible lunch: _ and _.
-2	green	1	Hello, my name is _.
+2	black	1	The NEW Ninja Turtles include: _{U}.
+2	black	2	Aww! My mom packed a terrible lunch: _{U} and _.
+2	green	1	Hello, my name is _{T}.
 2	black	2	Scientists are trying to end world hunger by turning _ into _.
 2	black	1	In protest, Gandhi swore to abstain from _.
 2	green	1	I hate to hear you talk about all women as if they were _ instead of rational creatures.
@@ -1731,32 +1731,32 @@
 2	green	2	When _ in the slums of Hong Kong, make sure you are _.
 2	black	1	Work on the Taft bridge ground to a halt, due to the union’s demands for _.
 2	green	1	So long as you have _ in your mouth, you have solved all questions for the time being.
-2	black	1	_ can be eaten most successfully if you inhale it like a vacuum cleaner.
+2	black	1	_{U} can be eaten most successfully if you inhale it like a vacuum cleaner.
 2	black	1	The most remarkable thing about my mother is that for 30 years she served my family nothing but _.
 2	black	1	The best comfort food will always be greens, _, and fried chicken.
 2	black	1	I’m at the age where _ has taken the place of sex in my life. In fact, I’ve just had a mirror put over my kitchen table.
 2	green	2	There is no spectacle more appealing than that of _ in the act of cooking _ for someone she loves.
 2	black	1	Jan Sobieski, leading the largest cavalry charge in history, rode into battle atop _.
-2	black	1	_ has proven extremely popular among young audiences in focus testing.
+2	black	1	_{U} has proven extremely popular among young audiences in focus testing.
 2	black	1	New Lime Xtreme™ soda: now full of _ and electrolytes.
-2	green	2	_ will get you everywhere; except into _.
-2	black	1	That’s Captain Rogers the Rancorous of “_,” the finest ship in the harbor!
+2	green	2	_{U} will get you everywhere; except into _.
+2	black	1	That’s Captain Rogers the Rancorous of “_{T},” the finest ship in the harbor!
 2	green	1	A balanced diet is _ in each hand.
 2	green	1	You can’t keep mocking a man without now and then stumbling on _.
 2	black	2	Thanks to a new grant, _ has fixed every problem we had with our implementation of _.
 2	green	2	Upon opening _ left by my mother, I came face to face with _.
 2	green	2	What do I gotta do to get _ around here? Start _?!
-2	green	2	Which came first: _ or _?
+2	green	2	Which came first: _{U} or _?
 2	green	2	One can keep _ so long as one hasn’t _.
 2	green	3	Who needs _ and _ when _ can do the job of both?
 2	black	1	No respect. No respect! What am I, _?
-1	black	1	Nancy Drew and the Mystery of _.
+1	black	1	Nancy Drew and the Mystery of _{T}.
 1	black	1	McDonald’s combo menu #3: Double Quarter Pounder with Cheese, a large Coke, and a side of _.
-1	black	1	New extreme Mountain Dew flavor: _ Blast!
+1	black	1	New extreme Mountain Dew flavor: _{T} Blast!
 1	green	1	Do not make sexual advances unless you are given _.
 1	green	1	The key is to choose _ wisely instead of being enslaved by the whims of the many.
 1	black	2	Outrageous new comedy: 2 best friends and _ take a road trip, and discover _ along the way.
-1	black	1	You evaded my “_” attack! Most impressive.
+1	black	1	You evaded my “_{T}” attack! Most impressive.
 1	black	1	Once in a great while mankind unlocks a secret so profound that our future is altered forever. Fire, electricity, _.
 1	black	1	Authorities were tallying damage from _ that struck southern California Friday evening.
 1	black	1	In Brea several people suffered minor injuries during _ that overturned their car.
@@ -1780,10 +1780,10 @@
 1	green	1	The golden moments in the stream of life rush past, and we see nothing but _.
 1	green	2	Every man who is not _, a mathematician, or _ is the slave of some woman or other.
 1	green	1	Listen now, I put _ on one leg at a time, just like everybody else!
-1	black	1	_, like other dramatic spectacles, might possibly cease for want of a “public.”
+1	black	1	_{U}, like other dramatic spectacles, might possibly cease for want of a “public.”
 1	green	1	People glorify all sorts of _ except _ they might show on behalf of their nearest neighbors.
 1	black	2	To the stilled Earth say, “_”. To the rushing water speak, “_”.
-1	black	1	_ makes good neighbors.
+1	black	1	_{U} makes good neighbors.
 1	black	2	The tastiest part of _ is _.
 1	black	3	These wounds were given to me by the beast of legend. Part of it was _, part was _, and it was crowned with _.
 1	black	3	Early rugby’s rules: carry the ball as _, score points by crossing _, and _ shall not be on the field.
@@ -1794,17 +1794,17 @@
 1	black	3	If man is _, then the devil is _ and God is _.
 1	black	1	The school district had to pay a lot of hush money to parents after the “_” incident in the science lab.
 1	black	1	... And so my mom asked me, “if all your friends were _, would you be _ as well?”
-1	black	1	Oh dear God! That was the last of my medication for “_” syndrome!
+1	black	1	Oh dear God! That was the last of my medication for “_{T}” syndrome!
 1	black	1	Squad, circle up. It’s time to talk _.
 1	green	2	Having already overcome _, finally surpassing _ was the crowning achievement of her long career.
 1	black	1	The way to the lost city was perilous, and we soon found ourselves knee deep in _.
 1	black	1	Then God said, “Let there be _”; and there was _. And God saw that _ was good.
 1	black	2	But of the tree of knowledge of _ and _ you shall not eat, for in the day you eat of it you shall surely die.
-1	green	2	On the Space Mountain ride something was coming at me. It was _. Smiling with big teeth. And I said, “THAT’S NOT _!”
+1	green	2	On the Space Mountain ride something was coming at me. It was _. Smiling with big teeth. And I said, “THAT’S NOT _{UU}!”
 1	green	1	Sorry I left my mic next to _.
 1	green	1	Not all men are _.
 1	green	2	Only a few men are _. The rest are _.
-1	green	1	_ you enjoy wasting is not wasted.
+1	green	1	_{U} you enjoy wasting is not wasted.
 1	black	1	Use your eyes, ears, and _ before you use your mouth!
 1	black	2	The new summer blockbuster targeted at tweens features a girl with _ and a mysterious boy who fights _.
 1	black	1	But I promised my kids they could get _ for Christmas!
@@ -2023,7 +2023,7 @@
 1	white	0	the Wendigo
 1	white	0	Yakety Sax
 1	white	0	a ziggurat made of torsos
-1	black	1	Whoa, whoa, whoa... _ is not on trial here!
+1	black	1	Whoa, whoa, whoa... _{U} is not on trial here!
 1	white	0	Machine Gun Betty
 1	white	0	keepin’ it warm in the cooch
 1	white	0	quiet poots
@@ -2061,7 +2061,7 @@
 1	white	0	your name
 1	white	0	a back-breaking zit
 1	green	1	Opening _ takes pressure off _.
-1	green	2	_ upstairs is pushing the buttons, and if _ happens to be on that button, well, thank you.
+1	green	2	_{U} upstairs is pushing the buttons, and if _ happens to be on that button, well, thank you.
 1	white	0	squirting acid
 1	black	1	When I told my father he shouted, “No daughter of mine is going out with _!”
 1	white	0	a traffic cop
@@ -2154,12 +2154,12 @@
 1	white	0	an angry penis for the woman
 1	white	0	an angry buttplug for the man
 1	white	0	caressing a beautiful face
-1	black	1	_ is not horrible if a child is doing it.
+1	black	1	_{U} is not horrible if a child is doing it.
 1	white	0	rubbing my gland
 1	white	0	the coal chute
 1	white	0	thirst
 1	white	0	being controlled by a child
-1	black	1	The new self-help fad: Better Living Through _!
+1	black	1	The new self-help fad: Better Living Through _{T}!
 1	black	1	Can I get some floss? There’s _ between my teeth.
 1	white	0	a child section
 1	white	0	becoming an adult
@@ -2169,13 +2169,13 @@
 1	white	0	a truck full of ladders
 1	white	0	tiny uranium rods
 1	white	0	rolling a golf cart
-1	black	3	The three techniques of Sumo Wrestling: _, _ and _.
+1	black	3	The three techniques of Sumo Wrestling: _{U}, _ and _.
 1	white	0	female breast tissue
 1	white	0	porn of people from around the office
 1	white	0	blacking out and making a sex sound
 1	white	0	Christopher Lloyd holding a dog
 1	black	2	Let _ host your next party, providing _ like you’ve never seen before.
-1	black	2	Enjoy _ with a brand new twist: _.
+1	black	2	Enjoy _ with a brand new twist: _{U}.
 1	green	1	Banquet style dining: the buttermilk, the classic, _.
 1	green	1	Don’t stand downwind of me! I have _.
 1	white	0	a tiny bat crawling up your peehole
@@ -2242,14 +2242,14 @@
 1	white	0	doing things to the body
 1	white	0	why I suck at this job
 1	white	0	ichor from a bug’s gland
-1	black	2	I got a new app on my phone. It’s called “_” and it helps me with _.
+1	black	2	I got a new app on my phone. It’s called “_{T}” and it helps me with _.
 1	white	0	a traffic cone full of bibimbap
 1	black	1	CAUTION: Keep _ out of hopper and chute opening. Failure to comply risks personal injury.
 1	white	0	impacting my sister
 1	white	0	a fish choad
 1	white	0	pooping in the Dutch oven
 1	white	0	finding a safe place
-1	black	1	_: It’s nature’s candy!
+1	black	1	_{U}: It’s nature’s candy!
 1	white	0	nature’s candy
 1	black	1	It’s lucky to touch _; it’s even luckier to touch someone else’s.
 1	white	0	wallowing in the pee

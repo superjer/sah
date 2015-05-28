@@ -1,3 +1,4 @@
+var version = null;
 var $xhr = null;
 var to = null;
 var clock = 0;
@@ -12,6 +13,7 @@ var movement = 0;
 var chosen = 0;
 var blackid = 0;
 var blacktxt = '';
+var blackhtml = '';
 var myscore = 0;
 
 var url = 'http://www.superjer.com:1337/';
@@ -58,9 +60,16 @@ function checkin( json )
     movement = 0;
 
     socket.emit( json.action, json );
+
+    to = setTimeout(checkin, 15000);
 }
 
 socket.on('state', function(d){
+
+    if( version === null )
+        version = d.version;
+
+    if( version != d.version ) { window.location.reload(); return; }
 
     if( d.msg ) { err( d.msg ); return; }
 
@@ -150,7 +159,6 @@ socket.on('state', function(d){
         else
             $('.norooms').hide();
 
-        // to = setTimeout( checkin, 9000 );
         return;
     }
 
@@ -181,11 +189,15 @@ socket.on('state', function(d){
     if( blackid != black.cardid || blacktxt != black.txt )
     {
         blackid = black.cardid;
-        blacktxt = black.txt.replace(/_/g, '<span class=blank>________</span>');
+        blacktxt = black.txt;
+        blackhtml = black.txt.replace(
+            /_({([^}]+)})?/g,
+            '<span class=blank flags="$2">________</span>'
+        );
 
         var $black = $('.blackcard');
         $black.attr('blackid',blackid);
-        $black.find('.cardtxt').html(blacktxt);
+        $black.find('.cardtxt').html(blackhtml);
         $black.find('.num div').text(black.num);
     }
 
@@ -271,7 +283,7 @@ socket.on('state', function(d){
             $('.abandon').css('display','none').removeAttr('disabled').text('Abandon');
             $('.confirm').css('display','none').attr('disabled',true);
             $('.draggable').draggable('disable');
-            $('.wintitle').text( amczar ? 'You are the Czar. Choose the winner:' : 'Waiting for Czar '+czar+' to choose...' );
+            $('.wintitle').text( amczar ? 'You are the Czar. Choose your favorite:' : 'Waiting for Czar '+czar+' to choose...' );
     }
 
     if( game.state == 'select' && amczar )
@@ -302,16 +314,12 @@ socket.on('state', function(d){
                 }
 
                 var color = ' style="background-color: rgb('+r+','+g+','+b+')"';
-                var txt = card.txt.charAt(0).toUpperCase() + card.txt.slice(1);
-
-                if( txt.match(/[0-9a-zA-Z]$/) )
-                        txt += '.';
-
                 var $elem = $(
                     '<div class="card draggable" cardid=' + card.cardid + color + '>'
-                    +   '<div class="cardtxt">' + txt + '</div>'
+                    +   '<div class=cardtxt>' + pretty_white(card.txt) + '</div>'
                     + '</div>'
                 );
+
                 $card.replaceWith($elem);
                 dragme($elem);
             }
@@ -327,12 +335,12 @@ socket.on('state', function(d){
         var repop = false;
         var $cons = $('.contenders');
 
-        for( i in d.consider )
+        for( var i in d.game.consider )
         {
-            for( j in d.consider[i].cards )
+            for( var j in d.game.consider[i].cards )
             {
                 ttlcons++;
-                if( $cons.find('[cardid='+d.consider[i].cards[j].cardid+']').length < 1 )
+                if( $cons.find('[cardid='+d.game.consider[i].cards[j].cardid+']').length < 1 )
                     repop = true;
             }
         }
@@ -340,114 +348,155 @@ socket.on('state', function(d){
         if( ttlcons != $cons.find('.card').length )
             repop = true;
 
-        if( repop )
-        {
+        if( repop ) {
             $cons.html('');
-            for( i in d.consider )
-            {
-                $cont = $('<div class="aset" playerid='+d.consider[i].playerid+'></div>');
-                $cont.attr('repltxt',d.consider[i].repltxt);
+            for( var i in d.game.consider ) {
+                $cont = $('<div class=aset></div>');
+                $cont.attr('idx', i);
 
-                for( j in d.consider[i].cards )
-                {
-                    var card = d.consider[i].cards[j];
+                if( !d.game.consider[i].visible )
+                    $cont.addClass('mystery');
+
+                for( var j in d.game.consider[i].cards ) {
+                    var card = d.game.consider[i].cards[j];
                     $elem = $(
                         "<div class=card>" +
                         " <div class=cardtxt></div>" +
                         "<div>"
                     );
-                    $elem.attr('cardid',card.cardid);
-                    $elem.find('.cardtxt').text(card.txt);
+                    $elem.attr('cardid', card.cardid);
+                    $elem.attr('raw', card.txt);
+                    $elem.find('.cardtxt').text(pretty_white(card.txt));
                     $cont.append($elem);
-                    if( card.state=='hidden' )
-                        $cont.addClass('mystery');
                 }
 
                 $cons.append($cont);
             }
 
-            $('.aset').click(function(event)
-            {
-                var $cards = $(this).find('.card');
-                var $bct = $('.selectwin .blackcard .cardtxt');
-                var playerid = $(this).attr('playerid');
-                var $aset = $('.aset[playerid='+playerid+']');
+            $('.aset').click(function(event) {
+                var $aset = $(this);
+                var $cards = $aset.find('.card');
+                var idx = $aset.attr('idx');
 
                 if( !amczar && $aset.hasClass('mystery') )
                     return;
 
                 $('.aset').removeClass('potential');
                 $aset.addClass('potential');
-                $bct.html($(this).attr('repltxt'));
+                black_insert($aset);
 
-                if( !amczar ) return;
+                if( !amczar )
+                    return;
 
                 $aset.removeClass('mystery');
-                $('.confirm').removeAttr('disabled');
-                checkin( {action:'reveal', playerid:playerid} );
-                chosen = playerid;
-                quickly = true;
+
+                if( $('.selectwin .mystery').length < 1 )
+                    $('.confirm').removeAttr('disabled');
+
+                checkin( {action:'reveal', idx:idx} );
+                chosen = idx;
             });
 
-            $('.selectwin .blackcard').click(function(event)
-            {
+            $('.selectwin .blackcard').click(function(event) {
                 chosen = 0;
                 $('.aset').removeClass('potential');
-                $('.selectwin .blackcard .cardtxt').html(blacktxt);
+                $('.selectwin .blackcard .cardtxt').html(blackhtml);
             });
-        }
-        else // no repop
-        {
-            for( i in d.consider )
-            {
-                for( j in d.consider[i].cards )
-                {
-                    var playerid = d.consider[i].playerid;
-                    var card = d.consider[i].cards[j];
-
-                    if( card.state=='consider' )
-                        $('.aset[playerid='+playerid+']').removeClass('mystery');
-                }
+        } else { // no repop
+            for( var i in d.game.consider ) {
+                if( d.game.consider[i].visible )
+                    $('.aset[idx=' + i + ']').removeClass('mystery');
             }
         }
 
-        if( game.winner > 0 )
-        {
+        if( typeof game.favorite == 'number' ) {
             $('.aset').removeClass('potential');
-            $('.aset[playerid='+game.winner+']').addClass('winner');
-            $('.wintitle').text('A winner is '+game.winnername+'!');
-        }
-        else if( game.state == 'bask' )
-        {
-            $('.wintitle').text('No winner. Round abandoned. Cards returned to hands.');
+            $('.aset[idx='+game.favorite+']').addClass('favorite');
+            $('.wintitle').text('A favorite is ' + game.favname + '!');
+        } else if( game.state == 'bask' ) {
+            $('.wintitle').text('No winner. Round abandoned.');
         }
     }
-
-    var ms = quickly ? 10 : 9000;
-    quickly = false;
-    to = setTimeout( checkin, ms );
 });
 
-function err(s)
-{
+function err(s) {
     $('.err span').html(s);
     $('.err').show()
         .css({'background-color':'yellow','color':'black'})
         .animate({'background-color':'red','color':'white'});
 }
 
-function upclock()
-{
-    $clock.text( ++clock );
+function black_insert($aset) {
+    var $bct = $('.selectwin .blackcard .cardtxt');
+    var $wcts = $aset.find('.card');
+    var i = 0;
+    $bct.find('.blank').each(function() {
+        var raw = $wcts.eq(i).attr('raw');
+        var flags = $(this).attr('flags');
+
+        // uppercase first letter
+        if( flags.indexOf('U') > -1 )
+            raw = raw.charAt(0).toUpperCase() + raw.slice(1);
+
+        // uppercase EVERYTHING
+        if( flags.indexOf('UU') > -1 )
+            raw = raw.toUpperCase();
+
+        // lowercase all
+        if( flags.indexOf('u') > -1 )
+            raw = raw.toLowerCase();
+
+        // title case
+        if( flags.indexOf('T') > -1 )
+            raw = titlecase(raw);
+
+        // convert non-alphanum to dashes (like in a domain)
+        if( flags.indexOf('-') > -1 )
+            raw = raw.replace(/[^A-Za-z0-9]+/g, '-');
+
+        // strip trailing punctuation
+        if( flags.indexOf('.') > -1 )
+            raw = raw.replace(/[!?.]+$/, '-');
+
+        $(this).text(raw);
+        if( i+1 < $wcts.length )
+            i++;
+    });
 }
 
-$(function()
-{
+function pretty_white(txt) {
+    txt = txt.charAt(0).toUpperCase() + txt.slice(1);
+    if( txt.match(/[0-9a-zA-Z]$/) )
+        txt += '.';
+    return txt;
+}
+
+function titlecase(txt) {
+    var lowwords = [
+        'a', 'an', 'the',
+        'and', 'but', 'or', 'nor', 'for', 'yet', 'so',
+        'as', 'at', 'by', 'from', 'in', 'into', 'like', 'of', 'off', 'on', 'onto', 'out',
+        'over', 'per', 'sans', 'than', 'till', 'to', 'unto', 'up', 'upon', 'via', 'with'
+    ];
+    var list = txt.split(/\s+/);
+    txt = "";
+    for( var i in list ) {
+        var word = list[i];
+        if( i == 0 || i == list.length - 1 || lowwords.indexOf(word.toLowerCase()) == -1 )
+            txt += word.charAt(0).toUpperCase() + word.slice(1) + " ";
+        else
+            txt += word + " ";
+    }
+
+    return txt.trim();
+}
+
+$(function() {
     dropme( $(".slot") );
     dragme( $(".draggable") );
     checkin();
     $clock = $('.clock');
-    setInterval( upclock, 1002 );
+    setInterval( function(){ $clock.text(++clock) }, 1002 );
 
     if( 'ontouchstart' in document )
       $('button.scale').show();
@@ -456,10 +505,9 @@ $(function()
     $('.callit' ).click( function(){ checkin({action:'callit' }); quickly = true; } );
     $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
     $('.abandon').click( function(){ checkin({action:'abandon'}); $('.abandon').attr('disabled',true); } );
-    $('.confirm').click( function(){ checkin({action:'choose', playerid:chosen}); quickly = true; $('.confirm').attr('disabled',true); } );
+    $('.confirm').click( function(){ checkin({action:'choose', idx:chosen}); quickly = true; $('.confirm').attr('disabled',true); } );
 
-    $('.leave'  ).click(function()
-    {
+    $('.leave'  ).click(function() {
         var msg = 'Exit this room?';
 
         if( myscore == 1 )
@@ -467,8 +515,7 @@ $(function()
         else if( myscore > 1 )
             msg += ' You will lose your points!';
 
-        if( game.state == 'champ' || confirm(msg) )
-        {
+        if( game.state == 'champ' || confirm(msg) ) {
             checkin({action:'leave'  });
             quickly = true;
         }
@@ -476,8 +523,7 @@ $(function()
 
     var scale = 'thin';
 
-    $('.scale').click(function()
-    {
+    $('.scale').click(function() {
         var wide = "width=1175, user-scalable=no, maximum-scale=1, minimum-scale=1"
         var thin = "width=720, user-scalable=yes"
         var content;
@@ -488,8 +534,7 @@ $(function()
         $('head meta[name=viewport]').attr('content', content);
     });
 
-    $('.create').click(function()
-    {
+    $('.create').click(function() {
         var n = $('input#name');
         var p = $('input#pass');
         var goal = $('input#goal');
@@ -498,8 +543,7 @@ $(function()
         var abandonsecs = $('input#abandonsecs');
         var slowstart = $('input#slowstart');
 
-        if( n.val() )
-        {
+        if( n.val() ) {
             checkin({
                 action:'create',
                 game:{
@@ -519,15 +563,13 @@ $(function()
         }
     });
 
-    $('.help').click( function()
-    {
+    $('.help').click( function() {
         var newwin = window.open("./help.html", 'Help', 'height=600,width=500,location=0,menubar=0,status=0,toolbar=0,scrollbars=1,resizable=1,top=200,left=400');
         if( window.focus ) { newwin.focus(); }
         return false;
     });
 
-    $(document).on('click', '.lobbywin table button', function()
-    {
+    $(document).on('click', '.lobbywin table button', function() {
         checkin({
             action: 'join',
             gameid: $(this).closest('tr').attr('gameid'),
@@ -535,16 +577,14 @@ $(function()
         });
     } );
 
-    $('.jointab').click( function()
-    {
+    $('.jointab').click( function() {
         $('.lobbywin li').removeClass('selected');
         $(this).addClass('selected');
         $('.createpage').hide();
         $('.joinpage').show();
     } );
 
-    $('.createtab').click( function()
-    {
+    $('.createtab').click( function() {
         $('.lobbywin li').removeClass('selected');
         $(this).addClass('selected');
         $('.joinpage').hide();

@@ -338,9 +338,6 @@ button.scale {
 .mystery .cardtxt {
   visibility:hidden;
 }
-.mystery {
-  display:none;
-}
 .aset {
   float:left;
   box-shadow:1px 1px 6px 0 #777;
@@ -368,7 +365,7 @@ a.help {
 .play.czarbg .holder {
   background: url('czarbg.png') no-repeat center center;
 }
-.aset.winner .card {
+.aset.favorite .card {
   text-shadow: 0 1px 1px white;
   background: #f7d683; /* Old browsers */
   background: -moz-linear-gradient(-45deg,  #f7d683 0%, #fceabb 14%, #fceabb 16%, #ffffff 26%, #ffffff 35%, #fceabb 39%, #fccd4d 56%, #f8b500 59%, #aa5200 97%); /* FF3.6+ */
