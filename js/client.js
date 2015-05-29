@@ -19,8 +19,7 @@ var myscore = 0;
 var url = 'http://www.superjer.com:1337/';
 var socket = io.connect(url);
 
-function dropme($x)
-{
+function dropme($x) {
     $x.droppable({
         tolerance: "intersect",
         drop: function( event, ui ) {
@@ -41,8 +40,7 @@ function dropme($x)
     });
 }
 
-function dragme($x)
-{
+function dragme($x) {
     $x.draggable({
         revert: "invalid",
         stack: ".draggable",
@@ -50,8 +48,7 @@ function dragme($x)
     .disableSelection();
 }
 
-function checkin( json )
-{
+function checkin( json ) {
     clearTimeout(to);
     to = setTimeout(checkin, 5000);
 
@@ -68,13 +65,12 @@ function checkin( json )
 }
 
 socket.on('state', function(d){
+    if( d.msg ) { err( d.msg ); return; }
 
     if( version === null )
         version = d.version;
 
     if( version != d.version ) { window.location.reload(); return; }
-
-    if( d.msg ) { err( d.msg ); return; }
 
     console.log(d);
 
@@ -393,15 +389,13 @@ function list_games() {
 
         if( $(trsel).length == 0 )
             $('.lobbywin table tbody').append( $(
-                "<tr gameid=" + lob.gameid + ">"
+                "<tr gameid=" + lob.gameid + " pass=" + lob.pass + ">"
                 + "<td></td>"
                 + "<td></td>"
                 + "<td></td>"
                 + "<td></td>"
                 + "<td></td>"
                 + "<td></td>"
-                + "<td>" + (lob.pass ? "<input type=text value='' placeholder=password>" : "") + "</td>"
-                + "<td><button gameid=" + lob.gameid + ">Join</button></td>"
                 + "</tr>"
             ) );
 
@@ -411,7 +405,7 @@ function list_games() {
         $td.eq(1).text( round );
         $td.eq(2).text( players );
         $td.eq(3).text( lob.high );
-        $td.eq(4).text( round + ', ' + players );
+        $td.eq(4).text( round + ', ' + players + ', ' + status );
         $td.eq(5).text( status );
     }
 
@@ -576,11 +570,19 @@ $(function() {
         return false;
     });
 
-    $(document).on('click', '.lobbywin table button', function() {
+    $(document).on('click', '.lobbywin table tr', function() {
+        var pass = '';
+
+        if( $(this).attr('pass') == '1' ) {
+            pass = prompt('Enter password');
+            if( typeof pass != 'string' )
+                return;
+        }
+
         checkin({
             action: 'join',
-            gameid: $(this).closest('tr').attr('gameid'),
-            pass: $(this).closest('tr').find('input').val()
+            gameid: $(this).attr('gameid'),
+            pass: pass
         });
     } );
 
