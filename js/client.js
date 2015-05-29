@@ -80,88 +80,11 @@ socket.on('state', function(d){
 
     if( d.lobby )
     {
+        lobby = d.lobby;
         game = null;
         $('.win').hide();
         $('.lobbywin, .shade').show();
-        $('.lobbywin tr').attr('hit', 0);
-        $('.lobbywin tr').eq(0).attr('hit', 1);
-
-        var html = '';
-
-        for( var l in d.lobby )
-        {
-            var lob = d.lobby[l];
-            var trsel = '.lobbywin tr[gameid=' + lob.gameid + ']';
-            var status = lob.state == 'champ' ? 'game over' :
-                         lob.secs > 600       ? 'crickets'  :
-                         lob.secs > 240       ? 'simmer'    :
-                                                'active'    ;
-
-            if( l > 1000 )
-              break;
-
-            if( $('input.activeonly').is(':checked') && status != 'active' && status != 'simmer' )
-              continue;
-
-            var filter = $('input.filter').val().split(' ');
-            var valids = 0;
-            var matches = 0;
-            for( var x in filter ) {
-              var word = filter[x].toLowerCase();
-              if( word.length < 1 )
-                continue;
-              valids++;
-              if( lob.name.toLowerCase().indexOf(word) > -1 )
-                matches++;
-            }
-
-            if( valids > matches )
-             continue;
-
-            var round = lob.round < 2                                  ? 'new'            :
-                        lob.round % 100 >= 11 && lob.round % 100 <= 13 ? lob.round + 'th' :
-                        lob.round % 10 == 1                            ? lob.round + 'st' :
-                        lob.round % 10 == 2                            ? lob.round + 'nd' :
-                        lob.round % 10 == 3                            ? lob.round + 'rd' :
-                                                                         lob.round + 'th' ;
-
-            var players = lob.playerids.length
-            players = players < 1 ? 'empty'                        :
-                      players < 7 ? new Array(players+1).join('⚇') :
-                                    '⚇x' + players                 ;
-
-            if( $(trsel).length == 0 )
-                $('.lobbywin table tbody').append( $(
-                    "<tr gameid=" + lob.gameid + ">"
-                    + "<td></td>"
-                    + "<td></td>"
-                    + "<td></td>"
-                    + "<td></td>"
-                    + "<td></td>"
-                    + "<td></td>"
-                    + "<td>" + (lob.pass ? "<input type=text value='' placeholder=password>" : "") + "</td>"
-                    + "<td><button gameid=" + lob.gameid + ">Join</button></td>"
-                    + "</tr>"
-                ) );
-
-            $(trsel).attr('hit', 1);
-            var $td = $(trsel).find('td');
-            $td.eq(0).html( lob.name + (lob.pass ? ' <span class=key>⚷</span>' : '') );
-            $td.eq(1).text( round );
-            $td.eq(2).text( players );
-            $td.eq(3).text( lob.high );
-            $td.eq(4).text( round + ', ' + players );
-            $td.eq(5).text( status );
-        }
-
-        // remove any games that no longer exist
-        $('.lobbywin tr[hit=0]').remove();
-
-        if( d.lobby.length == 0 )
-            $('.norooms').show();
-        else
-            $('.norooms').hide();
-
+        list_games();
         return;
     }
 
@@ -420,6 +343,89 @@ socket.on('state', function(d){
     }
 });
 
+function list_games() {
+    var html = '';
+
+    $('.lobbywin tr').attr('hit', 0);
+    $('.lobbywin tr').eq(0).attr('hit', 1);
+
+    for( var l in lobby )
+    {
+        var lob = lobby[l];
+        var trsel = '.lobbywin tr[gameid=' + lob.gameid + ']';
+        var status = lob.state == 'champ' ? 'game over' :
+                     lob.secs > 600       ? 'crickets'  :
+                     lob.secs > 240       ? 'simmer'    :
+                                            'active'    ;
+
+        if( l > 1000 )
+            break;
+
+        if( $('input.activeonly').is(':checked') && status != 'active' && status != 'simmer' )
+            continue;
+
+        var filter = $('input.filter').val().split(' ');
+        var valids = 0;
+        var matches = 0;
+        for( var x in filter ) {
+            var word = filter[x].toLowerCase();
+            if( word.length < 1 )
+            continue;
+            valids++;
+            if( lob.name.toLowerCase().indexOf(word) > -1 )
+            matches++;
+        }
+
+        if( valids > matches )
+            continue;
+
+        var round = lob.round < 2                                  ? 'new'            :
+                    lob.round % 100 >= 11 && lob.round % 100 <= 13 ? lob.round + 'th' :
+                    lob.round % 10 == 1                            ? lob.round + 'st' :
+                    lob.round % 10 == 2                            ? lob.round + 'nd' :
+                    lob.round % 10 == 3                            ? lob.round + 'rd' :
+                                                                     lob.round + 'th' ;
+
+        var players = lob.playerids.length
+        players = players < 1 ? 'empty'                        :
+                  players < 7 ? new Array(players+1).join('⚇') :
+                                '⚇x' + players                 ;
+
+        if( $(trsel).length == 0 )
+            $('.lobbywin table tbody').append( $(
+                "<tr gameid=" + lob.gameid + ">"
+                + "<td></td>"
+                + "<td></td>"
+                + "<td></td>"
+                + "<td></td>"
+                + "<td></td>"
+                + "<td></td>"
+                + "<td>" + (lob.pass ? "<input type=text value='' placeholder=password>" : "") + "</td>"
+                + "<td><button gameid=" + lob.gameid + ">Join</button></td>"
+                + "</tr>"
+            ) );
+
+        $(trsel).attr('hit', 1);
+        var $td = $(trsel).find('td');
+        $td.eq(0).html( lob.name + (lob.pass ? ' <span class=key>⚷</span>' : '') );
+        $td.eq(1).text( round );
+        $td.eq(2).text( players );
+        $td.eq(3).text( lob.high );
+        $td.eq(4).text( round + ', ' + players );
+        $td.eq(5).text( status );
+    }
+
+    // remove any games that no longer exist
+    $('.lobbywin tr[hit=0]').remove();
+
+    if( lobby.length == 0 )
+        $('.norooms').show();
+    else
+        $('.norooms').hide();
+
+    return;
+}
+
 function err(s) {
     $('.err span').html(s);
     $('.err').show()
@@ -591,6 +597,14 @@ $(function() {
         $('.joinpage').hide();
         $('.createpage').show();
     } );
+
+    $('input.activeonly').on('change', function() {
+        list_games();
+    });
+
+    $('input.filter').on('change keyup', function() {
+        list_games();
+    });
 
     $(document).on('mousemove click keydown', function() { movement++; });
 
