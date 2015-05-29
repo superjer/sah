@@ -53,15 +53,18 @@ function dragme($x)
 function checkin( json )
 {
     clearTimeout(to);
+    to = setTimeout(checkin, 5000);
 
-    if( typeof json == 'undefined' ) json = { action: 'check' };
+    if( typeof json == 'undefined' ) {
+        if( !movement )
+            return;
+        json = { action: 'check' };
+    }
 
     json.movement = movement;
     movement = 0;
 
     socket.emit( json.action, json );
-
-    to = setTimeout(checkin, 15000);
 }
 
 socket.on('state', function(d){
@@ -172,12 +175,10 @@ socket.on('state', function(d){
     {
         $('.username').text(d.username);
         $('.scoresheet p span').text(game.name);
-        var hovtext = 'Round: ' + game.round
-                    + '\nMax rounds: ' + game.maxrounds
-                    + '\nGoal score: ' + game.goal
-                    + '\nRound time: ' + game.roundsecs
-                    + '\nAbandon time: ' + game.abandonsecs
-                    + '\nPassword: ' + game.pass;
+        var hovtext = 'Round: ' + game.round + ' of ' + game.maxrounds
+                    + '\nHigh score: ' + game.high + ' / ' + game.goal
+                    + '\nRound time: ' + game.roundsecs + 's'
+                    + '\nAbandon time: ' + game.abandonsecs + 's';
         $('.scoresheet p').attr('title', hovtext);
     }
 
@@ -222,7 +223,7 @@ socket.on('state', function(d){
             var pl = d.players[i];
             var myself = (pl.playerid == d.selfid);
 
-            if( pl.idle > 1 && pl.gone && pl.score < 1 )
+            if( pl.idle > 30 && pl.gone && pl.score < 1 && !myself )
                 continue;
 
             var classes = "";
@@ -240,9 +241,9 @@ socket.on('state', function(d){
                 classes += " czar";
             }
 
-            var stat = (pl.gone ? 'Out' : pl.idle ? 'Idle' : '');
+            var stat = (pl.gone ? 'Out' : pl.idle > 10 ? 'Idle' : '');
             var whatup = (plczar ? 'Czar' : pl.whatup);
-            var title = (pl.idle ? 'title="Idle '+pl.idle+' turns"' : '');
+            var title = (pl.idle ? 'title="Idle '+pl.idle+' intervals"' : '');
             html += '<tr class="' + classes + '" ' + title + '><td>' + pl.name
                  +  '</td><td>' + stat
                  +  '</td><td>' + pl.score
@@ -273,7 +274,7 @@ socket.on('state', function(d){
             break;
 
         case 'champ':
-            $('.champwin h1').text(d.champ);
+            $('.champwin h1').text(d.game.champ);
             $('.win').hide();
             $('.champwin, .shade').show();
             break;

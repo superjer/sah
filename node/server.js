@@ -108,28 +108,36 @@ io.on('connection', function(socket) {
     var hand = [];
     var game = {};
     var game_p = {};
-    var cookies = parse_cookies(socket.handshake.headers.cookie);
 
-    if( init != 2 )
+    if( init != 2 ) {
         console.log('Connection before init!');
+        socket.emit('state', {msg:'Server not ready'});
+        socket.disconnect();
+        return;
+    }
 
+    // get logged-in state from cookies
+    var cookies = parse_cookies(socket.handshake.headers.cookie);
     playerid = +cookies['sj_id'] || +cookies['sj_t_id'];
     playername = cookies['sj_name'] || cookies['sj_t_name'];
 
     if( !playerid ) {
         console.log('Client is not logged in: ' + socket.id);
-        socket.emit('state', {msg:'Please <a href=../!login.php?return=sah>login</a> to play!'});
+        socket.emit('state', {msg:'Please <a href=../!login.php?return=sah>login</a> to play'});
         socket.disconnect();
         return;
     }
 
+    // FIXME remove -- this is just for old cookies
     if( !playername )
         playername = 'Player ' + playerid;
 
     playerlong = playername + ' (' + playerid + ')';
 
+    // FIXME -- register multiple sockets per player?
     sockets[playerid] = socket;
 
+    // existing player, or new one?
     if( playerid in players ) {
         player = players[playerid];
         game = games[player.gameid] || {};
@@ -142,22 +150,23 @@ io.on('connection', function(socket) {
             playerid: playerid,
             name: playername,
             gameid: 0,
+            czartime: 0
         };
         reset_player(player);
         players[playerid] = player;
         console.log(playerlong + ' connected');
     }
 
+    player.gone = 0;
     tell_player(player);
 
+    // player's browser is just checking in from time to time
     socket.on('check', function(data) {
         if( data.movement )
             bump_player(player);
-
-        if( process.hrtime[0] - player.time > 60 )
-            player.idle++;
     });
 
+    // player is creating a new game (room in the UI)
     socket.on('create', function(data) {
         if( player.gameid ) {
             console.log(playerlong + ' cannot create game');
@@ -167,13 +176,16 @@ io.on('connection', function(socket) {
 
         create_game(data);
         join_game();
+        player.czartime -= 100;
         new_round(game);
+        bump_player(player);
         tell_player(player);
         tell_lobby();
         console.log(playerlong + ' created game "' + game.name + '" (' + game.gameid + ')');
         changes = true;
     });
 
+    // player is trying to join a game
     socket.on('join', function(data) {
         if( !data.gameid || !games[data.gameid] ) {
             console.log(playerlong + ' tried to join non-existent game');
@@ -189,6 +201,7 @@ io.on('connection', function(socket) {
             } else {
                 game_p = games_p[game.gameid];
                 join_game();
+                bump_player(player);
                 console.log(playerlong + ' joined game "' + game.name + '" (' + game.gameid + ')');
                 changes = true;
             }
@@ -197,6 +210,7 @@ io.on('connection', function(socket) {
         tell_game(game);
     });
 
+    // player wants to draw a new card
     socket.on('draw', function(data) {
         var handcount = 0;
         var free = 0;
@@ -217,6 +231,7 @@ io.on('connection', function(socket) {
         changes = true;
     });
 
+    // player moved a card to a new position
     socket.on('move', function(data) {
         var slot = +data.slot;
         if( slot < 0 || slot > 12 ) {
@@ -241,6 +256,7 @@ io.on('connection', function(socket) {
         changes = true;
     });
 
+    // player clicked Call It button
     socket.on('callit', function(data) {
         if( playerid != game.czar ) {
             console.log(playerlong + ' is not the Czar and is trying to call');
@@ -255,6 +271,7 @@ io.on('connection', function(socket) {
         callit(game, true);
     });
 
+    // player clicked to reveal card/s
     socket.on('reveal', function(data) {
         if( playerid != game.czar ) {
             console.log(playerlong + ' is not the Czar and is trying to reveal');
@@ -274,6 +291,7 @@ io.on('connection', function(socket) {
         }
     });
 
+    // player has chosen their favorite card/s
     socket.on('choose', function(data) {
         if( playerid != game.czar ) {
             console.log(playerlong + ' is not the Czar and is trying to choose');
@@ -298,12 +316,14 @@ io.on('connection', function(socket) {
         var favid = game_p.consider[idx].playerid;
         players[favid].score++;
         game.favname = players[favid].name;
+        bump_player(player);
         tell_game(game);
         changes = true;
 
         setTimeout(function(){ new_round(game); }, 10000);
     });
 
+    // player clicked Exit button in a game
     socket.on('leave', function(data) {
         if( player.gameid ) {
             player.gameid = 0;
@@ -320,12 +340,17 @@ io.on('connection', function(socket) {
         changes = true;
     });
 
+    // player left or refreshed
     socket.on('disconnect', function() {
         player.gone = 1;
         console.log(playerlong + ' disconnected');
     });
 
+    // create a new game in the lobby
     var create_game = function(data) {
+        if( Object.keys(games).length > 1000 )
+            return;
+
         var gameid = ++maxgameid;
         game = games[gameid] = {
             gameid     : gameid,
@@ -368,10 +393,12 @@ io.on('connection', function(socket) {
             game_p.hands[playerid] = [];
 
         hand = game_p.hands[playerid];
-        bump_player(player);
+        reset_player(player);
+        whatup_player(player);
     };
 });
 
+// things to do even if no messages come in
 var heartbeat = function(){
     clearTimeout(heartto);
 
@@ -379,13 +406,19 @@ var heartbeat = function(){
         check_game(games[gameid]);
 
     for( playerid in players )
+    {
+        var player = players[playerid];
+        if( player.gameid && games[player.gameid].state == 'gather' )
+            player.idle++;
         tell_player(players[playerid]);
+    }
 
     heartto = setTimeout( heartbeat, 9000 );
 };
 
 heartto = setTimeout( heartbeat, 2000 );
 
+// check a game for problems and fix em
 var check_game = function(game) {
     var hrtime = process.hrtime()[0];
 
@@ -396,6 +429,7 @@ var check_game = function(game) {
     }
 }
 
+// initialize player on first connect or game joins
 var reset_player = function(player) {
     player.score = 0;
     player.idle = 0;
@@ -403,9 +437,9 @@ var reset_player = function(player) {
     player.abandon = 0;
     player.whatup = 0;
     player.time = process.hrtime()[0];
-    player.czartime = process.hrtime()[0];
 };
 
+// figure out how many cards a player has up
 var whatup_player = function(player) {
     player.whatup = 0;
     if( !player.gameid ) return;
@@ -419,18 +453,21 @@ var whatup_player = function(player) {
     }
 };
 
+// keep track of the last time we heard from a player
 var bump_player = function(player) {
-    player.time = process.hrtime[0];
+    player.time = process.hrtime()[0];
     player.idle = 0;
     player.gone = 0;
 };
 
+// send updates to all players in the lobby
 var tell_lobby = function() {
     for( playerid in players )
         if( !players[playerid].gameid )
             tell_player(players[playerid]);
 };
 
+// send updates to all players in a game
 var tell_game = function(game) {
     for( pidx in game.playerids ) {
         var p = game.playerids[pidx];
@@ -438,6 +475,7 @@ var tell_game = function(game) {
     }
 };
 
+// send updates to one player
 var tell_player = function(player) {
     var socket = sockets[player.playerid];
     var hrtime = process.hrtime()[0];
@@ -469,38 +507,52 @@ var tell_player = function(player) {
     });
 };
 
+// begin a new round in a particular game
 var new_round = function(game) {
     var game_p = games_p[game.gameid];
-    var blackid = game_p.blist.pop();
-
-    game.black = cards[blackid];
     var next = null;
+    var winning = [];
 
     for( pidx in game.playerids ) {
         var playerid = game.playerids[pidx];
         var player = players[playerid];
 
-        if( game.high < player.score )
+        if( game.high < player.score ) {
+            winning = [player];
             game.high = player.score;
+        } else if( game.high == player.score ) {
+            winning.push(player);
+        }
 
-        if( !next || next.czartime > player.czartime )
+        if( !next || next.czartime > player.czartime || next.gone > player.gone )
             next = player;
     }
 
-    game.round++;
-    game.state = 'gather';
-    game.czar = next.playerid;
+    var overtime = (game.round >= game.maxrounds || game.high >= game.goal);
+
+    if( winning.length == 1 && overtime ) {
+        game.state = 'champ';
+        game.champ = get_champ_msg(winning[0]);
+    } else {
+        var blackid = game_p.blist.pop();
+        game.black = cards[blackid];
+        game.round++;
+        game.state = 'gather';
+        game.czar = next.playerid;
+        next.czartime = process.hrtime()[0];
+    }
+
     game.time = process.hrtime()[0];
     game.secs = 0;
     game.favorite = null;
     game.consider = [];
     game_p.consider = [];
-    next.czartime = process.hrtime()[0];
 
     tell_game(game);
     changes = true;
 };
 
+// call it, if possible; collect any cards that are up and switch to 'select' state
 var callit = function(game, human) {
     var secs = process.hrtime()[0] - game.time;
     var enough = 0;
@@ -552,6 +604,7 @@ var callit = function(game, human) {
 
         game.consider.push(set);
         game_p.consider.push(set_p);
+        whatup_player(players[pot.playerid]);
     }
 
     game.state = 'select';
@@ -559,6 +612,29 @@ var callit = function(game, human) {
     tell_game(game);
 };
 
+// generate a game-over message
+var get_champ_msg = function(player) {
+    var msgs = [
+        '%n cheated!',
+        'Cheats detected on %n\'s computer!',
+        '%n had the best cheats',
+        '%n only had to cheat a little to win',
+        '%n cheated the most',
+        '%n was probably just cheating',
+        'Nice cheats, %n',
+        'No one cheated as well as %n',
+        'Someone check %n for cheats',
+        '%n was cheating and then won. Coincidence?',
+        '%n cheated %s times',
+        '%n: enjoy your points. You won all %s of them fairly, after all.',
+        '%s cheers* for %n! (*cheats)',
+        '%s points? Sounds like a cheater\'s score, %n',
+    ];
+    var i = Math.floor(Math.random() * msgs.length);
+    return msgs[i].replace('%n', player.name).replace('%s', player.score);
+};
+
+// return input array, shuffled without bias
 var shuffle = function(arr) {
     var len = arr.length;
     while( len ) {
@@ -571,6 +647,7 @@ var shuffle = function(arr) {
     return arr;
 };
 
+// parse a string from a Cookie: header
 function parse_cookies(str) {
     var out = {};
     str && str.split(';').forEach(function(x) {
