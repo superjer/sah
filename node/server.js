@@ -323,6 +323,11 @@ io.on('connection', function(socket) {
         setTimeout(function(){ new_round(game); }, 10000);
     });
 
+    // player has requested to abandon the round
+    socket.on('abandon', function(data) {
+        console.log(data);
+    });
+
     // player clicked Exit button in a game
     socket.on('leave', function(data) {
         if( player.gameid ) {
@@ -427,6 +432,9 @@ var check_game = function(game) {
         new_round(game);
         console.log('Game "' + game.name + '" (' + game.gameid + ') went stale!');
     }
+
+    if( game.state == 'gather' )
+        callit(game, false);
 }
 
 // initialize player on first connect or game joins
@@ -564,6 +572,9 @@ var callit = function(game, human) {
         return;
 
     if( !human && secs < game.roundsecs )
+        return;
+
+    if( !human && game.slowstart && game.round == 1 )
         return;
 
     // find if there are enough cards in
