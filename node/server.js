@@ -250,6 +250,10 @@ io.on('connection', function(socket) {
             }
         }
 
+
+        var mintime = process.hrtime()[0] - game.roundsecs + 5;
+        if( game.time < mintime )
+            game.time = mintime;
         whatup_player(player);
         bump_player(player);
         tell_game(game);
@@ -325,7 +329,11 @@ io.on('connection', function(socket) {
 
     // player has requested to abandon the round
     socket.on('abandon', function(data) {
-        console.log(data);
+        if( !game || game.state != 'select' || player.abandon )
+            return;
+
+        player.abandon = 1;
+        maybe_abandon(game);
     });
 
     // player clicked Exit button in a game
@@ -426,16 +434,84 @@ heartto = setTimeout( heartbeat, 2000 );
 // check a game for problems and fix em
 var check_game = function(game) {
     var hrtime = process.hrtime()[0];
+    var game_p = games_p[game.gameid];
+    game.secs = hrtime - game.time;
 
     // Check for stale games -- i.e. where a setTimeout never went off
-    if( game.state == 'bask' && hrtime - game.time > 15 ) {
+    if( game.state == 'bask' && game.secs > 15 ) {
         new_round(game);
         console.log('Game "' + game.name + '" (' + game.gameid + ') went stale!');
     }
 
+    // automatically call the round if possible
     if( game.state == 'gather' )
         callit(game, false);
+
+    // delete unused games
+    if( game.secs > 60*60*3 ) {
+        delete_game(game);
+    }
 }
+
+var delete_game = function(game) {
+    var playerids = game.playerids;
+    var gameid = game.gameid;
+    delete games[gameid];
+    delete games_p[gameid];
+
+    for( var pidx in playerids ) {
+        var playerid = playerids[pidx];
+        var player = players[playerid];
+        player.gameid = 0;
+        tell_player(player);
+    }
+};
+
+var maybe_abandon = function(game) {
+    if( game.state != 'select' )
+        return;
+
+    var abandoners = 0;
+    var numer = 0;
+    var game_p = games_p[game.gameid];
+    var denom = game_p.consider.length;
+    var actives = [];
+
+    for( var idx in game_p.consider )
+        actives.push(game_p.consider[idx].playerid);
+
+    for( var pidx in game.playerids ) {
+        var playerid = game.playerids[pidx];
+        var player = players[playerid];
+        if( player.abandon ) {
+            abandoners++;
+            if( actives.indexOf(playerid) >= 0 )
+                numer++;
+        }
+    }
+
+    var oldratio = game.abandonratio;
+
+    if( numer > 0 )
+        game.abandonratio = '' + numer + ' / ' + denom;
+
+    var idle_abandon = (abandoners >= 2 && game.secs > game.abandonsecs * 2);
+    var active_abandon = (numer >= 2 && game.secs > game.abandonsecs);
+    var instant_abandon = (numer >= denom);
+
+    if( idle_abandon || active_abandon || instant_abandon ) {
+        console.log('Game "' + game.name + '" (' + game.gameid + ') being abandoned');
+        game.state = 'bask';
+        game.time = process.hrtime()[0];
+        tell_game(game);
+        changes = true;
+
+        setTimeout(function(){ new_round(game); }, 10000);
+    } else if( game.abandonratio != oldratio ) {
+        tell_game(game);
+        changes = true;
+    }
+};
 
 // initialize player on first connect or game joins
 var reset_player = function(player) {
@@ -524,6 +600,7 @@ var new_round = function(game) {
     for( pidx in game.playerids ) {
         var playerid = game.playerids[pidx];
         var player = players[playerid];
+        player.abandon = 0;
 
         if( game.high < player.score ) {
             winning = [player];
@@ -553,6 +630,7 @@ var new_round = function(game) {
     game.time = process.hrtime()[0];
     game.secs = 0;
     game.favorite = null;
+    game.abandonratio = null;
     game.consider = [];
     game_p.consider = [];
 

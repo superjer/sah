@@ -102,9 +102,9 @@ socket.on('state', function(d){
     }
 
     if( clock - 1 != game.secs )
-        $clock.text(clock = game.secs);
+        clock = game.secs;
 
-    var black = d.game.black;
+    var black = game.black;
 
     if( blackid != black.cardid || blacktxt != black.txt )
     {
@@ -193,7 +193,7 @@ socket.on('state', function(d){
             break;
 
         case 'champ':
-            $('.champwin h1').text(d.game.champ);
+            $('.champwin h1').text(game.champ);
             $('.win').hide();
             $('.champwin, .shade').show();
             break;
@@ -213,8 +213,8 @@ socket.on('state', function(d){
     {
         $('.abandon').css('display','block');
 
-        if( d.abandonratio )
-            $('.abandon').text(d.abandonratio);
+        if( game.abandonratio )
+            $('.abandon').text(game.abandonratio);
     }
 
     for( var i = 0; i < 13; i++ )
@@ -255,12 +255,12 @@ socket.on('state', function(d){
         var repop = false;
         var $cons = $('.contenders');
 
-        for( var i in d.game.consider )
+        for( var i in game.consider )
         {
-            for( var j in d.game.consider[i].cards )
+            for( var j in game.consider[i].cards )
             {
                 ttlcons++;
-                if( $cons.find('[cardid='+d.game.consider[i].cards[j].cardid+']').length < 1 )
+                if( $cons.find('[cardid='+game.consider[i].cards[j].cardid+']').length < 1 )
                     repop = true;
             }
         }
@@ -270,15 +270,15 @@ socket.on('state', function(d){
 
         if( repop ) {
             $cons.html('');
-            for( var i in d.game.consider ) {
+            for( var i in game.consider ) {
                 $cont = $('<div class=aset></div>');
                 $cont.attr('idx', i);
 
-                if( !d.game.consider[i].visible )
+                if( !game.consider[i].visible )
                     $cont.addClass('mystery');
 
-                for( var j in d.game.consider[i].cards ) {
-                    var card = d.game.consider[i].cards[j];
+                for( var j in game.consider[i].cards ) {
+                    var card = game.consider[i].cards[j];
                     $elem = $(
                         "<div class=card>" +
                         " <div class=cardtxt></div>" +
@@ -323,8 +323,8 @@ socket.on('state', function(d){
                 $('.selectwin .blackcard .cardtxt').html(blackhtml);
             });
         } else { // no repop
-            for( var i in d.game.consider ) {
-                if( d.game.consider[i].visible )
+            for( var i in game.consider ) {
+                if( game.consider[i].visible )
                     $('.aset[idx=' + i + ']').removeClass('mystery');
             }
         }
@@ -483,7 +483,7 @@ function titlecase(txt) {
     txt = "";
     for( var i in list ) {
         var word = list[i];
-        if( i == 0 || i == list.length - 1 || lowwords.indexOf(word.toLowerCase()) == -1 )
+        if( i == list.length - 1 || lowwords.indexOf(word.toLowerCase()) == -1 )
             txt += word.charAt(0).toUpperCase() + word.slice(1) + " ";
         else
             txt += word + " ";
@@ -497,7 +497,30 @@ $(function() {
     dragme( $(".draggable") );
     checkin();
     $clock = $('.clock');
-    setInterval( function(){ $clock.text(++clock) }, 1002 );
+    setInterval( function(){
+        clock++;
+        var clocklim = 0;
+
+        if( !game )
+            ;
+        else if( game.state == 'select' )
+            clocklim = game.roundsecs;
+        else if( game.state == 'gather' )
+            clocklim = game.abandonsecs;
+        else if( game.state == 'bask' )
+            clocklim = 10;
+
+        if( !clocklim ) {
+            $clock.text("");
+            return;
+        }
+
+        var rel = clocklim - clock;
+        var mins = Math.floor(Math.abs(rel) / 60);
+        var secs = Math.abs(rel) - mins * 60;
+        $clock.text('' + mins + ':' + (secs < 10 ? '0' + secs : secs));
+        $clock.css('color', rel < 0 ? '#d7005f' : '');
+    }, 1002 );
 
     if( 'ontouchstart' in document )
       $('button.scale').show();

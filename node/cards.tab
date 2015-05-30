@@ -1463,14 +1463,14 @@
 2	green	1	There is no greater solitude than _ unless it is that of a tiger in the jungle.
 2	black	1	My house. 8 o’clock. _{U}.
 2	green	1	_{U} is a tragedy. A million is a statistic.
-2	green	1	“_{T} Knot” is a widely recognized artistic motif attributed to the Celts.
+2	green	1	“_{UT} Knot” is a widely recognized artistic motif attributed to the Celts.
 2	green	1	If we don’t end _, _ will end us.
 2	green	2	_{U} is a necessity to a man. Woe to him who believes in _.
 2	green	2	As long as there’s _, there will be _.
 2	black	2	In the study of human anatomy, _ is the teacher of _.
 2	black	2	When _ is ready, _ will appear.
 2	black	1	Some are born with _, some achieve _, and some have _ thrust upon them.
-2	black	1	He also named a city in India “_{T}” after his dead horse.
+2	black	1	He also named a city in India “_{UT}” after his dead horse.
 2	green	1	Workers of the world unite, you have nothing to lose but _.
 2	green	1	Numberless are the world’s wonders, but none more wonderful than _.
 2	black	1	Every French soldier carries _ in his knapsack.
@@ -1510,12 +1510,12 @@
 2	black	1	I’m having a picnic no one will forget! Bring _.
 2	black	2	Don’t email me at work! Email me at my personal address: _{u-}@_{u-}.net
 2	black	1	Go, go, Gadget _{T}!
-2	black	2	I’ve been dancing to the new single by “_{T} and _{T}”.
+2	black	2	I’ve been dancing to the new single by “_{UT} and _{T}”.
 2	black	1	When the beef came at me it was like _.
 2	black	1	There is no “I” in “team” but there is an “I” in “_”.
 2	green	1	_{U}? I’m just gonna sit back and watch.
-2	green	1	A computer that’s just like you: _{T}.
-2	black	1	Class, turn to page 100 and start reading “_{T}”.
+2	green	1	A computer that’s just like you: _{UT}.
+2	black	1	Class, turn to page 100 and start reading “_{UT}”.
 2	black	2	I’d love to be locked in _ with _.
 2	green	1	Alone and afraid, I hunkered down and thought about _.
 2	black	2	When eating alone I prefer a special kind of sandwich: _{U} with _ in the middle.
@@ -1540,7 +1540,7 @@
 2	black	1	The best thing for the inside of a child is the outside of _.
 2	black	1	Kirkland mom makes $20,000 a week with _.
 2	black	1	Experts on romance say that for a happy marriage, there has to be more than _.
-2	green	1	You can’t pick up a newspaper these days without seeing a headline about _{T}.
+2	green	1	You can’t pick up a newspaper these days without seeing a headline about _.
 2	green	1	The best thing about _ is that it comes one day at a time.
 2	green	1	You can fool some of the people all the time, and you can fool all the people some of the time, but you cannot fool _.
 2	green	1	Between two evils, I always pick _.
@@ -1570,7 +1570,7 @@
 373	black	1	I met a strange lady, she made me nervous. She took me in and gave me _.
 373	green	1	Be honest with us. _{U} really gets your blood going.
 373	green	1	Its like _. You don’t want to stare, but you cant look away.
-373	black	1	_{T}: The President’s unimaginative campaign slogan.
+373	black	1	_{UT}: The President’s unimaginative campaign slogan.
 373	green	1	_{U} a day keeps the doctor away.
 373	green	1	That is not a woman! That’s _!
 373	green	1	My job is to keep _ on the table, and nobody asks me how I do it!
@@ -1645,7 +1645,7 @@
 2	green	1	Some folk want _ buttered.
 2	black	1	There is a wisdom of the head, and a wisdom of _.
 2	green	1	_{U} is the most beautiful of all lies.
-2	black	2	“_{T}”: A new sport for boys and girls with _.
+2	black	2	“_{UT}”: A new sport for boys and girls with _.
 2	green	2	Painting, n.: The art of protecting flat surfaces from _, and exposing them to _.
 2	green	1	It is easier to be faithful to _ than it is to a woman.
 2	black	1	Friendship is love without _.
@@ -1699,7 +1699,7 @@
 2	green	1	You’ve got _ in your eyes, which is probably why you can’t see ’em.
 2	black	1	The NEW Ninja Turtles include: _{U}.
 2	black	2	Aww! My mom packed a terrible lunch: _{U} and _.
-2	green	1	Hello, my name is _{T}.
+2	green	1	Hello, my name is _{UT}.
 2	black	2	Scientists are trying to end world hunger by turning _ into _.
 2	black	1	In protest, Gandhi swore to abstain from _.
 2	green	1	I hate to hear you talk about all women as if they were _ instead of rational creatures.
@@ -1740,7 +1740,7 @@
 2	black	1	_{U} has proven extremely popular among young audiences in focus testing.
 2	black	1	New Lime Xtreme™ soda: now full of _ and electrolytes.
 2	green	2	_{U} will get you everywhere; except into _.
-2	black	1	That’s Captain Rogers the Rancorous of “_{T},” the finest ship in the harbor!
+2	black	1	That’s Captain Rogers the Rancorous of “_{UT},” the finest ship in the harbor!
 2	green	1	A balanced diet is _ in each hand.
 2	green	1	You can’t keep mocking a man without now and then stumbling on _.
 2	black	2	Thanks to a new grant, _ has fixed every problem we had with our implementation of _.
@@ -1752,11 +1752,11 @@
 2	black	1	No respect. No respect! What am I, _?
 1	black	1	Nancy Drew and the Mystery of _{T}.
 1	black	1	McDonald’s combo menu #3: Double Quarter Pounder with Cheese, a large Coke, and a side of _.
-1	black	1	New extreme Mountain Dew flavor: _{T} Blast!
+1	black	1	New extreme Mountain Dew flavor: _{UT} Blast!
 1	green	1	Do not make sexual advances unless you are given _.
 1	green	1	The key is to choose _ wisely instead of being enslaved by the whims of the many.
 1	black	2	Outrageous new comedy: 2 best friends and _ take a road trip, and discover _ along the way.
-1	black	1	You evaded my “_{T}” attack! Most impressive.
+1	black	1	You evaded my “_{UT}” attack! Most impressive.
 1	black	1	Once in a great while mankind unlocks a secret so profound that our future is altered forever. Fire, electricity, _.
 1	black	1	Authorities were tallying damage from _ that struck southern California Friday evening.
 1	black	1	In Brea several people suffered minor injuries during _ that overturned their car.
@@ -1794,7 +1794,7 @@
 1	black	3	If man is _, then the devil is _ and God is _.
 1	black	1	The school district had to pay a lot of hush money to parents after the “_” incident in the science lab.
 1	black	1	... And so my mom asked me, “if all your friends were _, would you be _ as well?”
-1	black	1	Oh dear God! That was the last of my medication for “_{T}” syndrome!
+1	black	1	Oh dear God! That was the last of my medication for “_{UT}” syndrome!
 1	black	1	Squad, circle up. It’s time to talk _.
 1	green	2	Having already overcome _, finally surpassing _ was the crowning achievement of her long career.
 1	black	1	The way to the lost city was perilous, and we soon found ourselves knee deep in _.
@@ -2242,7 +2242,7 @@
 1	white	0	doing things to the body
 1	white	0	why I suck at this job
 1	white	0	ichor from a bug’s gland
-1	black	2	I got a new app on my phone. It’s called “_{T}” and it helps me with _.
+1	black	2	I got a new app on my phone. It’s called “_{UT}” and it helps me with _.
 1	white	0	a traffic cone full of bibimbap
 1	black	1	CAUTION: Keep _ out of hopper and chute opening. Failure to comply risks personal injury.
 1	white	0	impacting my sister
