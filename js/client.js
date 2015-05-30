@@ -334,7 +334,7 @@ socket.on('state', function(d){
             $('.aset[idx='+game.favorite+']').addClass('favorite');
             $('.wintitle').text('A favorite is ' + game.favname + '!');
         } else if( game.state == 'bask' ) {
-            $('.wintitle').text('No winner. Round abandoned.');
+            $('.wintitle').text('Round abandoned; cards will be returned.');
         }
     }
 });

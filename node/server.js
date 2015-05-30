@@ -250,7 +250,6 @@ io.on('connection', function(socket) {
             }
         }
 
-
         var mintime = process.hrtime()[0] - game.roundsecs + 5;
         if( game.time < mintime )
             game.time = mintime;
@@ -500,6 +499,19 @@ var maybe_abandon = function(game) {
     var instant_abandon = (numer >= denom);
 
     if( idle_abandon || active_abandon || instant_abandon ) {
+        // return cards
+        for( var idx in actives ) {
+            var playerid = actives[idx];
+            var hand = game_p.hands[playerid];
+
+            for( var c in game.consider[idx].cards )
+                for( var h = 0; h < 13; h++ )
+                    if( !hand[h] ) {
+                        hand[h] = game.consider[idx].cards[c];
+                        break;
+                    }
+        }
+
         console.log('Game "' + game.name + '" (' + game.gameid + ') being abandoned');
         game.state = 'bask';
         game.time = process.hrtime()[0];
