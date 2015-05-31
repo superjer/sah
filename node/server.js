@@ -421,7 +421,7 @@ var heartbeat = function(){
     {
         var player = players[playerid];
         if( player.gameid && games[player.gameid].state == 'gather' )
-            player.idle++;
+            player.afk++;
         tell_player(players[playerid]);
     }
 
@@ -529,6 +529,7 @@ var maybe_abandon = function(game) {
 var reset_player = function(player) {
     player.score = 0;
     player.idle = 0;
+    player.afk = 0;
     player.gone = 0;
     player.abandon = 0;
     player.whatup = 0;
@@ -552,7 +553,7 @@ var whatup_player = function(player) {
 // keep track of the last time we heard from a player
 var bump_player = function(player) {
     player.time = process.hrtime()[0];
-    player.idle = 0;
+    player.afk = 0;
     player.gone = 0;
 };
 
@@ -614,6 +615,7 @@ var new_round = function(game) {
         var player = players[playerid];
         player.abandon = 0;
 
+        // check for highest score
         if( game.high < player.score ) {
             winning = [player];
             game.high = player.score;
@@ -621,8 +623,19 @@ var new_round = function(game) {
             winning.push(player);
         }
 
-        if( !next || next.czartime > player.czartime || next.gone > player.gone )
+        // choose new czar
+        if( !next ) {
             next = player;
+        } else {
+            var cmp = function(x, y) { return x == y ? 0 : x > y ? 1 : -1; };
+
+            var score = cmp(next.czartime, player.czartime) *   1
+                      + cmp(next.idle    , player.idle    ) *  10
+                      + cmp(next.gone    , player.gone    ) * 100;
+
+            if( score > 0 )
+                next = player;
+        }
     }
 
     var overtime = (game.round >= game.maxrounds || game.high >= game.goal);
@@ -681,8 +694,12 @@ var callit = function(game, human) {
                 idxs.push(i);
         }
 
-        if( idxs.length == game.black.num )
+        if( idxs.length == game.black.num ) {
             potents.push({playerid: playerid, idxs: idxs});
+            players[playerid].idle = 0;
+        } else {
+            players[playerid].idle++;
+        }
     }
 
     // need at least two players in for the round

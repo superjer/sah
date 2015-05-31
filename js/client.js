@@ -142,7 +142,7 @@ socket.on('state', function(d){
             var pl = d.players[i];
             var myself = (pl.playerid == d.selfid);
 
-            if( pl.idle > 30 && pl.gone && pl.score < 1 && !myself )
+            if( pl.idle > 1 && pl.gone && pl.score < 1 && !myself )
                 continue;
 
             var classes = "";
@@ -160,9 +160,9 @@ socket.on('state', function(d){
                 classes += " czar";
             }
 
-            var stat = (pl.gone ? 'Out' : pl.idle > 10 ? 'Idle' : '');
+            var stat = (pl.gone ? 'Out' : pl.idle ? 'Idle' : '');
             var whatup = (plczar ? 'Czar' : pl.whatup);
-            var title = (pl.idle ? 'title="Idle '+pl.idle+' intervals"' : '');
+            var title = (pl.idle ? 'title="Idle for '+pl.idle+' turns"' : '');
             html += '<tr class="' + classes + '" ' + title + '><td>' + pl.name
                  +  '</td><td>' + stat
                  +  '</td><td>' + pl.score
