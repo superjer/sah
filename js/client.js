@@ -659,28 +659,35 @@ $(function() {
             gameid: $(this).attr('gameid'),
             pass: pass
         });
-    } );
+    });
 
     $('.jointab').click( function() {
         $('.lobbywin li').removeClass('selected');
         $(this).addClass('selected');
         $('.createpage').hide();
         $('.joinpage').show();
-    } );
+    });
 
     $('.createtab').click( function() {
         $('.lobbywin li').removeClass('selected');
         $(this).addClass('selected');
         $('.joinpage').hide();
         $('.createpage').show();
-    } );
+    });
+
+    $('.exittab').click( function() {
+        window.location.href = '../';
+    });
 
     $('input.activeonly').on('change', function() {
         list_games();
     });
 
-    $('input.filter').on('change keyup', function() {
-        list_games();
+    $('input.filter').on('change keyup', function(e) {
+        if( e.keyCode == 13 )
+            $(this).blur();
+        else
+            list_games();
     });
 
     $(document).on('mousemove click keydown', function() { movement++; });
