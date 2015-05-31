@@ -318,7 +318,7 @@ io.on('connection', function(socket) {
         game.time = process.hrtime()[0];
         var favid = game_p.consider[idx].playerid;
         players[favid].score++;
-        game.favname = players[favid].name;
+        game.roundmsg = get_round_msg(players[favid]);
         bump_player(player);
         tell_game(game);
         changes = true;
@@ -668,6 +668,7 @@ var callit = function(game, human) {
     var secs = process.hrtime()[0] - game.time;
     var enough = 0;
     var potents = [];
+    var impotents = [];
     var game_p = games_p[game.gameid];
     game_p.consider = [];
 
@@ -694,12 +695,10 @@ var callit = function(game, human) {
                 idxs.push(i);
         }
 
-        if( idxs.length == game.black.num ) {
+        if( idxs.length == game.black.num )
             potents.push({playerid: playerid, idxs: idxs});
-            players[playerid].idle = 0;
-        } else {
-            players[playerid].idle++;
-        }
+        else
+            impotents.push({playerid: playerid, idxs: idxs});
     }
 
     // need at least two players in for the round
@@ -722,7 +721,14 @@ var callit = function(game, human) {
 
         game.consider.push(set);
         game_p.consider.push(set_p);
+        players[pot.playerid].idle = 0;
         whatup_player(players[pot.playerid]);
+    }
+
+    // worthless idlers!
+    for( var i in impotents ) {
+        var impot = impotents[i];
+        players[impot.playerid].idle++;
     }
 
     game.state = 'select';
@@ -745,9 +751,72 @@ var get_champ_msg = function(player) {
         '%n was cheating and then won. Coincidence?',
         '%n cheated %s times',
         '%n: enjoy your points. You won all %s of them fairly, after all.',
-        '%s cheers* for %n! (*cheats)',
+        '%s "cheers"* for %n! (*cheats)',
         '%s points? Sounds like a cheater\'s score, %n',
     ];
+    var i = Math.floor(Math.random() * msgs.length);
+    return msgs[i].replace('%n', player.name).replace('%s', player.score);
+};
+
+// generate a round-over message
+var get_round_msg = function(player) {
+    var game = games[player.gameid];
+    var msgs = [];
+
+    if( player.score > game.high && game.high > 0 )
+        msgs = [
+            '%n is getting away with this!',
+            '%n is kicking our butts!',
+            '%n wins this one. As usual.',
+            '%n will probably win the whole thing.',
+            'Surprise! Point goes to %n!',
+            '%n fortifies superiority.',
+            '%n just keeps winning!',
+            '%s smackaroos for %n!',
+            '*Thundering boom* ... %n.',
+        ];
+    else if( player.score == game.high )
+        msgs = [
+            '%n joins Club %s.',
+            '%n ties it up.',
+            'A wily %n approaches.',
+            '%n with the upset!',
+            '%n has no respect for the establishment!',
+            '%n really wants to win!',
+            'Oh great. %n won.',
+            'The scent of %n fills the room.',
+        ];
+    else if( player.score == 1 && game.high > 0 )
+        msgs = [
+            '%n pulling into last!',
+            '%n has decided to actually play?!',
+            '%n makes a little squeaky noise.',
+            '%n can come too?',
+            'Did you know %n was playing?',
+            'Point for %n! Point! One point.',
+            '%n is doing so well!',
+            'Awww! %n got a point. Cute!',
+        ];
+    else
+        msgs = [
+            'A favorite is %n!',
+            'A winner is %n!',
+            '%n is the chosen one.',
+            '%n puts this round in that mouth and eats it.',
+            '%n has accumulated %s points!',
+            'Picking %n\'s card? Bold move.',
+            'A little beam of light shines on %n.',
+            '%n laughs and poots.',
+            '%n giggles and gets a point.',
+            '%n turns %s!',
+            'It is a good day to be %n.',
+            'Fortune smiles upon %n.',
+            '%n shares this win with all humanity!',
+            '%n wanted it the baddest!',
+            '%n is very special.',
+            '%n was the only one with good cards.',
+        ];
+
     var i = Math.floor(Math.random() * msgs.length);
     return msgs[i].replace('%n', player.name).replace('%s', player.score);
 };

@@ -332,7 +332,7 @@ socket.on('state', function(d){
         if( typeof game.favorite == 'number' ) {
             $('.aset').removeClass('potential');
             $('.aset[idx='+game.favorite+']').addClass('favorite');
-            $('.wintitle').text('A favorite is ' + game.favname + '!');
+            $('.wintitle').text(game.roundmsg);
         } else if( game.state == 'bask' ) {
             $('.wintitle').text('Round abandoned; cards will be returned.');
         }

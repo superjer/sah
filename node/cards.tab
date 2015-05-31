@@ -4,7 +4,7 @@
 2	white	0	shaved bears
 2	white	0	a weak spot
 2	white	0	a flimsy pterodactyl
-2	white	0	Hitler’s paintings
+2	white	0	in-flight entertainment
 2	white	0	butt sounds
 2	white	0	urine sprinkles
 2	white	0	solving a problem
@@ -118,16 +118,16 @@
 2	white	0	something just about right
 2	white	0	being in the way
 2	white	0	transvestite cosplay
-2	white	0	fat guys dressing up as Sailor Moon
+2	white	0	fat guys dressed as Sailor Moon
 2	white	0	being the small spoon
 2	white	0	spooning distance
 2	white	0	The Super Buttsex Arena
-2	white	0	poopmouth
-2	white	0	poopfist
-2	white	0	snow monsters
+2	white	0	little turds everywhere
+2	white	0	the hand in my pocket
+2	white	0	a pillar of salt
 2	white	0	a new reality show
 2	white	0	being a bad little boy
-2	white	0	pantaloons
+2	white	0	skin-tight leather flesh-colored pants
 2	white	0	crossing a moral boundary
 2	white	0	a moral boundary
 2	white	0	a quandary
@@ -573,7 +573,7 @@
 373	white	0	a respected neurosurgeon
 373	white	0	a three room Japanese apartment
 373	white	0	a choreographed dance
-2	white	0	a fiend
+2	white	0	sex friends
 2	white	0	a lonely grave
 2	white	0	a well-oiled machine
 2	white	0	nothing much
@@ -1155,7 +1155,7 @@
 2	white	0	a wall of spikes
 2	white	0	a snack
 2	white	0	an enjoyable life
-2	white	0	a powerful need
+2	white	0	doing things for attention
 2	white	0	a lucky toss
 2	white	0	spiking the pug
 2	white	0	a tightrope
@@ -1304,7 +1304,7 @@
 1	white	0	a paisley-printed condom
 1	white	0	acting in an irresponsible fashion
 1	white	0	a fresh clean merkin
-1	white	0	the glory of being a clown
+1	white	0	a bold move
 1	white	0	delirious biznasty
 1	white	0	unnatural lust
 1	white	0	softer, cleaner poops
@@ -1442,10 +1442,10 @@
 2	green	1	There are no facts, only _.
 2	black	1	In nothing do men more nearly approach the gods, than in giving _ to men.
 2	green	2	_{U}. Never was a bad one made of _.
-2	green	1	The best weapon against _ is _.
+2	black	2	It’s time to fight _ with _!
 2	black	1	A good rule for experimenting with _ is this: always assume that it will explode.
 2	green	1	Those who do not remember _ are condemned to repeat it.
-2	black	1	_{U} was God’s second mistake.
+2	black	1	God didn’t create me. God created _. And _ created me.
 2	green	2	If _ were so simple we could understand it, _ would be so simple we couldn’t.
 2	green	2	All men can see _ whereby I conquer, but what none can see is _ out of which victory is evolved.
 2	green	1	I don’t want none unless you’ve got _, hun.
@@ -1537,7 +1537,7 @@
 2	black	1	At the new Asian-inspired restaurant downtown, the chef will prepare _ right at your table.
 2	black	1	A scandal erupted this week when Bob Dole was caught with _.
 2	green	1	_{U} is the first chapter in the book of wisdom.
-2	black	1	The best thing for the inside of a child is the outside of _.
+2	black	2	_{U} brings _ and a smile to a childs face.
 2	black	1	Kirkland mom makes $20,000 a week with _.
 2	black	1	Experts on romance say that for a happy marriage, there has to be more than _.
 2	green	1	You can’t pick up a newspaper these days without seeing a headline about _.
@@ -1786,14 +1786,14 @@
 1	black	1	_{U} makes good neighbors.
 1	black	2	The tastiest part of _ is _.
 1	black	3	These wounds were given to me by the beast of legend. Part of it was _, part was _, and it was crowned with _.
-1	black	3	Early rugby’s rules: carry the ball as _, score points by crossing _, and _ shall not be on the field.
+1	black	3	Early rugby’s rules: carry the ball as _, score points by _, and _ shall not be on the field.
 1	black	2	These fossils show the development of _, now iconic, as well as the decline of _ to vestigiality.
 1	black	2	Being unstable while free, _ will decay with a half-life of 10 minutes into _ and an electron.
 1	black	2	The thief was caught stealing _ from the sultan, and so was thrown into the pit of _.
 1	green	2	Well who hasn’t used _ as _ when shit got a bit too real?
 1	black	3	If man is _, then the devil is _ and God is _.
 1	black	1	The school district had to pay a lot of hush money to parents after the “_” incident in the science lab.
-1	black	1	... And so my mom asked me, “if all your friends were _, would you be _ as well?”
+1	black	1	... And so my mom asked me, “If all your friends were _, would you be _ as well?”
 1	black	1	Oh dear God! That was the last of my medication for “_{UT}” syndrome!
 1	black	1	Squad, circle up. It’s time to talk _.
 1	green	2	Having already overcome _, finally surpassing _ was the crowning achievement of her long career.
@@ -1945,7 +1945,7 @@
 1	white	0	offal, wrapped in a burrito
 1	white	0	a purgative elixir
 1	white	0	a qualified body inspector
-1	white	0	the reanimated corpses of my neighbors
+1	white	0	the reanimated corpse of my neighbor
 1	white	0	solvent
 1	white	0	a time-honored tradition
 1	white	0	a uniquely adapted slave race
@@ -1957,7 +1957,7 @@
 1	white	0	a head full of ideas
 1	white	0	a close friend
 1	white	0	making it weird
-1	white	0	telling kids about sex
+1	white	0	explaining things to children
 1	white	0	a ruby-eyed beast in the dark
 1	white	0	truth serum
 1	white	0	the very foundation
@@ -1981,7 +1981,7 @@
 1	white	0	mutual benefit
 1	white	0	sharpened teeth
 1	white	0	windmilling
-1	white	0	the tightest of wads
+1	white	0	a threat from Canada
 1	white	0	a suitcase full of guns and money
 1	white	0	napkins
 1	white	0	our fraternity ritual
@@ -1989,7 +1989,7 @@
 1	white	0	battery acid
 1	white	0	subordinated masculinity
 1	white	0	insurance
-1	white	0	trends
+1	white	0	disturbing trends
 1	white	0	Muslim leaders who condemn terrorism
 1	white	0	shafts
 1	white	0	my sweet
@@ -1998,15 +1998,15 @@
 1	white	0	heartlessness
 1	white	0	a top hat full of assholes
 1	white	0	black lace
-1	white	0	authentic cuisine from a van
+1	white	0	the company van
 1	white	0	beluga tits
 1	white	0	curious, probing tendrils
 1	white	0	a dog boner
 1	white	0	eating a bowl of spider webs
 1	white	0	fatty grunts
 1	white	0	a Glasgow smile
-1	white	0	a hilarious coma
-1	white	0	intestinal distress
+1	white	0	a coma
+1	white	0	financial distress
 1	white	0	the jape of the century
 1	white	0	Krampus, the child punisher
 1	white	0	long deep kisses with eyes wide open
@@ -2014,21 +2014,21 @@
 1	white	0	not a bear
 1	white	0	organic porpoise semen
 1	white	0	Priapus, the patron god of boners
-1	white	0	a quiver of explosive arrows
+1	white	0	a quiver of love arrows
 1	white	0	the reptile brain
 1	white	0	spines
-1	white	0	tar pits gurgling quietly
+1	white	0	gurgling tar pits
 1	white	0	ululating majestically
 1	white	0	vagrants hiding religious relics
-1	white	0	the Wendigo
+1	white	0	mermen
 1	white	0	Yakety Sax
 1	white	0	a ziggurat made of torsos
-1	black	1	Whoa, whoa, whoa... _{U} is not on trial here!
+1	black	2	The first item of evidence in The People vs. _{UT} is _.
 1	white	0	Machine Gun Betty
 1	white	0	keepin’ it warm in the cooch
 1	white	0	quiet poots
 1	white	0	tender pinches
-1	white	0	a beautiful dad
+1	white	0	my beautiful, transgender father
 1	black	2	Doctor, you’re a genius! No one has ever thought of using _ to treat _!
 1	green	1	Why Granny, what _ you have!
 1	green	2	The boy would grow to be _, and his name was _.
@@ -2063,7 +2063,7 @@
 1	green	1	Opening _ takes pressure off _.
 1	green	2	_{U} upstairs is pushing the buttons, and if _ happens to be on that button, well, thank you.
 1	white	0	squirting acid
-1	black	1	When I told my father he shouted, “No daughter of mine is going out with _!”
+1	black	2	When I told my father about _ he shouted, “No daughter of mine is going out with _!”
 1	white	0	a traffic cop
 1	white	0	affectionate biting
 1	white	0	bubble and squeak
@@ -2087,7 +2087,7 @@
 1	white	0	tweaker logic
 1	white	0	the uncooperative dead
 1	white	0	a vortex that keeps mumbling
-1	white	0	wrestling alligators in the off-season
+1	white	0	wrestling alligators
 1	white	0	a big, red X
 1	white	0	yuppie flu
 1	white	0	a zealous follower
@@ -2104,8 +2104,8 @@
 1	white	0	a karate chop
 1	white	0	loving someone SO much
 1	white	0	Mandelbrot pornography
-1	white	0	deadly nanomachines
-1	white	0	only the most beautiful things that can be eaten
+1	white	0	friendly nanomachines
+1	white	0	bucking
 1	white	0	the placenta of your firstborn
 1	white	0	Quaaludes
 1	white	0	respite
@@ -2116,9 +2116,9 @@
 1	white	0	a white card
 1	white	0	an X-rated PSA
 1	white	0	Yorkshire pudding
-1	white	0	a zero-emission giant death robot
+1	white	0	a carbon-neutral killing machine
 1	white	0	animalistic hunger
-1	white	0	the best cake ever made
+1	white	0	acting like a child
 1	white	0	a cold yogi
 1	white	0	a dirigible death match
 1	white	0	everything under the sea
@@ -2325,3 +2325,4 @@
 1	black	1	Amtrak officials confirm _ would have prevented train derailment.
 1	white	0	a change in my medical history
 1	white	0	a secret elevator button
+1	white	0	pooping for four hours a day
