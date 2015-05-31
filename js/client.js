@@ -570,9 +570,6 @@ $(function() {
         $clock.css('color', rel < 0 ? '#d7005f' : '');
     }, 1002 );
 
-    if( 'ontouchstart' in document )
-      $('button.scale').show();
-
     $('.reset'  ).click( function(){ checkin({action:'reset'  }); } );
     $('.callit' ).click( function(){ checkin({action:'callit' }); quickly = true; } );
     $('.draw'   ).click( function(){ checkin({action:'draw'   }); quickly = true; $('.draw').attr('disabled',true); } );
@@ -595,16 +592,23 @@ $(function() {
 
     var scale = 'thin';
 
-    $('.scale').click(function() {
+    var scaletoggle = function() {
         var wide = "width=1175, user-scalable=no, maximum-scale=1, minimum-scale=1"
-        var thin = "width=720, user-scalable=yes"
+        var thin = "width=700, user-scalable=yes"
         var content;
 
         if( scale == 'wide' ) { scale = 'thin'; content = thin; }
         else                  { scale = 'wide'; content = wide; }
 
         $('head meta[name=viewport]').attr('content', content);
-    });
+    };
+
+    if( 'ontouchstart' in document )
+    {
+      $('button.scale').show().on('click', scaletoggle);
+      setTimeout(scaletoggle, 40);
+      setTimeout(scaletoggle, 80);
+    }
 
     $('.create').click(function() {
         var n = $('input#name');

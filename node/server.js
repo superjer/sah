@@ -154,8 +154,9 @@ io.on('connection', function(socket) {
 
     playerlong = playername + ' (' + playerid + ')';
 
-    // FIXME -- register multiple sockets per player?
-    sockets[playerid] = socket;
+    if( !(playerid in sockets) )
+        sockets[playerid] = [];
+    sockets[playerid].push(socket);
 
     // existing player, or new one?
     if( playerid in players ) {
@@ -163,7 +164,7 @@ io.on('connection', function(socket) {
         game = games[player.gameid] || {};
         game_p = games_p[player.gameid] || {};
         hand = game_p.hands ? game_p.hands[playerid] : [];
-        console.log(playerlong + ' re-connected');
+        console.log(playerlong + ' re-connected, ' + sockets[playerid].length + ' sockets');
     } else {
         var hrtime = process.hrtime();
         player = {
@@ -174,7 +175,7 @@ io.on('connection', function(socket) {
         };
         reset_player(player);
         players[playerid] = player;
-        console.log(playerlong + ' connected');
+        console.log(playerlong + ' connected, ' + sockets[playerid].length + ' sockets');
     }
 
     player.gone = 0;
@@ -382,8 +383,15 @@ io.on('connection', function(socket) {
 
     // player left or refreshed
     socket.on('disconnect', function() {
+        for( var s in sockets[playerid] ) {
+            if( socket != sockets[playerid][s] )
+                continue;
+            sockets[playerid].splice(s, 1);
+            break;
+        }
+
         player.gone = 1;
-        console.log(playerlong + ' disconnected');
+        console.log(playerlong + ' disconnected, ' + sockets[playerid].length + ' sockets remain');
     });
 
     // create a new game in the lobby
@@ -604,11 +612,7 @@ var tell_game = function(game) {
 
 // send updates to one player
 var tell_player = function(player) {
-    var socket = sockets[player.playerid];
     var hrtime = process.hrtime()[0];
-
-    if( !socket || !socket.connected ) return;
-
     var game = player.gameid ? games[player.gameid] : null;
     var hand = player.gameid ? games_p[player.gameid].hands[player.playerid] : null;
     var lobby = player.gameid ? null : games;
@@ -623,15 +627,20 @@ var tell_player = function(player) {
         }
     }
 
-    socket.emit('state', {
-        lobby: lobby,
-        game: game,
-        players: playersout,
-        selfid: player.playerid,
-        hand: hand,
-        now: hrtime,
-        version: version
-    });
+    for( var s in sockets[player.playerid] ) {
+        var socket = sockets[player.playerid][s];
+        if( !socket || !socket.connected ) continue;
+
+        socket.emit('state', {
+            lobby: lobby,
+            game: game,
+            players: playersout,
+            selfid: player.playerid,
+            hand: hand,
+            now: hrtime,
+            version: version
+        });
+    }
 };
 
 // begin a new round in a particular game
