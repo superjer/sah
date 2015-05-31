@@ -122,24 +122,30 @@ h2 {
 .clear {
   clear:both;
 }
-.scoresheet {
+.scoresheet, .finalscores {
   margin:10px 10px 0;
   padding:15px 20px 20px;
   box-shadow:1px 1px 6px 0 #777;
   float:right;
   background:white;
 }
-.champwin .scoresheet {
+.finalscores {
   box-shadow:1px 1px 6px 0 #704;
-  width:300px;
-  margin:0 auto;
+  margin:0 40px;
   float:none;
   color:black;
 }
-.scoresheet table {
+.finalscores table td .blank:hover {
+  color:#d7005f;
+}
+.scoresheet table, .finalscores table {
+  text-align:left;
   border-spacing:0;
   margin:5px 0 10px;
   width:100%;
+}
+.finalscores table {
+  margin-bottom:30px;
 }
 .scoresheet table th, .scoresheet table td {
   padding:5px 0 3px;
@@ -166,10 +172,26 @@ h2 {
 .scoresheet table td {
   border-top:1px solid #aaa;
 }
-.scoresheet table tr.czar td {
-  /* color:#d7005f; */
+.finalscores table th, .finalscores table td {
+  padding:5px 8px 3px 0;
 }
-.scoresheet table tr.myself td {
+.finalscores table .rt {
+  text-align:right;
+  padding-left:8px;
+  padding-right:0;
+}
+.finalscores table th:last-child, .finalscores table td:last-child {
+  padding-left:8px;
+  padding-right:0;
+}
+.finalscores table th {
+  font-weight:normal;
+  color:#aaa;
+}
+.finalscores table td {
+  border-top:1px solid #aaa;
+}
+table tr.myself td {
   color:#d7005f;
 }
 .lobbywin table {
@@ -271,7 +293,15 @@ button.scale {
 .scoresheet button, button.leave {
   width:auto;
   padding:0 10px;
-  margin:0;
+}
+.finalscores button {
+  width:100px;
+  padding:10px;
+  margin:0 10px 10px 0;
+}
+tbody.history td:first-child {
+  color: #aaa;
+  font-size: 200%;
 }
 .shade {
   position:fixed;
@@ -405,7 +435,7 @@ a.help {
     display:inline;
   }
 
-  .scoresheet button {
+  .scoresheet button, .finalscores button {
     width:100px;
     padding:10px;
     margin:0 10px 10px 0;

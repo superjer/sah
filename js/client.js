@@ -15,6 +15,7 @@ var blackid = 0;
 var blacktxt = '';
 var blackhtml = '';
 var myscore = 0;
+var selfid = 0;
 
 var url = 'http://www.superjer.com:1337/';
 var socket = io.connect(url);
@@ -110,11 +111,7 @@ socket.on('state', function(d){
     {
         blackid = black.cardid;
         blacktxt = black.txt;
-        blackhtml = black.txt.replace(
-            /_({([^}]+)})?/g,
-            '<span class=blank flags="$2">________</span>'
-        );
-
+        blackhtml = make_blanks_html(black);
         var $black = $('.blackcard');
         $black.attr('blackid',blackid);
         $black.find('.cardtxt').html(blackhtml);
@@ -136,11 +133,12 @@ socket.on('state', function(d){
     {
         var html = "";
         amczar = false;
+        selfid = d.selfid;
 
         for( var i in d.players )
         {
             var pl = d.players[i];
-            var myself = (pl.playerid == d.selfid);
+            var myself = (pl.playerid == selfid);
 
             if( pl.idle > 1 && pl.gone && pl.score < 1 && !myself )
                 continue;
@@ -193,6 +191,8 @@ socket.on('state', function(d){
             break;
 
         case 'champ':
+            show_final_scores();
+            show_history();
             $('.champwin h1').text(game.champ);
             $('.win').hide();
             $('.champwin, .shade').show();
@@ -420,6 +420,40 @@ function list_games() {
     return;
 }
 
+function show_final_scores() {
+    var html = '';
+
+    for( var i in game.final ) {
+        var row = game.final[i];
+        var cls = row.playerid == selfid ? 'class=myself' : '';
+        html += '<tr ' + cls + '><td>' + row.name
+             + '</td><td class=rt>' + row.score
+             + '</td></tr>';
+    }
+
+    $('.final').html(html);
+};
+
+function show_history() {
+    $('.history').empty();
+
+    for( var i in game.history ) {
+        var row = game.history[i];
+        var blackhtml = make_blanks_html(row.black);
+        var $tr = $('<tr><td>' + (+i+1)
+                  + '</td><td>' + row.name
+                  + '</td><td>' + blackhtml
+                  + '</td></tr>');
+
+        var raws = [];
+        for( var w in row.white )
+            raws.push(row.white[w].txt);
+
+        black_insert_inner($tr, raws);
+        $('.history').append($tr);
+    }
+};
+
 function err(s) {
     $('.err span').html(s);
     $('.err').show()
@@ -427,12 +461,25 @@ function err(s) {
         .animate({'background-color':'red','color':'white'});
 }
 
+function make_blanks_html(black) {
+    return black.txt.replace(
+        /_({([^}]+)})?/g,
+        '<span class=blank flags="$2">________</span>'
+    );
+}
+
 function black_insert($aset) {
     var $bct = $('.selectwin .blackcard .cardtxt');
     var $wcts = $aset.find('.card');
+    var raws = [];
+    $wcts.each(function() { raws.push($(this).attr('raw')); });
+    black_insert_inner($bct, raws);
+}
+
+function black_insert_inner($bct, raws) {
     var i = 0;
     $bct.find('.blank').each(function() {
-        var raw = $wcts.eq(i).attr('raw');
+        var raw = raws[i];
         var flags = $(this).attr('flags');
 
         // uppercase first letter
@@ -460,7 +507,8 @@ function black_insert($aset) {
             raw = raw.replace(/[!?.]+$/, '-');
 
         $(this).text(raw);
-        if( i+1 < $wcts.length )
+
+        if( i+1 < raws.length )
             i++;
     });
 }
@@ -540,7 +588,7 @@ $(function() {
             msg += ' You will lose your points!';
 
         if( game.state == 'champ' || confirm(msg) ) {
-            checkin({action:'leave'  });
+            checkin({action: 'leave'});
             quickly = true;
         }
     });

@@ -14,7 +14,7 @@
 
 <div class=err><span></span><button>X</button></div>
 
-<div class=scoresheet>
+<div class=scoresheet id=scoresheet>
   <h2><span class=clock></span></h2>
   <h1><span>SuperJer </span><span>Against </span><span>Humanity</span></h1>
   <table>
@@ -80,17 +80,26 @@
   <div>
     GAME OVER
     <h1>Someone cheated!</h1>
-    <div class=scoresheet>
+    <div class=finalscores>
       <table>
         <thead>
         <tr>
           <th>Final scores</th>
-          <th></th>
-          <th>Pts</th>
-          <th>Card</th>
+          <th class=rt>Pts</th>
         </tr>
         <thead>
-        <tbody>
+        <tbody class=final>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+        <tr>
+          <th>Round</th>
+          <th>Winner</th>
+          <th>Text</th>
+        </tr>
+        <thead>
+        <tbody class=history>
         </tbody>
       </table>
       <button class=leave>Exit</button>

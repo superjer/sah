@@ -17,30 +17,51 @@ var sockets = {};
 var maxgameid = 0;
 var changes = false;
 var heartto = null;
+var terminating = false;
 
-var autosave = function() {
-    if( changes && init == 2 )
-    {
-        changes = false;
+var autosave = function(signal) {
+    if( terminating ) return;
+    if( !signal ) setTimeout(autosave, 60000);
 
-        var saveme = {
-            games: games,
-            games_p: games_p,
-            players: players,
-            maxgameid: maxgameid
-        };
+    var die = function() {
+        // for compatibility with nodemon
+        if( signal == 'SIGUSR2' )
+            process.kill(process.pid, signal);
+        else
+            process.exit();
+    };
 
-        fs.writeFile(cachefile, JSON.stringify(saveme), {mode:0660}, function(err){
-            if( err ) console.log(err);
-        });
+    if( signal ) {
+        if( init != 2 ) die();
+        terminating = true;
+        console.log('Caught ' + signal + '. Saving...');
+    } else if( !changes || init != 2 ) {
+        return;
     }
 
-    setTimeout(autosave, 10000);
+    changes = false;
+
+    var saveme = {
+        games: games,
+        games_p: games_p,
+        players: players,
+        maxgameid: maxgameid
+    };
+
+    fs.writeFile(cachefile, JSON.stringify(saveme), {mode:0660}, function(err){
+        if( err ) console.log(err);
+        if( !signal ) return;
+        console.log('Save complete. Exiting.');
+        die();
+    });
 };
 
-setTimeout(autosave, 10000);
+setTimeout(autosave, 60000);
+process.on('SIGINT', function() { autosave('SIGINT'); });
+process.on('SIGTERM', function() { autosave('SIGTERM'); });
+process.once('SIGUSR2', function() { autosave('SIGUSR2'); });
 
-fs.readFile(cardfile, {encoding: 'utf8'}, function(err, data){
+fs.readFile(cardfile, {encoding: 'utf8'}, function(err, data) {
     init++;
 
     if( err ) throw err;
@@ -76,11 +97,10 @@ fs.readFile(cardfile, {encoding: 'utf8'}, function(err, data){
     }
 });
 
-fs.readFile(cachefile, {encoding: 'utf8'}, function(err, data){
+fs.readFile(cachefile, {encoding: 'utf8'}, function(err, data) {
     init++;
 
-    if( err )
-    {
+    if( err ) {
         console.log("Could not load cache file: " + cachefile);
         return;
     }
@@ -91,12 +111,12 @@ fs.readFile(cachefile, {encoding: 'utf8'}, function(err, data){
     players = data.players;
     maxgameid = data.maxgameid;
 
-    console.log("Loaded " + Object.keys(games).length + " games:");
+    console.log("Loaded " + Object.keys(games).length + " games");
     console.log("Loaded " + Object.keys(players).length + " players");
     console.log("Max game id: " + maxgameid);
 });
 
-http.listen(port, function(){
+http.listen(port, function() {
     console.log('Listening on ' + port);
 });
 
@@ -111,7 +131,7 @@ io.on('connection', function(socket) {
 
     if( init != 2 ) {
         console.log('Connection before init!');
-        socket.emit('state', {msg:'Server not ready'});
+        socket.emit('state', {msg:'Server not ready. Please wait and refresh.'});
         socket.disconnect();
         return;
     }
@@ -313,10 +333,18 @@ io.on('connection', function(socket) {
             return;
         }
 
+        var favid = game_p.consider[idx].playerid;
+
+        // record history
+        game.history.push({
+            name: players[favid].name,
+            black: game.black,
+            white: game.consider[idx].cards,
+        });
+
         game.state = 'bask';
         game.favorite = idx;
         game.time = process.hrtime()[0];
-        var favid = game_p.consider[idx].playerid;
         players[favid].score++;
         game.roundmsg = get_round_msg(players[favid]);
         bump_player(player);
@@ -381,7 +409,9 @@ io.on('connection', function(socket) {
             czar       : 0,
             favorite   : null,
             playerids  : [],
-            consider   : []
+            consider   : [],
+            history    : [],
+            final      : []
         };
 
         game_p = games_p[gameid] = {
@@ -640,9 +670,19 @@ var new_round = function(game) {
 
     var overtime = (game.round >= game.maxrounds || game.high >= game.goal);
 
+    // can only end game if no tie for first place
     if( winning.length == 1 && overtime ) {
         game.state = 'champ';
         game.champ = get_champ_msg(winning[0]);
+        game.pass = 0;
+        game_p.pass = '';
+
+        for( pidx in game.playerids ) {
+            var playerid = game.playerids[pidx];
+            var player = players[playerid];
+            game.final.push({playerid: playerid, name: player.name, score: player.score});
+        }
+        game.final = game.final.sort(function(a,b){ return a.score < b.score; });
     } else {
         var blackid = game_p.blist.pop();
         game.black = cards[blackid];
