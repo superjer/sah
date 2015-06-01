@@ -203,6 +203,8 @@ socket.on('state', function(d){
             break;
 
         default:
+            pullbardown = false;
+            fixall(0);
             $('.selectwin, .shade').show();
             $('.abandon').css('display','none').removeAttr('disabled').text('Abandon');
             $('.confirm').css('display','none').attr('disabled',true);
