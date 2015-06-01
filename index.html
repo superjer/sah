@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>SuperJer Against Humanity</title>
-<meta name=viewport content="initial-scale=1.0 width=700, user-scalable=yes">
+<meta name=viewport content="initial-scale=1.0 width=device-width, user-scalable=yes">
 <link rel=stylesheet type="text/css" href="css/sah.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -15,26 +15,26 @@
 <div class=err><span></span><button>X</button></div>
 
 <div class=scoresheet id=scoresheet>
-  <h2><span class=clock></span></h2>
-  <h1><span>SuperJer </span><span>Against </span><span>Humanity</span></h1>
-  <table>
-    <thead>
-    <tr>
-      <th>Player</th>
-      <th></th>
-      <th>Pts</th>
-      <th>Card</th>
-    </tr>
-    <thead>
-    <tbody>
-    </tbody>
-  </table>
-  <p>Room: <span></span></p>
-  <a class=help href='javascript:;'>How to Play</a>
-  <button disabled class='mobonly callit'>Call it</button>
-  <button disabled class='mobonly draw'>Draw</button>
-  <button class=leave>Exit</button>
-  <button class=scale>Scale</button>
+  <div class=sshelper>
+    <h2><span class=clock>0:00</span></h2>
+    <h1><span>SuperJer </span><span>Against </span><span>Humanity</span></h1>
+    <table>
+      <thead>
+      <tr>
+        <th>Player</th>
+        <th></th>
+        <th>Pts</th>
+        <th>Card</th>
+      </tr>
+      <thead>
+      <tbody>
+      </tbody>
+    </table>
+    <p>Room: <span></span></p>
+    <a class=help href='javascript:;'>How to Play</a>
+    <button class=leave>Exit</button>
+  </div>
+  <div class=pullbar><span class=sah>SAH</span><span class=clock></span>&bull; &bull; &bull;</div>
 </div>
 
 <div class=leftcol>
@@ -52,7 +52,7 @@
   <div class="holder hasslot" slot=2><div class="card slot"></div></div>
 </div>
 
-<div class="holder buttons nomob">
+<div class="holder buttons">
   <div class=card>
     <button disabled class=callit>Call it</button>
     <button disabled class=draw>Draw</button>
@@ -114,8 +114,8 @@
     <button class=confirm>Confirm</button>
     <h1 class=wintitle>Choose winner...</h1>
     <div class=clear></div>
-    <div class="card blackcard" blackid=0 style='width:200px;height:300px;'>
-      <div class=cardtxt style='height:280px;'></div>
+    <div class="card blackcard" blackid=0>
+      <div class=cardtxt></div>
       <div class=num>Play <div>0</div></div>
     </div>
     <div class=contenders></div>
@@ -125,11 +125,10 @@
 
 <div class="win lobbywin">
   <div>
-    <a class=help href='javascript:;'>How to Play</a>
-    <h1 class=lobtitle>Cards Against SuperJer Lobby</h1>
+    <h1 class=lobtitle>SAH Lobby</h1>
     <ul>
-      <li class="jointab selected">Join a room</li>
-      <li class="createtab">Create a new room</li>
+      <li class="jointab selected">Join <span class=nomob>a room</span></li>
+      <li class="createtab">Create <span class=nomob>a new room</span></li>
       <li class="exittab">Exit</li>
     </ul>
     <div class=joinpage>
@@ -191,6 +190,9 @@
       <button class=create>Create</button>
     </div>
     <div class=clear></div>
+    <br>
+    <a class=help href='javascript:;'>How to Play</a>
+    <br>
   </div>
 </div>
 

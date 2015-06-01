@@ -405,9 +405,21 @@ a.help {
   display:none;
 }
 
-@media (max-width: 1175px) {
+.pullbar {
+  display:none;
+}
+
+@media (max-width: 850px) {
   html {
     overflow-y:scroll;
+  }
+
+  body {
+    margin-top:35px;
+  }
+
+  h2 {
+    display:none;
   }
 
   .mobonly {
@@ -428,7 +440,18 @@ a.help {
 
   .scoresheet {
     float:none;
-    margin-bottom:20px;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:15;
+    box-shadow:none;
+    margin:0;
+    padding:0;
+    width:100%;
+  }
+
+  .scoresheet p {
+    float:right;
   }
 
   .scoresheet h1 span {
@@ -436,17 +459,136 @@ a.help {
   }
 
   .scoresheet button, .finalscores button {
-    width:100px;
-    padding:10px;
-    margin:0 10px 10px 0;
+    padding:5px 10px;
   }
 
   .scoresheet .help {
     display:none;
   }
-}
 
-@media (max-width: 850px) {
+  .sshelper {
+    padding:10px;
+  }
+
+  .pullbar {
+    display:block;
+    background-color:black;
+    color:white;
+    text-align:center;
+    height:30px;
+    line-height:30px;
+    font-size:20px;
+    cursor:pointer;
+  }
+
+  .pullbar .sah {
+    float:left;
+    text-align:left;
+    padding-left:10px;
+    width:80px;
+  }
+
+  .pullbar .clock {
+    float:right;
+    text-align:right;
+    padding-right:10px;
+    width:80px;
+  }
+
+  .holder {
+    margin:5px 0 0 5px;
+    border:1px dashed #ccc;
+    width:79px;
+    height:79px;
+    border-radius:5px;
+  }
+
+  .holder.buttons {
+    clear:both;
+    width:auto;
+    height:auto;
+  }
+
+  .holder.buttons .card {
+    width:auto;
+    height:auto;
+    padding:0;
+  }
+
+  .holder.buttons button {
+    width:auto;
+    height:auto;
+    padding:5px 10px;
+    font-size:12px;
+    margin:5px;
+  }
+
+  .holder.buttons button:first-child {
+    margin-bottom:0;
+  }
+
+  .hand {
+    padding-top:0;
+  }
+
+  .card {
+    padding:5px;
+    width:70px;
+    height:70px;
+    font-size:10px;
+    box-shadow:none;
+    border-radius:5px;
+  }
+
+  .cardtxt {
+    height:60px;
+  }
+
+  .num {
+    font-size:10px;
+  }
+
+  .num div {
+    width:12px;
+    height:12px;
+    line-height:12px;
+  }
+
+  .leftcol > .holder:first-child {
+    width:251px;
+  }
+
+  .play > .holder:first-child {
+    clear:both;
+  }
+
+  .blackcard, .selectwin .blackcard {
+    width:242px;
+    height:70px;
+    border-radius:5px;
+  }
+
+  .selectwin .blackcard .cardtxt {
+      height:60px;
+  }
+
+  .win > div {
+    padding:10px;
+    margin-top:35px;
+  }
+
+  h1.wintitle {
+    font-size:14px;
+    min-height:35px;
+  }
+
+  .aset {
+    padding:8px;
+    margin:0 8px 8px 0;
+  }
+
+  /* old super small */
+
   .lobbywin table {
     display:block;
   }
@@ -500,5 +642,10 @@ a.help {
     clear:both;
     width:0;
     height:0;
+  }
+
+  .filters label {
+    display:block;
+    margin-bottom:5px;
   }
 }

@@ -16,6 +16,7 @@ var blacktxt = '';
 var blackhtml = '';
 var myscore = 0;
 var selfid = 0;
+var pullbardown = false;
 
 var url = 'http://www.superjer.com:1337/';
 var socket = io.connect(url);
@@ -62,6 +63,7 @@ function checkin( json ) {
     json.movement = movement;
     movement = 0;
 
+    console.log(json);
     socket.emit( json.action, json );
 }
 
@@ -82,6 +84,8 @@ socket.on('state', function(d){
         $('.win').hide();
         $('.lobbywin, .shade').show();
         list_games();
+        pullbardown = false;
+        fixall(0);
         return;
     }
 
@@ -337,6 +341,9 @@ socket.on('state', function(d){
             $('.wintitle').text('Round abandoned; cards will be returned.');
         }
     }
+
+    fixall(0);
+    // setTimeout(fixall, 1);
 });
 
 function list_games() {
@@ -416,8 +423,16 @@ function list_games() {
         $('.norooms').show();
     else
         $('.norooms').hide();
+}
 
-    return;
+function fixall(animtime) {
+    animtime = animtime || 0;
+    var $ss = $('.scoresheet');
+    var h = $ss.height();
+    if( pullbardown )
+        $ss.animate({top: 0}, animtime);
+    else
+        $ss.animate({top: -h + 30}, animtime);
 }
 
 function show_final_scores() {
@@ -559,7 +574,7 @@ $(function() {
             clocklim = 10;
 
         if( !clocklim ) {
-            $clock.text("");
+            $clock.text("0:00");
             return;
         }
 
@@ -590,25 +605,15 @@ $(function() {
         }
     });
 
-    var scale = 'thin';
-
-    var scaletoggle = function() {
-        var wide = "width=1175, user-scalable=no, maximum-scale=1, minimum-scale=1"
-        var thin = "width=700, user-scalable=yes"
-        var content;
-
-        if( scale == 'wide' ) { scale = 'thin'; content = thin; }
-        else                  { scale = 'wide'; content = wide; }
-
-        $('head meta[name=viewport]').attr('content', content);
-    };
-
-    if( 'ontouchstart' in document )
-    {
-      $('button.scale').show().on('click', scaletoggle);
-      setTimeout(scaletoggle, 40);
-      setTimeout(scaletoggle, 80);
+    if( 'ontouchstart' in document ) {
+        // if( $('.mobonly').is(':visible') )
     }
+
+    $('.pullbar').on('click touchstart', function() {
+        pullbardown = !pullbardown;
+        fixall(300);
+        return false;
+    });
 
     $('.create').click(function() {
         var n = $('input#name');
