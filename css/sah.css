@@ -386,6 +386,9 @@ tbody.history td:first-child {
 a.help {
   float:right;
 }
+.play .holder {
+  background: url('playbg.png') no-repeat center center;
+}
 .play.czarbg .holder {
   background: url('czarbg.png') no-repeat center center;
 }
@@ -563,7 +566,7 @@ a.help {
   .num div {
     width:12px;
     height:12px;
-    line-height:12px;
+    line-height:14px;
   }
 
   .leftcol > .holder:first-child {
@@ -572,6 +575,10 @@ a.help {
 
   .play > .holder:first-child {
     clear:both;
+  }
+
+  .play .holder, .play.czarbg .holder {
+    background-size:100% auto;
   }
 
   .blackcard, .selectwin .blackcard {

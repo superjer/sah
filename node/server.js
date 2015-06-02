@@ -1,3 +1,4 @@
+var util = require('util');
 var http = require('http').Server(/* handler */);
 var io = require('socket.io')(http);
 var fs = require('fs');
@@ -34,7 +35,7 @@ var autosave = function(signal) {
     if( signal ) {
         if( init != 2 ) die();
         terminating = true;
-        console.log('Caught ' + signal + '. Saving...');
+        util.log('Caught ' + signal + '. Saving...');
     } else if( !changes || init != 2 ) {
         return;
     }
@@ -49,9 +50,9 @@ var autosave = function(signal) {
     };
 
     fs.writeFile(cachefile, JSON.stringify(saveme), {mode:0660}, function(err){
-        if( err ) console.log(err);
+        if( err ) util.log(err);
         if( !signal ) return;
-        console.log('Save complete. Exiting.');
+        util.log('Save complete. Exiting.');
         die();
     });
 };
@@ -81,7 +82,7 @@ fs.readFile(cardfile, {encoding: 'utf8'}, function(err, data) {
         if( !txt || txt.length < 1 )                   err += 'Bad txt ';
 
         if( err ) {
-            console.log(cardfile + ': ' + err + 'on line ' + cardid);
+            util.log(cardfile + ': ' + err + 'on line ' + cardid);
             continue;
         }
 
@@ -101,7 +102,7 @@ fs.readFile(cachefile, {encoding: 'utf8'}, function(err, data) {
     init++;
 
     if( err ) {
-        console.log("Could not load cache file: " + cachefile);
+        util.log("Could not load cache file: " + cachefile);
         return;
     }
 
@@ -111,13 +112,13 @@ fs.readFile(cachefile, {encoding: 'utf8'}, function(err, data) {
     players = data.players;
     maxgameid = data.maxgameid;
 
-    console.log("Loaded " + Object.keys(games).length + " games");
-    console.log("Loaded " + Object.keys(players).length + " players");
-    console.log("Max game id: " + maxgameid);
+    util.log("Loaded " + Object.keys(games).length + " games");
+    util.log("Loaded " + Object.keys(players).length + " players");
+    util.log("Max game id: " + maxgameid);
 });
 
 http.listen(port, function() {
-    console.log('Listening on ' + port);
+    util.log('Listening on ' + port);
 });
 
 io.on('connection', function(socket) {
@@ -130,7 +131,7 @@ io.on('connection', function(socket) {
     var game_p = {};
 
     if( init != 2 ) {
-        console.log('Connection before init!');
+        util.log('Connection before init!');
         socket.emit('state', {msg:'Server not ready. Please wait and refresh.'});
         socket.disconnect();
         return;
@@ -142,7 +143,7 @@ io.on('connection', function(socket) {
     playername = cookies['sj_name'] || cookies['sj_t_name'];
 
     if( !playerid ) {
-        console.log('Client is not logged in: ' + socket.id);
+        util.log('Client is not logged in: ' + socket.id);
         socket.emit('state', {msg:'Please <a href=../!login.php?return=sah>login</a> to play'});
         socket.disconnect();
         return;
@@ -161,10 +162,11 @@ io.on('connection', function(socket) {
     // existing player, or new one?
     if( playerid in players ) {
         player = players[playerid];
+        player.name = playername;
         game = games[player.gameid] || {};
         game_p = games_p[player.gameid] || {};
         hand = game_p.hands ? game_p.hands[playerid] : [];
-        console.log(playerlong + ' re-connected, ' + sockets[playerid].length + ' sockets');
+        util.log(playerlong + ' re-connected, ' + sockets[playerid].length + ' sockets');
     } else {
         var hrtime = process.hrtime();
         player = {
@@ -175,7 +177,7 @@ io.on('connection', function(socket) {
         };
         reset_player(player);
         players[playerid] = player;
-        console.log(playerlong + ' connected, ' + sockets[playerid].length + ' sockets');
+        util.log(playerlong + ' connected, ' + sockets[playerid].length + ' sockets');
     }
 
     player.gone = 0;
@@ -190,7 +192,7 @@ io.on('connection', function(socket) {
     // player is creating a new game (room in the UI)
     socket.on('create', function(data) {
         if( player.gameid ) {
-            console.log(playerlong + ' cannot create game');
+            util.log(playerlong + ' cannot create game');
             socket.emit('state', {msg:'Already in a game'});
             return;
         }
@@ -202,28 +204,28 @@ io.on('connection', function(socket) {
         bump_player(player);
         tell_player(player);
         tell_lobby();
-        console.log(playerlong + ' created game "' + game.name + '" (' + game.gameid + ')');
+        util.log(playerlong + ' created game "' + game.name + '" (' + game.gameid + ')');
         changes = true;
     });
 
     // player is trying to join a game
     socket.on('join', function(data) {
         if( !data.gameid || !games[data.gameid] ) {
-            console.log(playerlong + ' tried to join non-existent game');
+            util.log(playerlong + ' tried to join non-existent game');
         } else if( player.gameid ) {
-            console.log(playerlong + ' tried to join multiple games');
+            util.log(playerlong + ' tried to join multiple games');
         } else {
             game = games[data.gameid];
 
             if( game.pass && data.pass != games_p[data.gameid].pass ) {
-                console.log(playerlong + ' not allowed in game "' + game.name + '" (' + game.gameid + ')');
+                util.log(playerlong + ' not allowed in game "' + game.name + '" (' + game.gameid + ')');
                 socket.emit('state', {msg:'Wrong password'});
                 game = {};
             } else {
                 game_p = games_p[game.gameid];
                 join_game();
                 bump_player(player);
-                console.log(playerlong + ' joined game "' + game.name + '" (' + game.gameid + ')');
+                util.log(playerlong + ' joined game "' + game.name + '" (' + game.gameid + ')');
                 changes = true;
             }
         }
@@ -256,7 +258,7 @@ io.on('connection', function(socket) {
     socket.on('move', function(data) {
         var slot = +data.slot;
         if( slot < 0 || slot > 12 ) {
-            console.log(playerlong + ' tried to move to invalid slot ' + data.slot);
+            util.log(playerlong + ' tried to move to invalid slot ' + data.slot);
             return;
         }
 
@@ -283,12 +285,12 @@ io.on('connection', function(socket) {
     // player clicked Call It button
     socket.on('callit', function(data) {
         if( playerid != game.czar ) {
-            console.log(playerlong + ' is not the Czar and is trying to call');
+            util.log(playerlong + ' is not the Czar and is trying to call');
             return;
         }
 
         if( game.state != 'gather' ) {
-            console.log(playerlong + ' is trying to call during ' + game.state);
+            util.log(playerlong + ' is trying to call during ' + game.state);
             return;
         }
 
@@ -298,12 +300,12 @@ io.on('connection', function(socket) {
     // player clicked to reveal card/s
     socket.on('reveal', function(data) {
         if( playerid != game.czar ) {
-            console.log(playerlong + ' is not the Czar and is trying to reveal');
+            util.log(playerlong + ' is not the Czar and is trying to reveal');
             return;
         }
 
         if( game.state != 'select' ) {
-            console.log(playerlong + ' is trying to reveal during ' + game.state);
+            util.log(playerlong + ' is trying to reveal during ' + game.state);
             return;
         }
 
@@ -318,19 +320,19 @@ io.on('connection', function(socket) {
     // player has chosen their favorite card/s
     socket.on('choose', function(data) {
         if( playerid != game.czar ) {
-            console.log(playerlong + ' is not the Czar and is trying to choose');
+            util.log(playerlong + ' is not the Czar and is trying to choose');
             return;
         }
 
         if( game.state != 'select' ) {
-            console.log(playerlong + ' is trying to choose during ' + game.state);
+            util.log(playerlong + ' is trying to choose during ' + game.state);
             return;
         }
 
         var idx = +data.idx;
 
         if( idx < 0 || idx >= game.consider.length ) {
-            console.log(playerlong + ' is trying to choose a bad index');
+            util.log(playerlong + ' is trying to choose a bad index');
             return;
         }
 
@@ -371,7 +373,7 @@ io.on('connection', function(socket) {
             game.playerids.splice(game.playerids.indexOf(playerid), 1);
 
             tell_game(game);
-            console.log(playerlong + ' left game "' + game.name + '" (' + game.gameid + ')');
+            util.log(playerlong + ' left game "' + game.name + '" (' + game.gameid + ')');
 
             game = {};
             game_p = {};
@@ -391,7 +393,7 @@ io.on('connection', function(socket) {
         }
 
         player.gone = 1;
-        console.log(playerlong + ' disconnected, ' + sockets[playerid].length + ' sockets remain');
+        util.log(playerlong + ' disconnected, ' + sockets[playerid].length + ' sockets remain');
     });
 
     // create a new game in the lobby
@@ -477,7 +479,7 @@ var check_game = function(game) {
     // Check for stale games -- i.e. where a setTimeout never went off
     if( game.state == 'bask' && game.secs > 15 ) {
         new_round(game);
-        console.log('Game "' + game.name + '" (' + game.gameid + ') went stale!');
+        util.log('Game "' + game.name + '" (' + game.gameid + ') went stale!');
     }
 
     // automatically call the round if possible
@@ -550,7 +552,7 @@ var maybe_abandon = function(game) {
                     }
         }
 
-        console.log('Game "' + game.name + '" (' + game.gameid + ') being abandoned');
+        util.log('Game "' + game.name + '" (' + game.gameid + ') being abandoned');
         game.state = 'bask';
         game.time = process.hrtime()[0];
         tell_game(game);
@@ -888,7 +890,7 @@ function parse_cookies(str) {
     var out = {};
     str && str.split(';').forEach(function(x) {
         var parts = x.split('=');
-        out[parts.shift().trim()] = unescape(parts.join('=').replace('+',' '));
+        out[parts.shift().trim()] = unescape(parts.join('=').replace(/\+/g, ' '));
     });
     return out;
 }
