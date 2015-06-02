@@ -49,7 +49,7 @@ var autosave = function(signal) {
         maxgameid: maxgameid
     };
 
-    fs.writeFile(cachefile, JSON.stringify(saveme), {mode:0660}, function(err){
+    fs.writeFile(cachefile, JSON.stringify(saveme), {mode:0660}, function(err) {
         if( err ) util.log(err);
         if( !signal ) return;
         util.log('Save complete. Exiting.');
@@ -408,9 +408,8 @@ io.on('connection', function(socket) {
             pass       : data.game.pass ? 1 : 0,
             goal       : +data.game.goal || 11,
             maxrounds  : +data.game.maxrounds || 55,
-            roundsecs  : +data.game.roundsecs || 180,
-            abandonsecs: +data.game.abandonsecs || 180,
-            slowstart  : data.game.slowstart ? 1 : 0,
+            roundsecs  : 180,
+            abandonsecs: 180,
             state      : 'gather',
             time       : process.hrtime()[0],
             secs       : 0,
@@ -492,6 +491,7 @@ var check_game = function(game) {
     }
 }
 
+// delete a game, kicking everyone out
 var delete_game = function(game) {
     var playerids = game.playerids;
     var gameid = game.gameid;
@@ -506,6 +506,7 @@ var delete_game = function(game) {
     }
 };
 
+// abandon the round if there are enough votes
 var maybe_abandon = function(game) {
     if( game.state != 'select' )
         return;
@@ -729,7 +730,7 @@ var callit = function(game, human) {
     if( !human && secs < game.roundsecs )
         return;
 
-    if( !human && game.slowstart && game.round == 1 )
+    if( !human && game.round == 1 )
         return;
 
     // find if there are enough cards in

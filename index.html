@@ -17,7 +17,13 @@
 <div class=scoresheet id=scoresheet>
   <div class=sshelper>
     <h2><span class=clock>0:00</span></h2>
+    <button class="leave mobonly">Exit</button>
     <h1><span>SuperJer </span><span>Against </span><span>Humanity</span></h1>
+    <p class=mobonly>
+      <span class=roomname></span><br>
+      Round <span class=roundstatus></span><br>
+      Score <span class=scorestatus></span>
+    </p>
     <table>
       <thead>
       <tr>
@@ -30,11 +36,15 @@
       <tbody>
       </tbody>
     </table>
-    <p>Room: <span></span></p>
+    <p class=nomob>
+      <span class=roomname></span><br>
+      Round <span class=roundstatus></span><br>
+      Score <span class=scorestatus></span>
+    </p>
     <a class=help href='javascript:;'>How to Play</a>
-    <button class=leave>Exit</button>
+    <button class="leave nomob">Exit</button>
   </div>
-  <div class=pullbar><span class=sah>SAH</span><span class=clock></span>&bull; &bull; &bull;</div>
+  <div class=pullbar><span class=sah>SAH</span><span class=clock>0:00</span>&bull; &bull; &bull;</div>
 </div>
 
 <div class=leftcol>
@@ -159,35 +169,22 @@
     <div class=createpage>
       <label title='Type in a name for your room.'>
         <div>Room name</div>
-        <input id=name name=roomname value=''>
+        <input id=name name=roomname value='' type=text tabindex=11>
       </label>
       <label title='Set a password to keep your room private.'>
         <div>Room password</div>
-        <input id=pass name=roompass value=''>
+        <input id=pass name=roompass value='' type=text tabindex=11>
       </label>
       <label title='The game will end when a player reaches this score.'>
         <div>Goal score</div>
-        <input id=goal name=goal value=11 size=6>
+        <input id=goal name=goal value=11 size=6 type=number tabindex=11>
       </label>
       <label title='The game will end after this many rounds.'>
         <div>Max rounds</div>
-        <input id=maxrounds name=maxrounds value=55 size=6>
-      </label>
-      <label title='The round will be called after this many seconds if 2+ players have submitted card(s). The Czar can also call it before this time.'>
-        <div>Round time (seconds)</div>
-        <input id=roundsecs name=roundsecs value=180 size=6>
-      </label>
-      <label title='The round will be abandoned after this many seconds if 1+ active players have voted to abandon. It will also be abandoned after twice this many seconds if 1+ idle players have voted to abandon. If all active players vote to abandon the round is abandoned immediately.'>
-        <div>Abandon time (seconds)</div>
-        <input id=abandonsecs name=abandonsecs value=180 size=6>
-      </label>
-      <label title='If checked, the first round will never be called automatically. This allows you to wait for players to arrive.'>
-        <div>
-          <input type=checkbox id=slowstart name=slowstart checked> Slow start
-        </div>
+        <input id=maxrounds name=maxrounds value=55 size=6 type=number tabindex=11>
       </label>
       <br><br>
-      <button class=create>Create</button>
+      <button class=create tabindex=11>Create</button>
     </div>
     <div class=clear></div>
     <br>
