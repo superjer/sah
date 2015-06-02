@@ -21,7 +21,7 @@ var heartto = null;
 var terminating = false;
 
 var roundsecs = 180;
-var abandonsecs = 180;
+var abandonsecs = 60;
 
 var autosave = function(signal) {
     if( terminating ) return;
@@ -312,10 +312,19 @@ io.on('connection', function(socket) {
             return;
         }
 
-        if( data.idx in game.consider )
+        var idx = +data.idx;
+
+        if( idx in game.consider )
         {
-            game.consider[data.idx].visible = true;
+            if( !game.consider[idx].visible )
+                game.time = process.hrtime()[0];
+
+            game.consider[idx].visible = true;
+
+            game.revealed = idx;
             tell_game(game);
+            game.revealed = -1;
+
             changes = true;
         }
     });
@@ -417,6 +426,7 @@ io.on('connection', function(socket) {
             round      : 0,
             high       : 0,
             czar       : 0,
+            revealed   : -1,
             favorite   : null,
             playerids  : [],
             consider   : [],
@@ -699,6 +709,7 @@ var new_round = function(game) {
     game.secs = 0;
     game.favorite = null;
     game.abandonratio = null;
+    game.revealed = -1;
     game.consider = [];
     game_p.consider = [];
 

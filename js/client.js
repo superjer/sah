@@ -16,6 +16,9 @@ var pullbardown = false;
 var url = 'http://www.superjer.com:1337/';
 var socket = io.connect(url);
 
+var roundsecs = 180;
+var abandonsecs = 60;
+
 function dropme($x) {
     $x.droppable({
         tolerance: "intersect",
@@ -150,7 +153,7 @@ socket.on('state', function(d){
 
             var stat = (pl.gone ? 'Out' : pl.idle ? 'Idle' : '');
             var whatup = (plczar ? 'Czar' : pl.whatup);
-            var title = (pl.idle ? 'title="Idle for '+pl.idle+' turns"' : '');
+            var title = (pl.idle ? 'title="Idle for ' + pl.idle + ' turns"' : '');
             html += '<tr class="' + classes + '" ' + title + '><td>' + pl.name
                  +  '</td><td>' + stat
                  +  '</td><td>' + pl.score
@@ -193,13 +196,13 @@ socket.on('state', function(d){
             $('.abandon').css('display','none').removeAttr('disabled').text('Abandon');
             $('.confirm').css('display','none').attr('disabled',true);
             $('.draggable').draggable('disable');
-            $('.wintitle').text( amczar ? 'You are the Czar. Choose your favorite:' : 'Waiting for Czar '+czar+' to choose...' );
+            $('.wintitle').text( amczar ? 'You are the Czar. Choose your favorite:' : 'Waiting for Czar ' + czar + ' to choose...' );
     }
 
     if( game.state == 'select' && amczar )
         $('.confirm').css('display','block');
 
-    if( game.state == 'select' && clock > 30 && !amczar ) {
+    if( game.state == 'select' && clock > abandonsecs && !amczar ) {
         $('.abandon').css('display','block');
 
         if( game.abandonratio )
@@ -341,10 +344,17 @@ function maybe_repopulate() {
         repop = true;
 
     if( !repop ) {
-        for( var i in game.consider ) {
-            if( game.consider[i].visible )
-                $('.aset[idx=' + i + ']').removeClass('mystery');
-        }
+        for( var i in game.consider )
+            if( game.consider[i].visible ) {
+                var $unmystify = $('.aset[idx=' + i + ']');
+                $unmystify.removeClass('mystery');
+
+                if( game.revealed == i && !amczar ) {
+                    $('.aset').removeClass('potential');
+                    $unmystify.addClass('potential');
+                    black_insert($unmystify);
+                }
+            }
 
         return;
     }
@@ -443,7 +453,7 @@ function show_history() {
     for( var i in game.history ) {
         var row = game.history[i];
         var html = make_blanks_html(row.black.txt);
-        var $tr = $('<tr><td>' + (+i+1)
+        var $tr = $('<tr><td>' + (+i + 1)
                   + '</td><td>' + row.name
                   + '</td><td>' + html
                   + '</td></tr>');
@@ -511,7 +521,7 @@ function black_insert_inner($bct, raws) {
 
         $(this).text(raw);
 
-        if( i+1 < raws.length )
+        if( i + 1 < raws.length )
             i++;
     });
 }
@@ -554,10 +564,10 @@ $(function() {
 
         if( !game )
             ;
-        else if( game.state == 'select' )
-            clocklim = 180;
         else if( game.state == 'gather' )
-            clocklim = 180;
+            clocklim = roundsecs;
+        else if( game.state == 'select' )
+            clocklim = abandonsecs;
         else if( game.state == 'bask' )
             clocklim = 10;
 
