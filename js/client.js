@@ -555,9 +555,9 @@ $(function() {
         if( !game )
             ;
         else if( game.state == 'select' )
-            clocklim = game.roundsecs;
+            clocklim = 180;
         else if( game.state == 'gather' )
-            clocklim = game.abandonsecs;
+            clocklim = 180;
         else if( game.state == 'bask' )
             clocklim = 10;
 

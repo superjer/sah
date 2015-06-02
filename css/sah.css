@@ -291,8 +291,6 @@ button.scale {
 .scoresheet p {
   color:#aaa;
   margin:10px 0 10px;
-  max-width:250px;
-  word-break: break-all;
 }
 .scoresheet button, button.leave {
   width:auto;
@@ -628,6 +626,7 @@ a.help {
   h1.wintitle {
     font-size:14px;
     margin-bottom:10px;
+    min-height:35px;
   }
 
   .aset {

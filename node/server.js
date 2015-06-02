@@ -20,6 +20,9 @@ var changes = false;
 var heartto = null;
 var terminating = false;
 
+var roundsecs = 180;
+var abandonsecs = 180;
+
 var autosave = function(signal) {
     if( terminating ) return;
     if( !signal ) setTimeout(autosave, 60000);
@@ -273,7 +276,7 @@ io.on('connection', function(socket) {
             }
         }
 
-        var mintime = process.hrtime()[0] - game.roundsecs + 5;
+        var mintime = process.hrtime()[0] - roundsecs + 5;
         if( game.time < mintime )
             game.time = mintime;
         whatup_player(player);
@@ -408,8 +411,6 @@ io.on('connection', function(socket) {
             pass       : data.game.pass ? 1 : 0,
             goal       : +data.game.goal || 11,
             maxrounds  : +data.game.maxrounds || 55,
-            roundsecs  : 180,
-            abandonsecs: 180,
             state      : 'gather',
             time       : process.hrtime()[0],
             secs       : 0,
@@ -482,8 +483,14 @@ var check_game = function(game) {
     }
 
     // automatically call the round if possible
-    if( game.state == 'gather' )
-        callit(game, false);
+    if( game.state == 'gather' ) {
+        var czar = players[game.czar];
+
+        if( !czar || (czar.gone && czar.afk > 4) || czar.gameid != game.gameid )
+            new_czar(game);
+        else
+            callit(game, false);
+    }
 
     // delete unused games
     if( game.secs > 60*60*3 ) {
@@ -535,8 +542,8 @@ var maybe_abandon = function(game) {
     if( numer > 0 )
         game.abandonratio = '' + numer + ' / ' + denom;
 
-    var idle_abandon = (abandoners >= 2 && game.secs > game.abandonsecs * 2);
-    var active_abandon = (numer >= 2 && game.secs > game.abandonsecs);
+    var idle_abandon = (abandoners >= 2 && game.secs > abandonsecs * 2);
+    var active_abandon = (numer >= 2 && game.secs > abandonsecs);
     var instant_abandon = (numer >= denom);
 
     if( idle_abandon || active_abandon || instant_abandon ) {
@@ -649,7 +656,6 @@ var tell_player = function(player) {
 // begin a new round in a particular game
 var new_round = function(game) {
     var game_p = games_p[game.gameid];
-    var next = null;
     var winning = [];
 
     for( pidx in game.playerids ) {
@@ -663,20 +669,6 @@ var new_round = function(game) {
             game.high = player.score;
         } else if( game.high == player.score ) {
             winning.push(player);
-        }
-
-        // choose new czar
-        if( !next ) {
-            next = player;
-        } else {
-            var cmp = function(x, y) { return x == y ? 0 : x > y ? 1 : -1; };
-
-            var score = cmp(next.czartime, player.czartime) *   1
-                      + cmp(next.idle    , player.idle    ) *  10
-                      + cmp(next.gone    , player.gone    ) * 100;
-
-            if( score > 0 )
-                next = player;
         }
     }
 
@@ -700,8 +692,7 @@ var new_round = function(game) {
         game.black = cards[blackid];
         game.round++;
         game.state = 'gather';
-        game.czar = next.playerid;
-        next.czartime = process.hrtime()[0];
+        new_czar(game);
     }
 
     game.time = process.hrtime()[0];
@@ -713,6 +704,33 @@ var new_round = function(game) {
 
     tell_game(game);
     changes = true;
+};
+
+var new_czar = function(game) {
+    var next = null;
+
+    for( pidx in game.playerids ) {
+        var playerid = game.playerids[pidx];
+        var player = players[playerid];
+
+        if( !next ) {
+            next = player;
+        } else {
+            var cmp = function(x, y) { return x == y ? 0 : x > y ? 1 : -1; };
+
+            var score = cmp(next.czartime, player.czartime) *   1
+                      + cmp(next.idle    , player.idle    ) *  10
+                      + cmp(next.gone    , player.gone    ) * 100;
+
+            if( score > 0 )
+                next = player;
+        }
+    }
+
+    if( next ) {
+        game.czar = next.playerid;
+        next.czartime = process.hrtime()[0];
+    }
 };
 
 // call it, if possible; collect any cards that are up and switch to 'select' state
@@ -727,7 +745,7 @@ var callit = function(game, human) {
     if( human && secs < 10 )
         return;
 
-    if( !human && secs < game.roundsecs )
+    if( !human && secs < roundsecs )
         return;
 
     if( !human && game.round == 1 )
@@ -876,6 +894,7 @@ var get_round_msg = function(player) {
 // return input array, shuffled without bias
 var shuffle = function(arr) {
     var len = arr.length;
+
     while( len ) {
         var i = Math.floor(Math.random() * len);
         len--;
@@ -883,16 +902,19 @@ var shuffle = function(arr) {
         arr[len] = arr[i];
         arr[i] = tmp;
     }
+
     return arr;
 };
 
 // parse a string from a Cookie: header
 function parse_cookies(str) {
     var out = {};
+
     str && str.split(';').forEach(function(x) {
         var parts = x.split('=');
         out[parts.shift().trim()] = unescape(parts.join('=').replace(/\+/g, ' '));
     });
+
     return out;
 }
 
