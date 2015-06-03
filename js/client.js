@@ -631,15 +631,17 @@ $(function() {
         var p = $('input#pass');
         var goal = $('input#goal');
         var maxrounds = $('input#maxrounds');
+        var rando = $('input#rando');
 
         if( n.val() ) {
             checkin({
                 action:'create',
                 game:{
-                    name:n.val(),
-                    pass:p.val(),
-                    goal:goal.val(),
-                    maxrounds:maxrounds.val(),
+                    name: n.val(),
+                    pass: p.val(),
+                    goal: goal.val(),
+                    maxrounds: maxrounds.val(),
+                    rando: rando.is(':checked'),
                 }
             });
 

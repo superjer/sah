@@ -5,7 +5,7 @@ var fs = require('fs');
 var port = 1337;
 var cardfile = 'cards.tab';
 var cachefile = 'cache/save.json';
-var version = 3;
+var version = 4;
 
 var init = 0;
 var games = {};
@@ -171,7 +171,6 @@ io.on('connection', function(socket) {
         hand = game_p.hands ? game_p.hands[playerid] : [];
         util.log(playerlong + ' re-connected, ' + sockets[playerid].length + ' sockets');
     } else {
-        var hrtime = process.hrtime();
         player = {
             playerid: playerid,
             name: playername,
@@ -420,6 +419,7 @@ io.on('connection', function(socket) {
             pass       : data.game.pass ? 1 : 0,
             goal       : +data.game.goal || 11,
             maxrounds  : +data.game.maxrounds || 55,
+            rando      : data.game.rando ? 'R' + gameid : false,
             state      : 'gather',
             time       : process.hrtime()[0],
             secs       : 0,
@@ -441,6 +441,9 @@ io.on('connection', function(socket) {
             hands: {},
             consider: []
         };
+
+        if( game.rando )
+            add_rando(game);
     };
 
     // join a game, assuming game and game_p are already set correctly
@@ -500,6 +503,9 @@ var check_game = function(game) {
             new_czar(game);
         else
             callit(game, false);
+
+        if( game.rando )
+            play_rando(game);
     }
 
     // delete unused games
@@ -520,6 +526,9 @@ var delete_game = function(game) {
         var player = players[playerid];
         player.gameid = 0;
         tell_player(player);
+
+        if( player.synthetic )
+            delete players[playerid];
     }
 };
 
@@ -580,6 +589,44 @@ var maybe_abandon = function(game) {
     } else if( game.abandonratio != oldratio ) {
         tell_game(game);
         changes = true;
+    }
+};
+
+var add_rando = function(game) {
+    util.log('Adding Rando to "' + game.name + '" (' + game.gameid + ')');
+    var game_p = games_p[game.gameid];
+    var playerid = game.rando;
+    player = {
+        playerid: playerid,
+        name: 'Rando',
+        gameid: game.gameid,
+        czartime: 0,
+        synthetic: 1,
+    };
+    players[playerid] = player;
+    reset_player(player);
+    game.playerids.push(playerid);
+    game_p.hands[playerid] = [];
+    sockets[playerid] = [];
+};
+
+var play_rando = function(game) {
+    var game_p = games_p[game.gameid];
+    var player = players[game.rando];
+    var hand = game_p.hands[game.rando];
+    whatup_player(player);
+
+    if( player.whatup < game.black.num ) {
+        for( var h = 0; h < game.black.num; h++ ) {
+            if( !hand[h] || !hand[h].cardid ) {
+                var cardid = game_p.wlist.pop();
+                hand[h] = cards[cardid];
+            }
+        }
+
+        whatup_player(player);
+        bump_player(player);
+        tell_game(game);
     }
 };
 
@@ -649,7 +696,8 @@ var tell_player = function(player) {
 
     for( var s in sockets[player.playerid] ) {
         var socket = sockets[player.playerid][s];
-        if( !socket || !socket.connected ) continue;
+        if( !socket || !socket.connected )
+            continue;
 
         socket.emit('state', {
             lobby: lobby,
@@ -723,6 +771,9 @@ var new_czar = function(game) {
     for( pidx in game.playerids ) {
         var playerid = game.playerids[pidx];
         var player = players[playerid];
+
+        if( player.synthetic )
+            continue;
 
         if( !next ) {
             next = player;
