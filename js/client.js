@@ -303,7 +303,7 @@ function list_games() {
         if( $(trsel).length == 0 )
             $('.lobbywin table tbody').append($(
                   "<tr gameid=" + lob.gameid + " pass=" + lob.pass + ">"
-                + "  <td></td>".repeat(6)
+                + Array(7).join("<td></td>")
                 + "</tr>"
             ));
 
@@ -728,8 +728,8 @@ function numberth(n) {
 }
 
 function playericons(n) {
-    return n < 1 ? 'empty'       :
-           n < 7 ? '⚇'.repeat(n) :
-                   '⚇x' + n      ;
+    return n < 1 ? 'empty'              :
+           n < 7 ? Array(n+1).join('⚇') :
+                   '⚇×' + n             ;
 }
 // vim: ts=4 sw=4 et

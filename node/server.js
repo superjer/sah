@@ -10,10 +10,12 @@ var version = 4;
 var init = 0;
 var games = {};
 var games_p = {}; // private stuff -- don't send to clients
+var num_games = 0;
 var cards = {};
 var wlist = [];
 var blist = [];
 var players = {};
+var num_players = 0;
 var sockets = {};
 var maxgameid = 0;
 var changes = false;
@@ -52,7 +54,7 @@ var autosave = function(signal) {
         maxgameid: maxgameid
     };
 
-    fs.writeFile(cachefile, JSON.stringify(saveme), {mode:0660}, function(err) {
+    fs.writeFile(cachefile, JSON.stringify(saveme), {mode: 0660}, function(err) {
         if( err ) util.log(err);
         if( !signal ) return;
         util.log('Save complete. Exiting.');
@@ -114,9 +116,11 @@ fs.readFile(cachefile, {encoding: 'utf8'}, function(err, data) {
     games_p = data.games_p;
     players = data.players;
     maxgameid = data.maxgameid;
+    num_games = Object.keys(games).length;
+    num_players = Object.keys(players).length;
 
-    util.log("Loaded " + Object.keys(games).length + " games");
-    util.log("Loaded " + Object.keys(players).length + " players");
+    util.log("Loaded " + num_games + " games");
+    util.log("Loaded " + num_players + " players");
     util.log("Max game id: " + maxgameid);
 });
 
@@ -135,7 +139,7 @@ io.on('connection', function(socket) {
 
     if( init != 2 ) {
         util.log('Connection before init!');
-        socket.emit('state', {msg:'Server not ready. Please wait and refresh.'});
+        socket.emit('state', {msg: 'Server not ready. Please wait and refresh.'});
         socket.disconnect();
         return;
     }
@@ -147,7 +151,7 @@ io.on('connection', function(socket) {
 
     if( !playerid ) {
         util.log('Client is not logged in: ' + socket.id);
-        socket.emit('state', {msg:'Please <a href=../!login.php?return=sah>login</a> to play'});
+        socket.emit('state', {msg: 'Please <a href=../!login.php?return=sah>login</a> to play'});
         socket.disconnect();
         return;
     }
@@ -179,7 +183,8 @@ io.on('connection', function(socket) {
         };
         reset_player(player);
         players[playerid] = player;
-        util.log(playerlong + ' connected, ' + sockets[playerid].length + ' sockets');
+        num_players++;
+        util.log(playerlong + ' connected, ' + sockets[playerid].length + ' sockets, ' + num_players + ' players');
     }
 
     player.gone = 0;
@@ -195,18 +200,24 @@ io.on('connection', function(socket) {
     socket.on('create', function(data) {
         if( player.gameid ) {
             util.log(playerlong + ' cannot create game');
-            socket.emit('state', {msg:'Already in a game'});
+            socket.emit('state', {msg: 'Already in a game'});
             return;
         }
 
-        create_game(data);
+        if( !create_game(data) )
+        {
+            socket.emit('state', {msg: 'Too many games already!'});
+            util.log(playerlong + ' tried to create a game when there are too many already');
+            return;
+        }
+
         join_game();
         player.czartime -= 100;
         new_round(game);
         bump_player(player);
         tell_player(player);
         tell_lobby();
-        util.log(playerlong + ' created game "' + game.name + '" (' + game.gameid + ')');
+        util.log(playerlong + ' created game "' + game.name + '" (' + game.gameid + '), ' + num_games + ' games');
         changes = true;
     });
 
@@ -221,7 +232,7 @@ io.on('connection', function(socket) {
 
             if( game.pass && data.pass != games_p[data.gameid].pass ) {
                 util.log(playerlong + ' not allowed in game "' + game.name + '" (' + game.gameid + ')');
-                socket.emit('state', {msg:'Wrong password'});
+                socket.emit('state', {msg: 'Wrong password'});
                 game = {};
             } else {
                 game_p = games_p[game.gameid];
@@ -409,8 +420,10 @@ io.on('connection', function(socket) {
 
     // create a new game in the lobby
     var create_game = function(data) {
-        if( Object.keys(games).length > 1000 )
-            return;
+        if( num_games > 1000 )
+            return false;
+
+        num_games++;
 
         var gameid = ++maxgameid;
         game = games[gameid] = {
@@ -444,6 +457,8 @@ io.on('connection', function(socket) {
 
         if( game.rando )
             add_rando(game);
+
+        return true;
     };
 
     // join a game, assuming game and game_p are already set correctly
@@ -466,6 +481,8 @@ io.on('connection', function(socket) {
 // things to do even if no messages come in
 var heartbeat = function(){
     clearTimeout(heartto);
+
+    num_games = Object.keys(games).length;
 
     for( var gameid in games )
         check_game(games[gameid]);
@@ -509,7 +526,7 @@ var check_game = function(game) {
     }
 
     // delete unused games
-    if( game.secs > 60*60*3 ) {
+    if( game.secs > 60*60*(num_games > 100 ? 3 : 24) ) {
         delete_game(game);
     }
 }
@@ -527,9 +544,13 @@ var delete_game = function(game) {
         player.gameid = 0;
         tell_player(player);
 
-        if( player.synthetic )
+        if( player.synthetic ) {
             delete players[playerid];
+            num_players--;
+        }
     }
+
+    num_games--;
 };
 
 // abandon the round if there are enough votes
@@ -596,6 +617,7 @@ var add_rando = function(game) {
     util.log('Adding Rando to "' + game.name + '" (' + game.gameid + ')');
     var game_p = games_p[game.gameid];
     var playerid = game.rando;
+
     player = {
         playerid: playerid,
         name: 'Rando',
@@ -603,7 +625,9 @@ var add_rando = function(game) {
         czartime: 0,
         synthetic: 1,
     };
+
     players[playerid] = player;
+    num_players++;
     reset_player(player);
     game.playerids.push(playerid);
     game_p.hands[playerid] = [];
