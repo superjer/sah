@@ -6,12 +6,18 @@ var $clock = null;
 var clock = 0;
 var players = [];
 var amczar = false;
+var enough = 0;
+var nonczars = 0;
 var czar = 'No one';
 var movement = 0;
 var chosen = 0;
 var myscore = 0;
 var selfid = 0;
 var pullbardown = false;
+
+var blinkto = null;
+var blinkcolor = '';
+var blinking = false;
 
 var url = 'http://www.superjer.com:1337/';
 var socket = io.connect(url);
@@ -117,13 +123,14 @@ socket.on('state', function(d){
             handcount++;
 
     if( handcount < 10 )
-        $('.draw').removeAttr('disabled');
+        $('.hand').addClass('drawable');
     else
-        $('.draw').attr('disabled', true);
+        $('.hand').removeClass('drawable');
 
     if( true ) { // TODO?! skip if nothing has changed (likely)
         var html = "";
-        var enough = 0;
+        enough = 0;
+        nonczars = d.players.length - 1;
         amczar = false;
         selfid = d.selfid;
 
@@ -164,15 +171,35 @@ socket.on('state', function(d){
         if( statechange || game.state != 'champ' )
             $('.scoresheet tbody').html(html);
 
-        if( amczar )
+        if( amczar && game.state == 'gather' ) {
+            $('.callit').css('display', '');
             $('.play').addClass('czarbg');
-        else
+        } else {
+            $('.callit').css('display', 'none');
             $('.play').removeClass('czarbg');
+        }
 
-        if( amczar && enough >= 2 )
+        var enoughtext = '';
+        if( enough >= 1 && nonczars > 1 )
+            enoughtext = ' (' + enough + '/' + nonczars + ')';
+
+        if( enough >= 2 ) {
+            $('.callit').text('Call it' + enoughtext);
             $('.callit').removeAttr('disabled');
-        else
-            $('.callit').attr('disabled',true);
+        } else {
+            $('.callit').text('Waiting for players' + enoughtext);
+            $('.callit').attr('disabled', true);
+        }
+
+        if( amczar && enough >= 2 && enough == nonczars ) {
+            if( !blinking )
+                blinkfunc();
+        } else {
+            blinking = false;
+            blinkcolor = '';
+            clearTimeout(blinkto);
+            $('.callit').css('background-color', blinkcolor);
+        }
     }
 
     if( statechange ) switch( game.state ) {
@@ -418,19 +445,17 @@ function maybe_repopulate() {
 
 // fix all elements that may have gotten out of position
 function fixall(animtime) {
-    animtime = animtime || 0;
-
     if( window.screen.availHeight ) {
         $('.sshelper').css('max-height', window.screen.availHeight - 150);
     }
 
     var $ss = $('.scoresheet');
-    var h = $ss.height();
+    var anim = pullbardown ? {top: 0} : {top: 30 - $ss.height()};
 
-    if( pullbardown )
-        $ss.animate({top: 0}, animtime);
+    if( animtime )
+        $ss.animate(anim, animtime);
     else
-        $ss.animate({top: -h + 30}, animtime);
+        $ss.css(anim);
 }
 
 function show_final_scores() {
@@ -552,6 +577,14 @@ function titlecase(txt) {
     return txt.trim();
 }
 
+function blinkfunc() {
+    clearTimeout(blinkto);
+    blinking = true;
+    blinkcolor = blinkcolor ? '' : '#f7d700';
+    $('.callit').css('background-color', blinkcolor);
+    blinkto = setTimeout(blinkfunc, 1000);
+};
+
 $(function() {
     dropme($(".slot"));
     dragme($(".draggable"));
@@ -591,9 +624,13 @@ $(function() {
         checkin({action: 'callit'});
     });
 
-    $('.draw').click(function() {
-        checkin({action: 'draw'});
-        $('.draw').attr('disabled', true);
+    $('.hand').on('click', '.holder .slot', function() {
+        var $holder = $(this).parent();
+        $holder.addClass('drawing');
+        checkin({action: 'draw', slot: $holder.attr('slot')});
+        setTimeout(function() {
+            $holder.removeClass('drawing');
+        }, 2000);
     });
 
     $('.abandon').click(function() {
@@ -717,6 +754,8 @@ $(function() {
     $('.err button').on('click', function() {
         $('.err').slideUp();
     });
+
+    $(window).on('resize', function() { fixall(0); });
 });
 
 function numberth(n) {

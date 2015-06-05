@@ -250,6 +250,8 @@ io.on('connection', function(socket) {
     socket.on('draw', function(data) {
         var handcount = 0;
         var free = 0;
+        var slot = +data.slot;
+
         for( var h = 0; h < 13; h++ ) {
             if( hand[h] && hand[h].cardid )
                 handcount++;
@@ -257,9 +259,12 @@ io.on('connection', function(socket) {
                 free = h;
         }
 
+        if( hand[slot] && hand[slot].cardid )
+            slot = free;
+
         if( handcount < 10 ) {
             var cardid = game_p.wlist.pop();
-            hand[free] = cards[cardid];
+            hand[slot] = cards[cardid];
         }
 
         bump_player(player);
