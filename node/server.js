@@ -107,15 +107,20 @@ fs.readFile(cachefile, {encoding: 'utf8'}, function(err, data) {
     init++;
 
     if( err ) {
-        util.log("Could not load cache file: " + cachefile);
+        util.log("Could not open save file: " + cachefile);
         return;
     }
 
-    data = JSON.parse(data);
-    games = data.games;
-    games_p = data.games_p;
-    players = data.players;
-    maxgameid = data.maxgameid;
+    try {
+        data = JSON.parse(data);
+    } catch(e) {
+        util.log("Could not parse save file: " + cachefile);
+    }
+
+    games = data.games || {};
+    games_p = data.games_p || {};
+    players = data.players || {};
+    maxgameid = data.maxgameid || 0;
     num_games = Object.keys(games).length;
     num_players = Object.keys(players).length;
 
@@ -495,6 +500,8 @@ var heartbeat = function(){
     for( playerid in players )
     {
         var player = players[playerid];
+        if( !(player.gameid in games) )
+            player.gameid = 0;
         if( player.gameid && games[player.gameid].state == 'gather' )
             player.afk++;
         tell_player(players[playerid]);
