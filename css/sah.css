@@ -235,12 +235,15 @@ button {
   padding:10px 0;
   font-size:20px;
 }
-button.abandon, button.confirm {
+button.abandon, button.confirm, .selectwin button.leave {
   margin:0;
   width:130px;
   padding:5px 0;
   font-size:15px;
   float:right;
+}
+.selectwin button.leave {
+  float:none;
 }
 button.scale {
   display:none;
@@ -294,7 +297,7 @@ button.scale {
   color:#aaa;
   margin:10px 0 10px;
 }
-.scoresheet button, button.leave {
+.scoresheet button, .scoresheet button.leave {
   width:auto;
   padding:0 10px;
 }
@@ -663,7 +666,7 @@ a.help {
     border-color: #f7d683;
   }
 
-  button.abandon, button.confirm {
+  button.abandon, button.confirm, .selectwin button.leave {
     width:100px;
     font-size:12px;
     margin:0 0 10px 5px;

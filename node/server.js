@@ -217,7 +217,7 @@ io.on('connection', function(socket) {
         }
 
         join_game();
-        player.czartime -= 100;
+        player.czartime = game.time;
         new_round(game);
         bump_player(player);
         tell_player(player);

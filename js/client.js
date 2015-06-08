@@ -226,8 +226,12 @@ socket.on('state', function(d){
             $('.wintitle').text( amczar ? 'You are the Czar. Choose your favorite:' : 'Waiting for Czar ' + czar + ' to choose...' );
     }
 
-    if( game.state == 'select' && amczar )
+    if( game.state == 'select' && amczar ) {
         $('.confirm').css('display','block');
+        $('.selectwin .leave').hide();
+    } else {
+        $('.selectwin .leave').show();
+    }
 
     if( game.state == 'select' && clock > abandonsecs && !amczar ) {
         $('.abandon').css('display','block');
