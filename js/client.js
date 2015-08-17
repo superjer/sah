@@ -263,6 +263,7 @@ socket.on('state', function(d){
         }
 
         var color = ' style="background-color: rgb('+r+','+g+','+b+')"';
+        color = '';
         var $elem = $(
             '<div class="card draggable" cardid=' + card.cardid + color + '>'
             +   '<div class=cardtxt>' + pretty_white(card.txt) + '</div>'
