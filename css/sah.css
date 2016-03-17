@@ -290,6 +290,9 @@ button.scale {
 .createpage label div {
   margin:10px 0 0;
 }
+label.testmode {
+  display:none;
+}
 .norooms {
   display:none;
 }

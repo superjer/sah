@@ -191,6 +191,9 @@ socket.on('state', function(d){
             $('.callit').attr('disabled', true);
         }
 
+        if( game.testmode )
+            $('.callit').css('display', '').text('Call it (test)').removeAttr('disabled');
+
         if( amczar && enough >= 2 && enough == nonczars ) {
             if( !blinking )
                 blinkfunc();
@@ -591,6 +594,8 @@ function blinkfunc() {
 };
 
 $(function() {
+    var rapidclicks = 0;
+
     dropme($(".slot"));
     dragme($(".draggable"));
     checkin();
@@ -619,6 +624,9 @@ $(function() {
         var secs = Math.abs(rel) - mins * 60;
         $clock.text('' + mins + ':' + (secs < 10 ? '0' + secs : secs));
         $clock.css('color', rel < 0 ? '#d7005f' : '');
+
+        if( rapidclicks > 0 )
+            rapidclicks -= 2;
     }, 1002 );
 
     $('.reset').click(function() {
@@ -674,6 +682,7 @@ $(function() {
         var goal = $('input#goal');
         var maxrounds = $('input#maxrounds');
         var rando = $('input#rando');
+        var testmode = $('input#testmode');
 
         if( n.val() ) {
             checkin({
@@ -684,6 +693,7 @@ $(function() {
                     goal: goal.val(),
                     maxrounds: maxrounds.val(),
                     rando: rando.is(':checked'),
+                    testmode: testmode.is(':checked'),
                 }
             });
 
@@ -692,6 +702,12 @@ $(function() {
             p.val('');
             $('.jointab').click();
         }
+    });
+
+    $('input#rando').click(function() {
+        rapidclicks++;
+        if( rapidclicks >= 10 )
+            $('label.testmode').slideDown();
     });
 
     $('.help').click(function() {

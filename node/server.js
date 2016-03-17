@@ -307,7 +307,7 @@ io.on('connection', function(socket) {
 
     // player clicked Call It button
     socket.on('callit', function(data) {
-        if( playerid != game.czar ) {
+        if( playerid != game.czar && !game.testmode ) {
             util.log(playerlong + ' is not the Czar and is trying to call');
             return;
         }
@@ -322,7 +322,7 @@ io.on('connection', function(socket) {
 
     // player clicked to reveal card/s
     socket.on('reveal', function(data) {
-        if( playerid != game.czar ) {
+        if( playerid != game.czar && !game.testmode ) {
             util.log(playerlong + ' is not the Czar and is trying to reveal');
             return;
         }
@@ -351,7 +351,7 @@ io.on('connection', function(socket) {
 
     // player has chosen their favorite card/s
     socket.on('choose', function(data) {
-        if( playerid != game.czar ) {
+        if( playerid != game.czar && !game.testmode ) {
             util.log(playerlong + ' is not the Czar and is trying to choose');
             return;
         }
@@ -386,7 +386,7 @@ io.on('connection', function(socket) {
         tell_game(game);
         changes = true;
 
-        setTimeout(function(){ new_round(game); }, 10000);
+        setTimeout(function(){ new_round(game); }, game.testmode ? 1000 : 10000);
     });
 
     // player has requested to abandon the round
@@ -443,6 +443,7 @@ io.on('connection', function(socket) {
             goal       : +data.game.goal || 11,
             maxrounds  : +data.game.maxrounds || 55,
             rando      : data.game.rando ? 'R' + gameid : false,
+            testmode   : data.game.testmode ? 1 : 0,
             state      : 'gather',
             time       : process.hrtime()[0],
             secs       : 0,
@@ -840,7 +841,10 @@ var callit = function(game, human) {
     var game_p = games_p[game.gameid];
     game_p.consider = [];
 
-    if( human && secs < 10 )
+    if( !human && game.testmode )
+        return;
+
+    if( human && !game.testmode && secs < 10 )
         return;
 
     if( !human && secs < roundsecs )
@@ -853,7 +857,7 @@ var callit = function(game, human) {
     for( pidx in game.playerids ) {
         var playerid = game.playerids[pidx];
 
-        if( playerid == game.czar )
+        if( playerid == game.czar && !game.testmode )
             continue;
 
         var hand = game_p.hands[playerid];
@@ -870,7 +874,7 @@ var callit = function(game, human) {
     }
 
     // need at least two players in for the round
-    if( potents.length < 2 )
+    if( potents.length < 2 && !game.testmode )
         return;
 
     potents = shuffle(potents);
