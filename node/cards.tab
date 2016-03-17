@@ -1469,7 +1469,7 @@
 2	green	2	As long as there’s _, there will be _.
 2	green	2	In the study of human anatomy, _ is the teacher of _.
 2	black	2	When _ is ready, _ will appear.
-2	black	1	Some are born with _, some achieve _, and some have _ thrust upon them.
+2	green	1	Some are born with _, some achieve _, and some have _ thrust upon them.
 2	black	1	He also named a city in India “_{UT}” after his dead horse.
 2	green	1	Workers of the world unite, you have nothing to lose but _.
 2	green	1	Numberless are the world’s wonders, but none more wonderful than _.
@@ -2377,7 +2377,7 @@
 1	white	0	One-eyed Dick
 1	white	0	The White House
 1	white	0	a reception area for social events
-1	black	1	The White House will no longer enforce _{UT} Act of 1959.
+1	black	1	The White House will no longer enforce The _{UT} Act of 1959. Thank God.
 1	white	0	the president’s helicopter
 1	white	0	a washtub filled with a potent cocktail of orange juice and whiskey
 1	white	0	a stolen Army helicopter
@@ -2581,3 +2581,75 @@
 1	white	0	getting impregnated by an advanced robot
 1	white	0	surviving
 1	white	0	horsing around
+1	white	0	warfighting
+1	black	1	I’ve got a master's degree in _{T.}!
+1	black	1	The 13 colonies were founded on the principles of liberty, brotherhood, and _.
+1	black	2	In this game you get to collect _ and craft _.
+1	black	1	In my state, _ for sustenance is a legal right for many indigenous people.
+1	white	0	killing myself, rather than being disgraced
+1	white	0	being cooked and eaten
+1	white	0	T-boning an ambulance
+1	black	1	_{U} is grounds for divorcing your wife in 28 states.
+1	white	0	three babies in a backpack
+1	white	0	a lab-grown testicle for a wounded soldier
+1	black	2	Although moving away from _ proved effective for schools, switching to _ initially led to a spike of child hospitalizations.
+1	white	0	one single big one
+1	white	0	lewd acts in public
+1	black	1	Thanks for _. Now get out of my bed!
+1	black	1	At his last campaign rally, Bernie Sanders began _ in front of his top supporters.
+1	white	0	the part you pee into
+1	white	0	slipping on a jizz slick
+1	white	0	a jet of hot air
+1	white	0	Feng Shui
+1	white	0	spider silk
+1	white	0	white men with guns
+1	black	1	Until quite recently, _ had the highest tensile strength of any substance known to man.
+1	white	0	a butt poop fart
+1	black	3	Back when I was _, I got shot in _ by _.
+1	black	1	Spice up the bedroom by _.
+1	black	1	This workplace has gone (0) days without _.
+1	white	0	a strange candy that makes you gay
+1	white	0	feasting and slaughter
+1	white	0	this stew
+1	white	0	burning my dick on my tortoise’s heat lamp
+1	white	0	walking backwards into John Cena
+1	white	0	whatEVER
+1	black	2	Back in my day, we had _ for _ and we LIKED IT.
+1	black	1	When I get older, I don't want to be _.
+1	white	0	something a mother whale would do
+1	white	0	a bellow of sympathy
+1	white	0	lying perfectly still
+1	white	0	an alibi
+1	white	0	a bitch as nasty as that
+1	white	0	any decent person
+1	white	0	my exoskeleton
+1	white	0	fate
+1	white	0	good bacteria
+1	white	0	history’s greatest monster
+1	white	0	all the king’s treasure
+1	white	0	the mayor
+1	white	0	nipping it in the bud
+1	white	0	the orbital socket
+1	white	0	plasma
+1	white	0	a robot body
+1	white	0	a tender moment
+1	white	0	torturing your family
+1	white	0	drunk waterboarding
+1	white	0	Mr. President
+1	white	0	completely avoiding conflict
+1	white	0	your idiot ideas
+1	white	0	basing my opinion on Internet articles
+1	white	0	never being appreciated
+1	white	0	a little piece of shit
+1	white	0	Daddy in his underpants
+1	white	0	playing with Mommy
+1	white	0	my kid sister
+1	white	0	my brother, who I’m sure you remember
+1	white	0	my love of children
+1	white	0	the halo on your fucking head
+1	white	0	putting up with you
+1	black	2	Last night I dreamed of _. I cannot shake the feeling that _ will arrive soon.
+1	black	1	In the morning I always hop out of bed and get straight to _, even before I put on my clothes.
+1	white	0	you
+1	white	0	just me, by myself
+1	black	1	Always walk into an interview with _ and confidence, you’ll get the job for sure!
