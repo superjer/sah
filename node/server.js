@@ -925,6 +925,7 @@ var get_champ_msg = function(player) {
         '%n: enjoy your points. You won all %s of them fairly, after all.',
         '%s "cheers"* for %n! (*cheats)',
         '%s points? Sounds like a cheater\'s score, %n',
+        'Admin panel usage detected from user(s): %n',
     ];
     var i = Math.floor(Math.random() * msgs.length);
     return msgs[i].replace('%n', player.name).replace('%s', player.score);
