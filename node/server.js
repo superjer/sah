@@ -77,22 +77,30 @@ fs.readFile(cardfile, {encoding: 'utf8'}, function(err, data) {
         var cardid = +i+1;
         var line = data[i].split("\t");
         var err = '';
-        var color = line[1];
-        var num = +line[2];
-        var txt = line[3];
+        var color = line[0];
+        var num = line[1];
+        var txt = line[2];
 
-        if( line.length != 4 )                         err += 'Bad col count';
-        if( !color.match(/^black|white|green$/) )      err += 'Bad color ';
-        if( color == 'black' && (num < 1 || num > 3) ) err += 'Bad num ';
+        if( line.length != 3 )                         err += 'Bad col count';
+        if( !color.match(/^black|white$/) )            err += 'Bad color ';
+        if( num.match(/[^1nspcvtw]/) )                 err += 'Bad hints ';
         if( !txt || txt.length < 1 )                   err += 'Bad txt ';
+
+        if( color == 'black' ) {
+            if( num == "1" ) {
+                num = 1;
+            } else if( num == "" ) {
+                num = (txt.match(/_+/g) || []).length;
+                if( num != 1 && num != 2 && num != 3 ) err += 'Bad blanks ';
+            } else {
+                err += 'Bad num ';
+            }
+        }
 
         if( err ) {
             util.log(cardfile + ': ' + err + 'on line ' + cardid);
             continue;
         }
-
-        if( color == 'green' )
-            continue;
 
         cards[cardid] = {cardid: cardid, color: color, num: num, txt: txt};
 
@@ -101,6 +109,8 @@ fs.readFile(cardfile, {encoding: 'utf8'}, function(err, data) {
         else
             blist.push(cardid);
     }
+
+    util.log("Loaded " + blist.length + " black cards and " + wlist.length + " white cards");
 });
 
 fs.readFile(cachefile, {encoding: 'utf8'}, function(err, data) {
@@ -873,8 +883,8 @@ var callit = function(game, human) {
             impotents.push({playerid: playerid, idxs: idxs});
     }
 
-    // need at least two players in for the round
-    if( potents.length < 2 && !game.testmode )
+    // need at least two players in for the round, or 1 for testmode
+    if( potents.length < (game.testmode ? 1 : 2) )
         return;
 
     potents = shuffle(potents);
@@ -1001,6 +1011,23 @@ var shuffle = function(arr) {
     while( len ) {
         var i = Math.floor(Math.random() * len);
         len--;
+        var tmp = arr[len];
+        arr[len] = arr[i];
+        arr[i] = tmp;
+    }
+
+    return arr;
+};
+
+// return input array, shuffled **WITH** bias
+var bias = function(arr) {
+    var len = arr.length;
+
+    while( len ) {
+        var i = Math.floor(Math.random() * len);
+        len--;
+        if( arr[i] < arr[len] )
+            continue;
         var tmp = arr[len];
         arr[len] = arr[i];
         arr[i] = tmp;
