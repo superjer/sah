@@ -666,7 +666,7 @@ white	n	a yappy little dog
 white	n	a fruitless task
 white	n	a shiftless ne’er-do-well
 white	n	my birthday
-white	n	sock puppets
+white	np	sock puppets
 white	nc	workplace chatter
 white	np	vile doings
 white	n	a box for your poop
@@ -1596,7 +1596,7 @@ white	np	questions. Ceaseless questions
 white	np	rent-controlled coffins
 white	np	sea urchins
 white	n	Tony’s prison baby
-white	n	A urologist
+white	n	a urologist
 white	nc	wicked sack
 white	nc	extradition
 white	n	a bulky frame, sturdy legs, and rounded cloven hooves
@@ -2268,7 +2268,7 @@ white	n	some guy named Darryl
 white	np	this spring’s hottest new fashions
 white	n	a bunch of kids
 white	np	hugs and kisses
-black		BonerQuest! Chapter 7, in which our randy hero deals with _.
+black		Disney’s first not-for-kids movie: _{UTn} Does _{Tn}.
 white	ncvt	conjuring
 white	v	being dipped in chocolate
 white	vt	shotgunning
@@ -2672,3 +2672,44 @@ black		I got _{s} as a pet! Do you want to see the racy picture we took with _{n
 black		My kid was acting like _{n}, so I took away _ and _ privileges.
 black		_{U} nearly killed me in my dream. I think it's my brain telling me to avoid _.
 black		I came with _{n} to school to show my friends, but stupid Billy Carter brought _{n} so nobody even noticed!
+white	nc	gross mystery meat
+white	nc	alcohol
+white	v	hitting a man out of his wheelchair
+white	v	being dragged
+white	n	a prybar
+black		The government says chemtrails from planes are just condensation. But we know they're _{vpc}!
+black		Wake turbulence, also known as _{vcp}, is turbulence that forms behind _{n} as it passes through the air.
+white	v	nailing it
+black		Her inheritance was squandered upon _{n} while Cinderella was abused and forced to become _{sc} in her own home.
+white	v	wriggling and thrashing
+white	v	going as deep as possible
+white	n	your best friend
+white	np	gangstas
+white	v	huddling in the corner
+white	np	good, Christian values
+white	v	mistreating the clitoris
+white	v	plummeting from 20,000 feet
+black		At the new circus in town, three jugglers throw each other _{s}, while a man is _{v} on a galloping horse.
+black		They said I was out of my league, that I'd never get freaky with  _{n} or even have _{n}. They were wrong.
+black		My life coach told me that to maximise my positive energy flow, I should alternate between _{v} and _{v}.
+white	v	completely wigging out
+black		Great job on the proposal for _{v}, Dave! You're in line for a raise, and the boss might even give you _{s}.
+white	n	a child born of incest
+black		In the third world, luxuries like _{n} are an alien concept, and most people don't even have access to _{nc}.
+white	n	the alpha male
+white	nc	bloodlust
+white	n	every part of the buffalo
+white	nc	failure
+white	nc	beautiful girl hair
+white	n	the Handsome Boy Modeling School
+white	n	my illegitimate son
+white	n	a good job
+white	n	lubricant
+white	v	lubing up
+white	n	the master race
+white	nc	shame
+white	n	Gene Simmons’ tongue
+white	n	a real value
+white	v	exhuming my wife
+black		I got written up at work today for running to the bathroom and  _{v}. There was a report.
+white	n	a complete wimp
