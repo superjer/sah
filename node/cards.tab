@@ -2442,7 +2442,7 @@ white	nc	sex for procreation
 white	n	the moron I hired to kill you
 white	n	Jüri Pootsmann
 white	nc	“business”
-black		10% of all proceeds from sales of _{n} will go to The _{vcpT} foundation. 
+black		10% of all proceeds from sales of _{n} will go to The _{vcpT} Foundation.
 black		I didn’t have any cash, so I tipped the pizza guy with _{n}.
 white	n	just a video game
 white	n	grandma’s soggy diaper
@@ -2599,7 +2599,7 @@ black		The Great Wall was actually built to keep _ out of mainland China.
 black		Kinect automatically recognizes when you’re _{vs} and turns itself on to broadcast it to your friends.
 black		I heard you can rent a friend in Tokyo, but only if you aren’t both _.
 white	v	running for presidency
-black		I can’t believe you forced my mom into _! She’s 62! 
+black		I can’t believe you forced my mom into _! She’s 62!
 white	n	a big donkey
 black		I ordered _{n} privately over the Internet so I can get better at _{v}.
 white	n	the brave men and women fighting for us
@@ -2667,7 +2667,7 @@ white	n	the man who is stalking me
 white	v	sticking a finger in my ear, and one in my butt
 black		Today’s baseball game was called off when an irate fan threw _{s} at a player from the stands.
 white	v	making it go back in
-white	v	prying her mouth open 
+white	v	prying her mouth open
 black		I got _{s} as a pet! Do you want to see the racy picture we took with _{n}?
 black		My kid was acting like _{n}, so I took away _ and _ privileges.
 black		_{U} nearly killed me in my dream. I think it's my brain telling me to avoid _.
@@ -2690,7 +2690,7 @@ white	np	good, Christian values
 white	v	mistreating the clitoris
 white	v	plummeting from 20,000 feet
 black		At the new circus in town, three jugglers throw each other _{s}, while a man is _{v} on a galloping horse.
-black		They said I was out of my league, that I'd never get freaky with  _{n} or even have _{n}. They were wrong.
+black		They said I was out of my league, that I'd never get freaky with _{n} or even have _{n}. They were wrong.
 black		My life coach told me that to maximise my positive energy flow, I should alternate between _{v} and _{v}.
 white	v	completely wigging out
 black		Great job on the proposal for _{v}, Dave! You're in line for a raise, and the boss might even give you _{s}.
@@ -2711,5 +2711,5 @@ white	nc	shame
 white	n	Gene Simmons’ tongue
 white	n	a real value
 white	v	exhuming my wife
-black		I got written up at work today for running to the bathroom and  _{v}. There was a report.
+black		I got written up at work today for running to the bathroom and _{v}. There was a report.
 white	n	a complete wimp
