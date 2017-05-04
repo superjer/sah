@@ -141,6 +141,9 @@ h2 {
   float:none;
   color:black;
 }
+.finalscores table.scoreboard {
+  max-width:300px;
+}
 .finalscores table td .blank:hover {
   color:#d7005f;
 }

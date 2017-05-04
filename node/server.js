@@ -171,10 +171,6 @@ io.on('connection', function(socket) {
         return;
     }
 
-    // FIXME remove -- this is just for old cookies
-    if( !playername )
-        playername = 'Player ' + playerid;
-
     playerlong = playername + ' (' + playerid + ')';
 
     if( !(playerid in sockets) )
@@ -266,20 +262,33 @@ io.on('connection', function(socket) {
         var handcount = 0;
         var free = 0;
         var slot = +data.slot;
+        var counts = {v:0, n:0, p:0};
 
         for( var h = 0; h < 13; h++ ) {
-            if( hand[h] && hand[h].cardid )
+            if( hand[h] && hand[h].cardid ) {
                 handcount++;
-            else if( h > 2 && !free )
+                var hints = cards[hand[h].cardid].num;
+                for( letter in counts )
+                    if( hints.indexOf(letter) != -1 )
+                        counts[letter]++;
+            } else if( h > 2 && !free ) {
                 free = h;
+            }
         }
 
         if( hand[slot] && hand[slot].cardid )
             slot = free;
 
         if( handcount < 10 ) {
-            var cardid = game_p.wlist.pop();
-            hand[slot] = cards[cardid];
+            var hint = '';
+            if( handcount >= 8 && counts.p < 1 )
+                hint = 'p';
+            else if( handcount >= 6 && counts.v < 3 )
+                hint = 'v';
+            else if( handcount >= 6 && counts.n < 3 )
+                hint = 'n';
+
+            hand[slot] = cards[smart_draw(game, hint)];
         }
 
         bump_player(player);
@@ -666,8 +675,7 @@ var play_rando = function(game) {
     if( player.whatup < game.black.num ) {
         for( var h = 0; h < game.black.num; h++ ) {
             if( !hand[h] || !hand[h].cardid ) {
-                var cardid = game_p.wlist.pop();
-                hand[h] = cards[cardid];
+                hand[h] = cards[smart_draw(game)];
             }
         }
 
@@ -676,6 +684,21 @@ var play_rando = function(game) {
         tell_game(game);
     }
 };
+
+// attemp to draw a card that matches a single-char hint
+var smart_draw = function(game, hint) {
+    var game_p = games_p[game.gameid];
+
+    if( hint == 'v' || hint == 'n' || hint == 'p' ) {
+        for( var i = 0; i < 50 && i < game_p.wlist.length; i++ ) {
+            var cardid = game_p.wlist[i];
+            if( cards[cardid].num.indexOf(hint) != -1 )
+                return game_p.wlist.splice(i, 1);
+        }
+    }
+
+    return game_p.wlist.pop();
+}
 
 // initialize player on first connect or game joins
 var reset_player = function(player) {
@@ -762,6 +785,9 @@ var tell_player = function(player) {
 var new_round = function(game) {
     var game_p = games_p[game.gameid];
     var winning = [];
+
+    if( !game_p ) // maybe everyone left?
+        return;
 
     for( pidx in game.playerids ) {
         var playerid = game.playerids[pidx];
