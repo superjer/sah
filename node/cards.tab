@@ -2323,7 +2323,7 @@ black		Traffic has only gotten worse since the transportation department deploye
 white	v	rumbling deep underground
 black	1	At the book signing, George R.R. Martin signed my copy of ‟A Song of _{T}”! I shook his hand and it felt like _.
 black		_{U} isn’t getting old, but I sure am!
-black		_{U} failed and we careened down the embankment directly toward _{n}.
+black		It's dangerous to leave _{n} on the stairs.
 black		Trapped again, MacGyver began his escape with only _{n} and _.
 black		The biggest float in the Macy’s Parade this year is _.
 black		This year’s hottest new fashion is _ on your head.
@@ -2445,7 +2445,7 @@ black		At my workplace, robots have replaced the humans for _{v} and _{v} at the
 white	v	getting busy
 black		Sometimes, when hiking through the woods, you might cross paths with _{n}. So bring _{n}.
 black		_{Un} produces an egg which, for one month, must stay under _{n} to keep warm.
-black	 	When I was bodybuilding I tried to dead-lift _{n} over my head, but _ got in the way.
+black		When I was bodybuilding I tried to dead-lift _{n} over my head, but _ got in the way.
 white	v	living on the edge
 black		Kraft Foods has announced that it will phase out the use of _ in its food processing operations.
 black		Here on the assembly line we heat _{n} to a steaming, bright cherry red, and this next machine over here is _{v}.
@@ -2465,7 +2465,6 @@ white	v	hitting a man out of his wheelchair
 white	v	being dragged
 white	n	a prybar
 black		The government says chemtrails from planes are just condensation. But we know they're _{vpc}!
-black		Wake turbulence, also known as _{vcp}, is turbulence that forms behind _{n} as it passes through the air.
 white	v	nailing it
 black		Her inheritance was squandered upon _{n} while Cinderella was abused and forced to become _{sc} in her own home.
 white	v	wriggling and thrashing
@@ -2477,7 +2476,7 @@ white	np	good, Christian values
 white	v	mistreating the clitoris
 white	v	plummeting from 20,000 feet
 black		At the new circus in town, three jugglers throw each other _{s}, while a man is _{v} on a galloping horse.
-black		They said _ was out of my league, but I showed them. I got _{n}!
+black	1	They said _ was out of my league, but look at me now! I've got _... and then some!
 black		My life coach told me that to maximise my positive energy flow, I should alternate between _{v} and _{v}.
 white	v	completely wigging out
 black		Great job on the proposal for _{v}, Dave! You're in line for a raise, and the boss might even give you _{s}.
@@ -2710,7 +2709,7 @@ white	v	getting infected
 white	np	one of every drug
 white	n	an extra kid
 black		Every time I go to Costco I feel like I come back with _.
-black		Is it true that in Nevada you can pay for a lady _{v} with _{n}?
+black		In Nevada you can pay for a lady _{v} with _{n}.
 white	v	thinking about spiders
 white		tandem showering
 white	v	making me cum
@@ -2779,7 +2778,7 @@ white	np	loudspeakers
 white	nc	love
 black		I would accept the internship at the Whitehouse, but I'm afraid the president will tickle _.
 black		So I go over and I open the door and just as I suspected. It’s _.
-lack		If I had _, you’d be dead!
+black		If I had _, you’d be dead!
 white	vt	hiding
 white	nc	white guilt
 black		_{Un} travelled over 20 feet after _{v}.
@@ -2853,7 +2852,7 @@ white	np	butt licks
 white	vt	beeping
 white	n	my evil little body
 white	np	their white asses
-black	n	The good news is that I was only barfing because I ate _.
+black		The good news is that I was only barfing because I ate _.
 white	n	a little lesbian boy
 white	n	your bellybutton
 white	nc	the polite scorn of a Canadian
@@ -3008,7 +3007,7 @@ white	v	stretching it till it rips
 white	n	a sudden penetration
 black		Lucy Liu has studied various rituals of _. She has stated, “I prefer _.”
 white	nc	Jigglypuff!
-black	nc	Could you buy me _?  I’ll pay you back.
+black		Could you buy me _?  I’ll pay you back.
 black		The new artsy indie game “_{UT}” is a deeply emotional exploration of _.
 white	v	getting stepped on by a dominatrix
 black		I was surprised to find bones in _{n}. Is that normal?
@@ -3051,7 +3050,7 @@ black		Deep Earth miners in Venezuela struck an enormous ore vein of _{pc}. Half
 white	nc	nothing, initially
 white	np	your sisters
 black		Don’t leave the door open! _{n} will get in.
-white		_{Un} can only be killed by _.
+black		_{Un} can only be killed by _.
 black		When _{n} hits your eye like a big pizza pie, that’s amore!
 white	nc	sexy kitty time
 white	nc	absolutely no black people
@@ -3092,3 +3091,22 @@ white	n	a minivan with a dead body in it
 white	n	a massive, hissing centipede
 white	n	a bus full of white children
 black		Rescue crews with a helicopter took 3 hours to rescue a bus full of _{pc} hanging over the freeway.
+white	v	turning into a white woman
+white	v	Jesus Christ
+white	nc	dude after dude
+black		The Sword of Damocles was _{s} hanging over King Dionysius by a thread.
+white	nc	at least 10 pounds of pork
+white	n	Snoop Dogg’s magic umbrella
+black		During her performance, Miley Cyrus let fans touch _{n} and her butthole.
+white	n	a purring kitten
+white	n	a scimitar twirling terrorist
+black		The patient kept screaming about “_”. Then, right on the operating table, his stomach burst open and _{n} emerged!
+white	v	accidentally hitting your daughter
+white	v	popping out of the ground
+white	v	humping people
+white	v	getting fat
+white	v	stopping just in time
+white	np	two country bumpkins
+white	v	being ashamed of your nakedness
+white	nc	cold toilet water in the butthole
+white	n	a gasping woman
