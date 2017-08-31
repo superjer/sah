@@ -145,7 +145,6 @@ white	v	doing it RIGHT this time!
 white	v	making sure no one sees
 white	v	turning tricks on the street corner
 white	np	passive-aggressive tendencies
-white	n	a withered serpent
 white	np	godless heathens
 white	nc	slow diarrhea
 white	nc	feigned sympathy
@@ -782,7 +781,7 @@ black		The new hit reality show: Can You Swallow _{UTn}?
 black		A BBC team has witnessed the effects of _ on civilians in rebel-held areas of Syria.
 black		The terrorists will execute _{n} every 20 minutes until they receive _{n}.
 black		I tried to sneak out of the store with _{n} under one arm and _{n} down my pants.
-black		The new bill before congress would mandate _ in all K-through-12 classrooms.
+black		The new bill before congress would require _ in all K-through-12 classrooms.
 black		My religion demands that I must abstain from _. _{U} however, is OK.
 black		Our secret society is dedicated to elucidating the mysteries of _{n} _{v}.
 black		It’s important to pack the essentials when camping, such as water, first aid, _, toilet paper, shelter, and _.
@@ -823,17 +822,14 @@ white	nc	ionizing radiation
 white	v	keelhauling
 white	nc	morphine
 white	n	a Ouija board
-white	n	a prepaid Visa™
 white	nc	quicksand
 white	nc	Roman battlesex
 white	np	sudsy bodies
 white	n	the tickle zone
 white	np	the taxpayers
-white	np	yoga farts
 white	n	a child muzzle
 white	np	the savory gels of her lust
 white	np	multiple cameras
-white	ncvt	bellowing
 white	nc	consensual manslaughter
 white	np	eels
 white	nc	grab-ass
@@ -887,191 +883,132 @@ white	n	an automated turret
 white	n	a list of names
 white	n	nothing but the truth
 white	n	a Japanese vending machine
-white	nc	ancient Chinese medicine
 white	np	ropes
+black		I go to Hooters, yeah, but only for _!
 white	n	a small chubby
-white	n	the manner to which I am accustomed
 white	v	being carted away
 white	np	sharpened teeth
 white	n	a suitcase full of guns and money
 white	nc	abstinence
 white	nc	battery acid
 white	nc	insurance
+black		During my time in the Navy I was taunted and called Mr. _{vcpUT}.
 white	np	the elevator shaft
-white	n	my sweet
 white	n	a tattered jockstrap
 white	np	Pakistani cosmonauts
+black		Use the same action as when puffing your cheeks, but the air should pass into _{n} and your cheeks should be relaxed.
+black		Parents are upset with the Spider-Man balloons I sold, which has the hole right in _{s}.
 white	n	a top hat full of assholes
 white	nc	black lace
 white	n	a dog boner
-white	np	fatty grunts
+black		The sign at the fountain says not to throw _{n} in.
 white	n	a coma
 white	n	Krampus, the child punisher
 white	n	not a bear
 white	nc	organic porpoise semen
 white	np	spines
 white	np	gurgling tar pits
+white	np	each of the victims
 white	nc	Yakety Sax
 black		The first item of evidence in The People vs. _{nUT} is _{n}.
-white	v	keepin’ it warm in the cooch
 white	n	quiet poots
-white	np	tender pinches
 white	n	my beautiful, transgender father
-black		Doctor, you’re a genius! No one has ever thought of using _ to treat _!
+black		Doctor, you’re a genius! No one has ever thought to use _ to treat _!
 black		Help! I can’t find my daughter! She looks like _{n} and is carrying _{n}.
 white	nc	black power
-white	nc	camaraderie and shenanigans
-white	nc	due time
+black		I couldn't sleep. I'm too anxious about _{v} tomorrow.
+white	v	standing in line at Costco
 white	n	the egg I hatched from
 white	np	grabby hands
-white	n	a happy accident
 white	nc	Indian burn
 white	np	jalapeños
 white	n	the king and his family
 white	v	lifting off the toilet
 white	n	the most humane action
+white	vnc	mercy killing
 white	n	the next time
 white	n	a lovable grandfather
 white	nc	prey
-white	n	a quirky, vegan CEO
 white	n	a real butt-toucher
-white	np	sustained surface winds
 white	nc	Taco Bell®
-white	v	wafting upstairs
 white	np	furries
 white	n	your name
-white	n	a back-breaking zit
-white	v	squirting acid
+white	vnc	squirting acid
 black		When I told my father he shouted, “No daughter of mine is going out with _{n}!”
 white	n	a traffic cop
-white	nc	affectionate biting
-white	v	chasing a firetruck
-white	np	deviant urges
-white	nc	explicit eating
-white	v	firing off the squibs too early
+white	nc	tender biting
 white	np	googly eyes
 white	n	a heroin-caked frying pan locked in a safe
-white	n	an implied butt
-white	np	killer abs
 white	nc	mildew, mold, and traces of fungal spores
-white	np	nuances
-white	np	an owl infestation
 white	v	removing a uterine tumor with my teeth
 white	n	an ineffectual, stubby-armed reach-around
-white	nc	tweaker logic
-white	n	the uncooperative dead
-white	n	a vortex that keeps mumbling
 white	npv	wrestling alligators
 white	n	a big, red X
-white	n	a zealous follower
 white	nc	apocalyptic machinery, just mowing us all down
 white	nc	backwash
-white	n	a day at the beach
-white	nc	empowerment
-white	n	a fifteen-pound newborn
-white	np	those glorious gams
-white	nc	halitosis
-white	nc	the immigrant experience in America
 white	n	a karate chop
-white	v	loving someone SO much
-white	np	friendly nanomachines
-white	v	bucking
 white	n	the placenta
-white	np	Quaaludes
-white	nc	respite
-white	n	a shot in the dark
-white	n	the trials of manhood
-white	nc	upsetting footage not suitable for children
-white	np	vacuous remarks
-white	nc	Yorkshire pudding
-white	nc	animalistic hunger
 white	v	acting like a child
-white	n	a dirigible death match
-white	n	everything under the sea
-white	n	a fat and fancy pigeon
-white	v	hounding the family dog
-white	np	ill-advised business decisions
 white	v	jerking it
 white	n	literally every single thing
 white	vt	undressing
 white	n	a piece of Lego® in the carpet
 white	np	high-voltage wires
-white	n	my SIM card
-white	n	a snack attack
-white	nc	dressing
-white	nc	chicken sashimi
-white	np	a clown’s genitals
+white	nc	Russian dressing
+white	np	clown genitals
 white	nc	cinderblock justice
 white	v	lifting his kilt and winking
 white	n	a special little fuck
 white	n	a bunch of vulvas in my face
 white	n	a muscular, naked Santa
 white	nc	too much wiggling
-black		A social skill is any skill facilitating _ with others.
+black	1	Don't be _{v} alone! Join the _{UT} Club and do it with others.
 white	n	the world’s fastest pump
 white	n	a carefully contained fart
 white	np	bitches on the love throne
 white	np	tits like a smoking chimney
 white	n	an angry penis for the woman
 white	n	an angry buttplug for the man
-white	v	caressing a face
+white	v	caressing my face
 black		I don’t give money to the homeless. Instead I provide _ directly.
 white	v	rubbing my gland
-white	n	the coal chute
-white	nc	thirst
 white	v	being controlled by a child
 black		The new self-help fad: Better Living Through _{T}!
 black		Can I get some floss? There’s _{n} between my teeth.
-white	n	a child section
-white	v	becoming an adult
-white	npv	peeing crabs
+white	v	peeing out a crab
 black		Since I deserve it, I am going to reward myself with _.
-white	n	a truck full of ladders
-white	np	tiny uranium rods
+white	nc	uranium
 white	v	rolling a golf cart
 black		The three techniques of Sumo Wrestling: _{U}, _ and _.
 white	nc	female breast tissue
 white	nc	illegal porn
 white	v	blacking out and making a sex sound
 white	n	Christopher Lloyd holding a dog
-black		Let _{n} host your next party, providing _ like you’ve never seen before.
+black		Let _{n} host your next party, providing _ like you’ve never experienced before.
 white	n	a tiny bat crawling up your peehole
-white	ncv	soul-damning
+white	n	a damned soul
 white	n	a wiggly meat tube
 white	n	a fluid-filled body cavity
 black		The transferred sperm cells are kept in _{n}, where they can remain viable for longer periods.
-white	nc	gut-wrenching testimony
 white	n	an elephant with floppy trunk syndrome
-white	v	being nude, spread eagle toward the sun
 white	v	running until you die
-white	nc	consensual S&M that ends in a gunshot
-white	np	human tears out of a champagne flute
+white	nc	S&M gear
 white	n	a friend
-white	np	zip ties
+white	np	little traps
 white	nc	violent docking, coming in hard
 white	np	balls caught in the car window
 white	v	assuming complete control
 white	n	a deflating balloon
 white	np	sinuses
-white	v	punching a brain
 white	nc	birth meat
-white	n	a horrible proposition
 white	nc	unbearable bitching
 white	n	a cage built for an autistic student
-white	n	a boy, but like... a manly boy
-black	1	In the public _{vpc} model, a third-party service provider delivers the _ service over the Internet.
-white	np	stunning, beautiful moobs
 white	n	a happy ending at a low price
-white	v	poking all the little bugs
-white	n	a coarse wind
-white	nc	ball peeking
-white	np	chafing jeans
 white	n	a night of gentle flatulence
-white	nc	human murder
 white	n	a mass of lymphatic tissue
 white	n	a gynecological procedure
 white	nc	dilation of the uterus
-white	np	bed inspectors
+white	v	sewing my eyes shut
 white	n	a gentle, flourished spanking
 black		Leopards are smaller than most of the Panthera genus, but they are able to take large prey due to _.
 white	v	smearing blood all over the bathroom
@@ -1079,75 +1016,48 @@ white	n	my bruised thighs
 white	v	handcuffing a four-year-old
 black		Tomorrow the city is throwing a ticker-tape to celebrate _.
 black		It has been prophesied that the young king will eventually be killed by _.
-white	n	a stroke of genius
 black		Chimps in the wild have been observed using _ to forage for food.
 black		Populations of endangered rhinoceros are threatened by _ and _.
 white	v	panicking in a Subaru
-white	np	two bats in a giant pair of pajamas
-white	np	unknown assailants
 black		Traditionally, vampires and other undead are repelled by _.
 white	v	laughing with a mouth full of firecrackers
-white	n	a suffering bastard
 white	n	a wish-granting goblin
 black		When the research team activated the interdimensional portal, _{n} emerged.
 black		The rich aroma of _, from the hills of Colombia.
 white	v	doing things to the body
-white	w	why I suck at this job
-white	nc	leftover McDonald’s®
+white	nc	McDonald’s®
 black		I got a new app on my phone. It’s called “_{UT}” and it helps me with _.
 white	n	a traffic cone full of bibimbap
-black		CAUTION: Keep _{n} out of hopper and chute opening. Failure to comply risks personal injury.
+black		CAUTION: Keep _{n} out of hopper and chute opening. Failure to comply risks _.
 white	v	impacting my sister
-white	n	a fish choad
 white	n	the Dutch oven
-white	v	finding a safe place
 black		_{nU}: It’s nature’s candy!
-white	n	nature’s candy
 black		It’s lucky to touch _{n}; it’s even luckier to touch mine.
 white	v	wallowing in your filth
-white	np	free exotic crabs for adoption (trained!)
 white	n	an infinite supply of anything and everything right at your fucking fingertips
-white	nc	real human interaction
-white	nc	eerie silence
-white	n	an under-the-table interaction
 white	v	putting my mouth on it
 black		In a world with _{n} _{v}, one man must overcome _. Coming this summer.
 black		See now black people walk like _{n}. But white people -- white people walk like they’re _!
 black		What’s in the fridge? Soda, OJ, _{n}... Sweet! Sunny-D!
-white	n	black magic orgasms
-white	nc	purple stuff
+white	v	getting your cock in a twist
 black		Howdy neighbor, love _! Let’s get _ sometime!
 black		I didn’t think this house would sell with _{n} in the attic. Anyway, I’m _.
 black		Welcome to the neighborhood! I live down the street. You’ll recognize my house with _.
 black		The name for Idaho was derived from a Shoshone language term meaning “_.”
 black		At my 9th birthday, we had _{s} piñata that burst open showering _{cp} on us kids.
-white	n	a state trooper
-white	n	a Facebook post
-white	n	an actual rusty trombone
-white	n	a double-meat pizza
 white	n	a strong magnet
-white	n	a boiled bag of pig cushion
-white	nc	PTSD
 white	n	a one hundred dollar bill
 white	n	an empty Tic Tac® box
 white	n	a tiny bone fragment
 white	n	a gold ingot
 white	n	a carton of expired milk
-white	n	a carafe of broccoli chowder
 white	n	a box of wine
 white	n	a wayward dental implant
-white	n	a bandsaw
-white	n	an itchy shirt tag
 white	n	the instructions
 white	n	the last condom
-white	np	beans on toast
 white	n	a plump, lazy hyena
-white	n	a barbecued meal worm
 white	n	a steering wheel
-white	n	a seat belt
-white	n	an airbag
 white	n	what makes my girlfriend scream when I put it in her mouth
-white	n	a ripe potato
 white	n	my hater
 white	n	a moon rock shaped like a butt
 white	n	a bathroom scale
@@ -1246,7 +1156,6 @@ white	n	my father’s example
 white	n	the Army
 white	n	a tard
 white	n	you, ya dirty bum
-white	nc	“sexy kitty” mode
 white	n	my unwanted child
 white	n	a dog head
 white	n	my first time
@@ -1325,7 +1234,6 @@ white	n	my golden goose
 white	np	heavy hearts
 white	v	taking a flying leap
 white	n	a car crash
-white	n	my lost love
 white	n	what Mom made
 white	np	prancing piglets
 white	n	the sound of someone sipping soup
@@ -1609,7 +1517,7 @@ black		We can be _. And no one has to know.
 black		During my driving test, I backed my car into _{n}. I still got an 85!
 black		I’m getting _{n} installed in my car, so I can be _ while I drive.
 black		I need a hotel room with _{n}, and I need _{n} brought to me every four hours.
-black		Here’s a certificate for _. I am at your service.
+black		My wife printed me a certifcate for _. I’m excited for tonight!
 black		I chipped my tooth on _{n}. My dentist said I’m lucky it wasn’t _.
 black		My nightly ritual involves _, _, and finally _ just as I fall asleep.
 black		I’ve been single ever since my girlfriend found out I had _{n}.
@@ -1652,7 +1560,7 @@ black		I misclicked while my boss was looking over my shoulder and my video of _
 black		I can’t shake the feeling there’s always _{n} just around the corner.
 black		The city put in new road signs to indicate _{n} just up ahead.
 black		For science class we went on a field trip to see how _ happens.
-black		I’ve been chopping down trees to build _{n} for me and my wife.
+black		I’ve been chopping down _{p} to build _{n} for me and my wife.
 black		The new intern is starting this week. Can you set up her workstation for _?
 black		At the lake, everyone began scrambling toward the shore as _{n} surfaced from below.
 black		At the mall Santa kiosk, the elves were caught sneaking _{n} into women’s purses and bags.
@@ -1672,7 +1580,7 @@ black		Factory workers at Foxconn who leap out of windows will now be saved by _
 black		Astronaut Chris Hadfield is well known for sneaking _{n} onto the International Space Station.
 black		Strangely, right before Hitler killed himself, he had _{n} destroyed and _{n} killed as well.
 black		I want to be buried with _{n}.
-black		When the stadium was demolished it ejected _{n}, which hung in the air for days.
+black		When the stadium was demolished it revealed _{n}, bringing onlookers from far and wide.
 black		I found out why I’m always sick... they found _{n} in the walls at my office.
 black		The new top grade of gasoline has _{n} as an additive, which is actually really good for your car.
 black		People are freaking out because the new Happy Meal PEZ® dispenser is _.
@@ -1814,7 +1722,7 @@ white	np	good, Christian values
 white	v	mistreating the clitoris
 white	v	plummeting from 20,000 feet
 black		At the new circus in town, three jugglers throw each other _{s}, while a man is _{v} on a galloping horse.
-black	1	They said _ was out of my league, but look at me now! I've got _... and then some!
+black	1	They said _ was out of my league, but look at me now! I've got _ out the ears!
 black		My life coach told me that to maximise my positive energy flow, I should alternate between _{v} and _{v}.
 white	v	completely wigging out
 black		Great job on the proposal for _{v}, Dave! You're in line for a raise, and the boss might even give you _{s}.
@@ -1851,7 +1759,7 @@ black		If you do it right, _ is all about _.
 white	n	a cranky, foul mouthed old lady
 black		Life is so strange. I went to college to learn _, but now for work I’m _. Go figure!
 black		Traffic is backed up for 7 miles due to an overturned semi hauling _{n}. The driver was _{v}.
-black		How did I get hurt? I got my foot caught in a bucket of _{p}, tumbled down the escalator and crashed into _.
+black		Don't you hate the feeling of putting on fresh socks and stepping in a puddle of _{c}?
 white	np	child-bearing hips
 black		Terrified, I scrambled up the tree, with _{n} jumping and nipping at me from below and even _{v}.
 white	nc	my out of control libido
@@ -2182,7 +2090,6 @@ white	np	nut sack hairs
 white	v	beating up retarded people
 black		James Bond will return in “The Man With _”!
 white	n	Martha Stewart, orgasming
-white	nc	a sassy computer wife
 white	v	killing protesters
 white	np	butt licks
 white	vt	beeping
@@ -2209,13 +2116,11 @@ white	nc	automated mechanized death
 black		Today you’re on the receiving end of _.
 white	n	a boyfriend shaped bed 
 white	v	shitting all over me
-black		#_-shaming
 black		I don’t think that even comes close to being _.
 black		I strongly believe that every scene of a movie should end with _.
-black		The 1940’s certainly had a thing about _.
+black		You wouldn't think it, but during Prohibition many people were _{v}.
 black		I think a lot of people would pay to see _.
 white	np	laser sounds
-white	v	a snappy dressing dame with a lot of legs
 white	np	dinosaurs
 white	v	surviving a gentle sneeze
 white	v	maintaining total stealth
@@ -2332,7 +2237,7 @@ white	nc	intense pressure
 white	v	doing it again
 white	nc	pure love
 white	v	touching your vaggie while sleeping
-black		I just dug up _{n} in my backyard! I had no idea this place had _.
+black		I just dug up _{n} in my backyard! The police are questioning me and I'm worried about _.
 white	nc	industrial adhesive
 white	nc	industrial solvent
 white	v	drunk sexting my sister
@@ -2388,14 +2293,13 @@ white	np	your sisters
 black		Don’t leave the door open! _{n} will get in.
 black		_{Un} can only be killed by _.
 black		When _{n} hits your eye like a big pizza pie, that’s amore!
-white	nc	sexy kitty time
 white	nc	absolutely no black people
 white	v	getting it on
 white	np	white people and their fucking problems
 white	nc	emergency bacon
 black		The ‘_{ct} moth’ has adapted to feed on _{n}, and hide under _{n} in cities and towns to spin its cocoon.
 black		I thought I’d solve two problems at once by stuffing _{n} down the gopher holes.
-black		I could tell _{n} had ended up behind me when I felt a sudden pinch as I backed up.
+black		I could tell _{n} had ended up behind me when I felt _{n} as I backed up.
 white	n	me
 black		After a truck ran over _{s} there was so much damage you couldn’t tell it apart from _{n}.
 black		When I went into the bathroom I swear I saw _ in the mirror! And it smelled like _ in there! I’m so scared!
@@ -2459,7 +2363,7 @@ black		I saw _{n} down the long corridor, two of them, actually. I stood still i
 black		...they said, “Come play _{t} with us.”
 white	n	no black child
 black		I looked up “_” in Urban Dictionary, and apparently its an act involving _.
-black		_{n} landed on my stomach, which hurt pretty bad, but the amazing thing is that _{nc} came shooting out of my ass!
+black		_{Un} landed on my stomach, which hurt pretty bad, but the amazing thing is that _{nc} came shooting out of my ass!
 white	np	bourbon and ball-gags
 white	n	a guilty little boy
 white	v	drowning the children
@@ -2480,7 +2384,7 @@ white	nc	racial superiority
 white	v	vibrating my pineal gland
 black		Command, we’ve got two choppers and _{n} coming right at us. Please advise.
 black		We can’t ALL get away with treating women like _{n}.
-black		And on the 8th day God created _, and it was good.
+black		I prayed to God for _, and God delivered!
 black		I beat _ all the time!
 black		What separates the winners from the losers is how a person reacts to _.
 white	v	wildly swinging middle fingers
@@ -2489,7 +2393,6 @@ white	n	resting bitch face
 white	n	Jesus’s death
 white	n	the things I’m hiding in my basement
 white	n	John Travolta crying, as a woman
-black		_{n} is not something you want to slide up your ass with reckless abandon.
 black		These condom directions are confusing: who is supposed to be _{v} and where does _{n} come in?
 black		Indiana Jones grabbed the idol and _{n} came rolling after him, but he escaped by _{v}!
 black		People in Taiwan are getting _{n} implanted in their bodies for _{v}.
@@ -2585,7 +2488,6 @@ black		These special lenses help colorblind people see that _{n} is _{v}.
 white	nc	ISIS
 white	n	a softer option
 black		I actually clicked page 2 on Google cuz I was so desperate searching for _.
-black		My pussy aches for _.
 black		Introducing, The _{UT} diet, where you can lose up to three pounds in twenty minutes!
 white	v	struggling to get out of the van
 white	v	killing again
