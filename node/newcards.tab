@@ -1,98 +1,4 @@
-white	np	Grandpa’s spatter zone
-white	n	an alcoholic tendency
-	REPEAT?	alcohol
-black		I will do anything for _. But I won’t do _!
-black		I will do anything for _. But I won’t do that!
-	REPEAT?	I will do anything for _. But I won’t do _!
-black		I will do anything for love. But I won’t do _!
-	REPEAT?	I will do anything for _. But I won’t do _!
-	REPEAT?	I will do anything for _. But I won’t do that!
-white	np	precious little white children
-white	v	setting my anus ablaze
-white	n	a generic looking butt
-white	n	a pet that says “penis”
-white	v	receiving birth
-white	v	smashing a bird
-white	n	a bird looking at a volcano exploding
-black		I prefer to receive my payments in the form of _.
-white	n	a sensuous blowjob
-	REPEAT?	blow
-white	np	bitcoins, Steve Buscemi action figures, and Polynesian handwoven baskets
-white	np	rich people dying in boating accidents
-black		We’re all about _ and inappropriately inserting _ into everything
-black		You start the game with 1D4 _ points.
-black		They somehow made a cute mascot girl out of _.
-black		The new thing in Japan is fetish cafes where you can see girls dressed up as _.
-black		The _ of _ has left me in despair!
-black		My innovative new RPG has a stat for _.
-black		No harem anime is complete without _.
-black		Christians don’t like to talk about it, but when the devil fell from heaven, onto a Harley Davidson of course, he was chased by _.
-black		Remember the good old days, when it was okay to be turned on by _.
-white	v	Downloading more RAM
-white	nc	Boobie milk
-white	np	Japanese people
-black		I think I’m enjoying _ more than I should.
-white		_ can be used as a dildo, if you’re brave enough.
-black		The new Fallout DLC will allow you to recruit _ and acquire _!
-black		They asked me how well I understood theoretical _. I said I had a theoretical _ in _. They said welcome aboard.
-white		_ is a temporary setback on the road to _!
-black		Democracy is non _.
-black		It like they always say: _ never changes.
-black		I don’t recall the _ ever being _.
-black		“D” is for _.
-black		This year’s hottest album is “_” by _.
-white	n	an awkward discussion involving female biology
-white	n	a self-aware tutorial
-white	np	friends
-	REPEAT?	sex friends
-	REPEAT?	animal friends
-white	n	a three day MMO marathon
-white	n	the anti-climactic normal ending
-white	n	a giant, tea-making robot
-white	n	a raygun remote control
-white	nc	over-sized scissors
-white	v	drinking toilet water
-	REPEAT?	water
-white	np	graffiti that says “FUCK YOU”
-white	n	a sexbot named F.I.S.T.O.
-white	v	the annexation of Canada
-white	nc	radiation sickness
-black		In some households, they’ve trained _{sp} to use the potty.
-white	n	a uniquely British problem
-white		_{Uv} with _{n} is a uniquely British problem.
-white	v	cuttin’ off mommy’s finger
-black		I’m going to post the new white card _ to SAH. What do you think to _?
-black		I’m going to to post the new white card _ to SAH. What do you think, to predictable?
-	REPEAT?	I’m going to post the new white card _ to SAH. What do you think to _?
-white	nc	a man in a meat suit
-white	nc	Ringo, the worst Beatle
-white	np	cold babies
-white	n	a rotting infant carcass
-white	v	yankin’ me ol’ chain
-white	np	gay furries
-	REPEAT?	furries
-white	nc	gay furry drama
-white	n	a fat man’s problem
-white	n	a kind note from gram-gram
-white	nc	wiggle room
-white	n	a smiling chimp in a beanie
-white	v	monkeying around
-	REPEAT?	wandering around
-	REPEAT?	tunneling around
-white	n	a hard worker with lots of big jobs
-white	n	the scum of the Earth
-black		In Disney’s beguiling animated romp, _{n}—rebellious and 16—cannot resist learning about _.
-black		This house comes with a whole room for _, but also _{n} painted green, so it’s not for everyone.
-black		The truly rich have mansions with _{s} room, _{s} room, and servants to handle _.
-white	n	the poop cave
-white	v	making dubstep noises at random passerbys
-white	n	a BDSM student
-white	n	a bigger floppier vagina
-white	v	Blowing each other by the river
-white	n	a white terrorist
-white	nc	weird sex
 white	v	taking a fist full of unidentified drugs
-white	v	tossing a hammer into my butthole
 white	nc	my bisexuality
 	REPEAT?	unisexuality
 black		There will be _{n} left over after the bris.
@@ -112,10 +18,10 @@ white	v	launching a nuke
 black		The only thing standing in your way is _.
 black		You can only change your future if you move past _.
 black		Wolves don’t eat _, and neither should kings.
-white		_ is where _ goes to die.
-white		_ will mend your wounds. It takes two days, though.
+black		_ is where _ goes to die.
+black		_ will mend your wounds. It takes two days, though.
 black		You’re _, but you need _.
-white		_? I’m not interested! I can do the job on my own.
+black		_? I’m not interested! I can do the job on my own.
 black		Be honest: how many times have you dreamt about _ and _?
 black		If you’re _, I think you have slipped up somewhere.
 black		That kind of attitude is why we have _ now.
@@ -215,7 +121,7 @@ white	v	slurping up the umbilical cord
 white	v	making me hard
 white	nc	astronaut pee
 black		We are going to taxidermy _{n} to make a statue out of it!
-white	1	_{U} is always a contest when I’m involved.
+black	1	_{U} is always a contest when I’m involved.
 white	v	fleeing directly onto my penis
 white	n	baby pheromones
 white	n	a human child in a bag
@@ -287,7 +193,7 @@ white	nc	tiger urine
 black		I’m sorry I didn’t realize today was national _ day. Go, be with “your people”
 white	nc	cream for my baby
 black		This pizza comes with _{n} sauce and it’s topped with _{pc}.
-white		_{Un}: peel and chew on its sugary stands to extract its sweet juice.
+black		_{Un}: peel and chew on its sugary stands to extract its sweet juice.
 black		During mating season, foreplay for the Siberian Ibex consists of _.
 white	vt	40 minutes of hitting, screaming, and urinating
 white	v	pushing throat limits
@@ -321,7 +227,7 @@ black		The hippo’s tail launched _{c} all over the place.
 black		I accidentally dropped _{n} in the urinal at the Jeep dealership.
 white	n	a bloody thing that popped
 black		I feel great! I got _{n} in my bloodstream.
-white		_{Un} from the Ohio county fair to be destroyed due to infection.
+black		_{Un} from the Ohio county fair to be destroyed due to infection.
 black		Today the Senate is voting on _.
 black	1	She wears _{n} after labor day because audacity is always in style.
 white	n	a peeled muffin
@@ -336,4 +242,477 @@ white	n	a sensual full-body massage
 white	np	dead mothers
 black		I went to my step mom’s church and the priest blessed me with _.
 white	n	a weaponized butthole
-	POST ID	76192
+white	np	little nightmares
+white	n	the clear, unvarnished truth
+white	np	intersex children
+black		For my next arts and crafts project I’m making _.  But first I need to see if they have _ at the craft store.
+black		I thought I was going to fart, but it came out as _{s}.
+black		I get chills when _{sc} brushes against my leg.
+black		I’m _ today because tomorrow I’ll be over-encumbered with _.
+white	vt	snarling and thrashing
+	REPEAT?	wriggling and thrashing
+black		While I was out the dog chewed into the packaging on _{n}. I found him _{v}.
+white	np	chewy parts
+white	n	the chewy part
+white	v	dwarfing the mighty redwood
+white	n	a chick with a dick
+white	nc	complete ecstasy
+white	v	being in a state of total ecstasy
+white	n	the stability of the region
+black		Nordstrom’s return policy is so customer-friendly, a woman once returned _{pc} there.
+black		_{U} is where I poop.
+black		Turmoil at the Whitehouse. Several staff members fired over _.
+white	np	subterranean items and trinkets
+white	v	Googling it with Bing™
+white	n	Spiderman using Bing™
+white	v	teaching Grandpa to make gravy
+white	v	drumming up awareness for clown horror
+black		Those hoodlums graffitied _ in my mailbox again.
+white	nc	Your mother’s truth
+white	nc	such a wonderful flavor
+white	nc	Uncle Beemish’s magical “sword”
+black		_  are the reason why poems, stories, and even novels become so popular in the first place.
+black		The four schools of ethics: relativism, universalism, utilitarianism, and _.
+black		The Nazis developed an industrial way to exterminate the Jews, ways similar to _.
+black		After Abraham Lincoln was assassinated, _ became the next president.
+black		If Benjamin Franklin didn’t invent _, certainly others would have.
+black		_ is not an easy punishment to overcome.
+white	n	the Harrison Ford assembly line
+white	n	John Wilkes Booth
+white	n	the light bulb
+white	nc	death
+white	np	words
+white	nc	plagiarism
+white	np	fractional fuckery scenarios
+white	v	funding ISIS
+	REPEAT?	ISIS
+black		Blue Whaling: the disturbing internet trend in which teens commit suicide by _{v}.
+black		Do you remember when we were kids, and the police shut the school, and we were _?
+white	nc	fanny pack full of ground beef
+black		A salesman came to the door selling _{n}. I didn’t open. He slid _{n} under the door.
+black		Last thing I hear before the anesthesia kicks in is my neurosurgeon saying he’s _.
+white	n	my toucan, going crazy
+white	v	trying to get away with murder
+white	v	goin’ up the butt sideways
+white	v	turning the frogs gay
+white	v	remembering that swans can be gay
+white	n	an orchestra stab
+white	n	a secret stash of beef
+white	np	glass shards
+black		Oh great. Now I have _{s}-flavored bung hole.
+black	1	We gotta get Mom latte’d up so she’ll give us _{n}.
+white	v	cramping up
+white	v	listening to your own heartbeat on the phone
+black		There’s _ where I normally do my business.
+white	v	accepting the penis
+white	n	a home-made shiv
+white	v	strangling my horse
+white	v	killing Kim Jong-un
+black		_{Un} slowly began to open and someone yelled, “It’s accepting us!”
+white	nc	quality
+black		The FBI is at the door. They say they have a warrant for _!
+white	nc	all that junk
+white	nc	some kind of magic juice
+white	n	that time I nearly got us both killed
+white	v	thinking I’m not racist while enjoying a chalupa
+white	nc	toxic masculinity
+white	nc	empty space
+white	nc	right in the “yoohoo!”
+white	n	the penis
+	REPEAT?	her penis
+	REPEAT?	the pelvis
+	REPEAT?	the ends
+	REPEAT?	accepting the penis
+black		At the gym they have this new machine where I’m _{v}.
+white	nc	mommy juice
+	REPEAT?	mom
+black		Sometimes I feel out of place at the gym then I look to my left and see _, and I feel better.
+black		I always get caught _{v} in the locker room. Sorry.
+white	vt	Squatting
+black		All the TVs at the gym just repeat that video of _.
+white	n	the jewish agenda
+white	v	attending a porn shoot and then an orgy
+white	v	coming in 2nd in a power bottom competition
+white	v	cleaning up grandma’s dead body
+white	nc	chicanery
+white	n	an invoice printed from a hooker
+white	v	printing hooker invoices
+white	v	screeching in Italian
+white	n	a stuck buttplug
+white	v	actually paying the hooker
+white	v	not even stopping to breathe
+white	v	shooting into the sky
+white	nc	so much raw meat
+white	n	every credit card
+white	np	the lulz
+white	v	going back in time
+white	nc	no Internet
+white	n	the vacuum of space
+white	np	salty lips
+white	np	two VCRs
+white	v	wanting blood
+white	n	the glass ceiling
+white	n	a police officer on Facebook
+white	n	a nervous police officer
+white	v	looking smug
+white	np	old people fucking in it
+white	nc	nothing but trouble
+white	n	my sex tape
+white	nc	gay sex with the pope
+white	n	Vladimir Putin fucking a bear
+white	v	getting tossed in the trash
+white	v	winding up dead
+white	v	turning up dead
+	REPEAT?	winding up dead
+white	n	one bitcoin
+black		Kim Jong-un’s Central Luxury Mansion has a wing for _.
+black		The Pentagon’s best armored room is for planning _.
+white	v	coming from the same hole
+white	n	a midget having a seizure
+black	1	At BASF we don’t make _{n}. We make _{n} better.
+white	n	dad’s gaping hole
+	REPEAT?	dad
+black		My brother thought he was SO funny when he took _{n} from the freezer and put it down the back of my shirt.
+white	n	a rat’s... anus?
+white	n	the entrance to Hell
+white	v	bungling everything
+	REPEAT?	slapping everything
+black		The left lane is only for vehicles with _{cp}.
+white	n	the cyber
+white	n	my Internet girlfriend
+white	vt	showering, then pooping
+white	np	constant little orgasms
+white	np	5 bars of 4G
+white	nc	dirty gay blood
+white	n	the fart zone
+black		I saw two hobos fighting over _{n} behind the library.  One of them was _{v}.
+black		If you pour it right, a frothy layer of _{c} will form on top of your beer.
+white	v	abusing a goat
+white	v	acting all innocent
+black		Jeez! Who slipped _{n} in your Cheerios this morning?
+white	v	barking up the wrong tree
+white	n	a pound of hair
+white	n	the Roomba
+white	n	the center of the earth
+white	np	15,000,000 pounds per square inch
+white	n	a soul-stealing telephone
+white	n	a walrus rolling down a hill
+white	n	a rabbit that just exploded
+white	n	an electric cord
+white	n	a pressurized container
+white	n	his left nut
+white	n	her left vaginal wall
+white	n	a sex toy vending machine
+white	np	bacon & spiders
+	REPEAT?	spiders
+white	n	a river
+white	n	a bell that rings whenever I think about sex
+white	v	misleading the public
+white	n	a fanny pack full of dice
+white	n	a cat in a cardboard box
+black		I didn’t know they made _{n} in lemon flavor.
+black		Apparently I owe $350 to the pool store for filling my pool with _{n}.
+black		I would kill to swim in a pool of _{cp}.
+black		Life Pro Tip: use a bandaid to stick _{n} to _{n}.
+black		I think those two hobos are enjoying _{n} in the alleyway.
+black		When I was a kid I used to take _{n} into the bathroom with me.
+white	n	the devil
+white	n	the United States of America
+black		The suspect’s pockets were full of pictures of _.
+white	v	undoing that
+white	n	an abomination unto the Lord
+	REPEAT?	an abomination unto God
+white	np	7 billion people
+white	np	armfuls of free treasure
+white	v	getting sealed in a glass box
+white	n	a can of Coke
+white	v	shitting organs
+white	v	tickling Al Pacino
+black		My mom says you have to call it _{n} or you get in trouble!
+white	v	removing my appendix
+white	np	domesticated bird corpses
+black		I can’t believe they used to churn _{n} into “butter.”
+white	nc	gas
+	REPEAT?	gassing
+	REPEAT?	butt gas
+black	1	Throw _{n} at your enemies to distract them.
+white	np	wild whores
+white	n	a salty surprise
+white	v	being followed by bears
+white	v	getting off on it
+	REPEAT?	getting off
+white	n	a “kick me” sign
+white	n	a murder, and then another murder
+white	v	running out of TP
+white	vt	squishing
+white	nc	everything
+white	np	more legs
+	REPEAT?	legs
+black		When I find my magic lamp I’m gonna wish for _.
+black		These tilapia will eat anything we throw in: _{n}, _{n}... even _{n}.
+black		I work at a fish farm. When I hear _{n} I throw _{n} in to feed the tilapia.
+black		Every Sunday morning my mother told me _.
+black		Unlike most people, I can feel _{n}.
+black		At church they taught me that _ leads to _.
+black		AC power carries farther than DC due to _.
+black		The doctor said Grandpa can’t have _{n} anymore.
+black		In my life I’ve overcome _{n} time and time again with _.
+white	v	putting it on the penis
+	REPEAT?	the penis
+white	v	restarting the dog’s heart
+white	n	a turtle I like
+white	v	eating a Rubik’s® cube
+black		People get their heads full of _{n} and then they want to be _.
+white	nc	free money from the government
+white	n	one of those black actors that the kids like
+white	v	peeling open the beef curtains
+	REPEAT?	beef curtains
+white	n	that little Jewish boy
+white	v	attacking each other
+white	n	a buttplug fidget spinner
+black		This gas pump is weird. It says, “push button to select _{n}.
+black		I saw the weirdest thing on Amazon, it was _, I didnt know that came in three colors...
+white	n	a rock hard biscuit
+white	nc	your baloney hole
+white	n	something a mother whale would do
+white	v	going “boop!” on the nose
+white	v	being sad or maybe dead
+white	v	sleeping with a gun
+white	nc	Shakira’s “sexy” robot voice
+white	n	a virus in the toilet
+	REPEAT?	a virus
+white	np	duck legs
+	REPEAT?	legs
+white	np	bug legs
+	REPEAT?	legs
+black		One time I left _{n} in my vagina for a month.
+white	n	a giant spider corpse
+black		I got one hand in my pocket, and the other one is _.
+white	n	a poop hurricane
+white	n	the sky
+	REPEAT?	a crack in the sky
+	REPEAT?	shooting into the sky
+white	v	letting down my hair
+black		Do you know what happens if you don’t take _{n} seriously? _{Uv}
+white	np	velociraptors with swords for arms
+white	np	two black boyfriends
+	REPEAT?	friends
+white	n	a swarm of pill bugs
+white	np	beefy queefs
+black		Obese children panting over _.
+black		Who needs consent when you can have _.
+black		I hope I’ll still be _{v} after Wii Fit makes me skinny and hot.
+white	v	having problems with my butthole
+white	v	fucking in front of the dog
+white	n	a pinhole camera
+white	n	a criminal background
+white	v	getting hit as well
+white	n	also a butt-licker
+white	v	flying off the tracks
+white	np	things and stuff
+white	v	working at Little Caesar’s
+white	v	getting served
+white	np	space probes?
+white	v	rubbing salt in the wound
+black		A billboard on my way home had a picture of _{n} and the words “_”. I dig it.
+	REPEAT?	A billboard on my way home had a picture of _ and the words “_”. I don’t get it!
+white	nc	too much pee pee in the situation
+black		At the golf course a water line broke, filling _{n} with water until it looked like it was gonna burst.
+white	v	doing it so wrong you die
+white	v	failing to get the condom off
+white	v	failing to get the condom on
+	REPEAT?	failing to get the condom off
+white	v	double-bagging it
+black		I make healthy food for my cat by _{v} with _{n}. Oreo loves it!
+	REPEAT?	I make _{n} for my cat by _{v} with _{n}. Oreo loves it!
+white	v	taking a whole ring of birth controls
+white	v	shaving the whole body
+black		At school in Mississippi they still teach the best form of birth control is _.
+white	v	wetting it
+white	n	a long, flaky peel
+black		Hackers are hacking sex dolls and making them so they’re _{v}.
+white	v	touching the cat
+black		The sign in the Jimmy John’s restroom says, “Thank you for _{v} with precision and elegance.”
+white	np	2,000 dried and pressed cats
+white	np	a monogamous rooster
+white	n	an owl pellet
+white	v	shitting a skull
+white	n	a Somali wild ass
+white	n	my lover
+white	v	killing your grandmother
+black		Jonathan, don’t you understand _ is killing your grandmother?!
+black		Get bigger tips from white customers by _{v}!
+white	v	putting avocado on everything
+black		Put _{n} on racism so white people pay attention.
+white	np	onion rings and Sudafed®
+white	np	roach eggs
+black		Somebody left a hot pink Post It™ note on my screen that said, “_ _.”
+white	n	my strict Asian father
+black		Eventually, the Soviets solved the problem by pouring concrete over _{n}.
+white	v	getting diagnosed
+black		The new food truck at our office is _{nc}-latin fusion and has _{n} painted on the side.
+white	n	an odorous balsam
+white	n	a bizarre string of domestic pet strangulations
+white	v	getting tongue-punched in the brown eye
+black		I’ve laced up _{n} and I’m ready to go.
+white	n	the sex temple
+white	v	charging admission to the sex temple
+black		When I find myself in times of trouble, _{n} comes to me, speaking words of wisdom: _.
+white	nc	lump crab
+white	v	investing in real estate
+white	v	making much better decisions
+white	n	an elk-humping Swede
+white	n	a salami-stealing bear
+black		Add _{n} to your Diet Dr Pepper to prevent getting _.
+white	v	having sex with black people
+white	v	producing a range of smells at will
+white	v	groping Terry Crews
+white	v	masturbating into a potted plant
+white	v	getting suddenly exsanguinated
+white	v	getting violently exsanguinated
+	REPEAT?	getting suddenly exsanguinated
+white	v	getting drained of all blood
+white	nc	a vulnerability
+white	v	licking it up and down
+	REPEAT?	licking it
+	REPEAT?	licking
+white	n	the Dark Master of Terror
+white	nc	tainted meat
+white	n	Jonathan the oldest gay tortoise
+white	np	Megan Fox’s creepy thumbs
+white	n	Gruntar, the warrior of legend
+white	v	getting gored by a hippo
+black		Alfred Hitchcock famously said that every scene in a movie should include _{n} and _{n}, and that the actor must always be _{v}.
+black		Alfred Hitchcock famously said every scene in a movie should include _ with _.
+white	v	flushing and running
+white	n	a lamprey hanging of the end
+white	n	an egg that’s always been there
+white	n	a pat of butter
+black		News flash: _ *is* _.
+black		I woke up with _{n} lying on me.
+white	nc	my entire body, inside and out
+white	v	getting climbed on by Kevin Spacey
+white	v	getting diddled by Kevin Spacey
+	REPEAT?	getting climbed on by Kevin Spacey
+white	n	Kevin Spacey’s bad-touch hand
+white	n	a 14-year-old near Kevin Spacey
+white	v	telling Kevin Spacey “No!”
+white	v	waking up under Kevin Spacey
+white	v	playing Surgeon Simulator with Jared Fogle
+black		Man who knew _ were so much work? They’re just like _.
+black		Your character design is a mess. Just look at all the conflicting elements: _, _, _
+black		This is the story of how _ invades a foreign land, kills the local leadership, then struggles to find _.
+black		Friends ask to use _. Winners get paid to use _
+black		Missed connections: You were _. I was _, _ as you hurried towards your destination.
+black		It’s a little known fact that snapping turtles relish the chance to chomp on _.
+black		The tragic story of a love triangle between _, _, and _.
+black		You’ve got _, and _, and _. All things you’d find on the shelf of a twelve year old boy’s room in 1996.
+white	np	robot vaginas
+white	np	real vaginas
+white	nc	the Barbarella bondage lien of apparel
+white	n	Fully Automated Luxury Gay Space Communism™
+white	n	an exit strategy
+white	np	copious amounts of drool
+white	n	an eye patch with gems
+white	np	cyborg eyes
+white	np	lasers
+white	np	glittery romantic vampires
+white	nc	That Which Must Not Be Named
+white	nc	heterosexual sex in the missionary position
+white	n	a small, elderly man
+white	n	an immediately perceptible air of sadness
+white	n	an exceptionally lively, intelligent face
+white	n	a snappy dressing dame with a lot of legs
+white	n	a slumping, green-skinned hairbeast
+white	vt	cumming while crying
+white	v	skulking in alleyways and casting menacing shadows
+white	np	detectives and dragons
+white	n	a power-armored knight
+white	nc	cleavage
+white	n	an eighteen year old girl
+white	n	a hundred year old guy
+white	n	a dog
+white	n	the wrong Dracula
+white	nc	your definition of cool
+black		The ancient Chinese had a name for it: Feng Shui. We call it _.
+white	np	partially exposed underbuns
+white	np	nonlinear genetics
+white	v	superstring theory
+white	n	the sickness unto death
+white	n	an especially stupid 5-year old
+white	nc	my lesbian experience with loneliness
+white	v	hunting white people
+white	v	Louis CK blocking the door
+white	v	Louis CK blocking the door and jerking off
+	REPEAT?	Louis CK blocking the door
+white	v	initiating a sexual encounter
+	REPEAT?	a sexual encounter
+white	n	a tiny crack pipe
+	REPEAT?	crack
+white	nc	Vladimir Putin’s puddin pop
+black		The militias fighting _ have a diversity problem.
+black		Being _ is great. Unless you’re a woman.
+black		Here are nine ways becoming _ is right for millennials.
+black		I just discovered that defending yourself from _ is actually bad for you.
+white	np	a rag-tag band of misfits
+white	np	Hell Skeletons
+white	v	killing snakes with tylenoled mice
+white	n	Roy Moore at the mall
+white	n	a woman sleeping near Al Franken
+white	v	playing Mario and reading bible verses
+white	v	showing up dead
+	REPEAT?	turning up dead
+	REPEAT?	winding up dead
+white	nv	FUCK!
+black		_ stands for “cool girl.”
+white	n	a guard rail
+white	n	a parking lot
+white	np	six geese
+black		We’re already half way through _, so we might as well finish it off.
+white	np	my charred remains
+white	nc	well-worn baby teeth
+white	v	finding most of the victim
+white	n	an edgy shit
+black		I blame _ for the gentrification of this neighborhood.
+white	v	cleaning my butthole
+white	n	the cat
+	REPEAT?	touching the cat
+	REPEAT?	hotboxing the cat
+black		While putting up _{n} I found _{n} on the roof is my house!
+black		I got hit in the face with a concentrated stream of _.
+white	np	red bows on luxury cars
+white	v	pumping blood into it
+white	np	soft robot muscles
+	REPEAT?	muscles
+white	v	being sacrificed to the wolves
+white	n	the Berlin police
+white	nc	radioactive iodine
+black		Error. Your password must contain a letter, a number, and _{n}.
+black		I got suspended from Twitter for tweeting that “_{n} was _{v}.”
+black		I got my account banned on _{-}.com.
+black		A ghost ship washed up in Japan with _{n} on board.
+black		Matt Lauer had a button under his desk for _ without even getting up.
+black		I left my shoes outside and they filled up with _{n}.
+black		A guerrilla ad campaign for Netflix’s new show explains people spotting _{vpc} around town.
+white	v	being assaulted by Geraldo
+black		Charlie Rose has been fired after reportedly _{v} dozens of times.
+white	n	Darth Anus
+white	n	A hill to die on
+white	v	dying on a hill
+white	n	a lesbian with a penis
+	REPEAT?	a boy with a penis
+white	np	suicidal robots
+black		Geraldo may be in trouble for shoving _{n} in Bette Midler’s nose.
+white	nc	homonecrophilia
+black		Oh no! I missed the part of the license agreement where Sony takes ownership of all _{n}.
+black		Your grandfather likes to use _ as a catheter.
+white	v	teaching dad to queef
+white	nc	a ten-day-old dog corpse
+white	n	a new species of loud, stupid animal
+white	n	an impenetrable wall of swine
+white	n	my pee steam, so warm
+black		I had to go to the hospital for _.
+black		During sex, my girlfriend started _{v}. But she finished and we got back at it.
+black		I can’t believe the mailman stuffed _{n} into my mailbox instead of knocking!
+black		Tie rope to both ends of _{n}. Now you can be _{v}!
+	POST ID	76549
