@@ -1508,7 +1508,7 @@ black		We finally hired a guy at work to take care of _.
 black		The refugees must be relocated because the shelter is right on top of _{n}.
 black		The Chinese government has blocked all websites related to _.
 black		If you see your dog scooting his butt on the carpet, it probably mean he’s _{vs}.
-black		If you have a dream about _, it meas you’re worried about _.
+black		If you have a dream about _, it means you’re worried about _.
 white	n	your husband
 white	n	the sun
 white	n	my taxidermied daughter
@@ -2480,9 +2480,9 @@ black		The Capital One Venture card earns points when you buy _{n}, and you get 
 white	v	something sweet for the kids
 black		I will do anything for _. But I won’t do _!
 black		I will do anything for _. But I won’t do that!
-white		_ can be used as a dildo, if you’re brave enough.
+black		_{U} can be used as a dildo, if you’re brave enough.
 black		The new Fallout DLC will allow you to recruit _ and acquire _!
-white		_ is a temporary setback on the road to _!
+black		_{U} is a temporary setback on the road to _!
 black		It's like they always say: _ never changes.
 black		“D” is for _.
 black		This year’s hottest album is “_” by _.
@@ -2493,7 +2493,7 @@ white	np	graffiti that says “FUCK YOU”
 white	n	a sexbot named F.I.S.T.O.
 black		In some households, they’ve trained _{sp} to use the potty.
 white	n	a uniquely British problem
-white		_{Uv} with _{n} is a uniquely British problem.
+black		_{Uv} with _{n} is a uniquely British problem.
 white	v	cuttin’ off mommy’s finger
 black		I’m going to post the new white card "_" to SAH. What do you think to _?
 white	nc	a man in a meat suit
@@ -2509,3 +2509,43 @@ black		_ is where _ goes to die.
 black		That kind of attitude is why we have _ now.
 black		Last night was the tragic result of  _
 white	v	getting attacked by a garbage truck
+white	nc	broccoli
+white	nc	the toilet
+white	n	your comfort zone
+white	nc	your past
+white	n	my vaginal microbiome
+black		Hello, 911? I think there’s _{n} in my house...
+black		I’m terrible at goodbyes, but not as terrible as _.
+white	n	the power of love
+black		I had the most horrific bowel movement. It was like _.
+black		Woah, weird, is anyone else getting turned on by _?
+white	nc	Dad’s ass
+white	nc	dat ass
+white	nc	meat and cheese
+white	np	narcotics
+black		We are going to taxidermy _{n} to make a statue out of it!
+black	1	_{U} is always a contest when I’m involved.
+black		Vote for me and I’ll stop _{v}, get rid of _{n}, and give everyone _{n} for free.
+lack		The blurry picture of the “Loch Ness monster” was actually a picture of _{n}.
+white	v	getting a face full of crotch
+white	v	getting boinked
+black		Stick out your tongue and say, “I was born in a pile of _{pc}.”
+black		I swear to God I have had it up to HERE with _{pc}.
+black		I think there’s _{s} convention going on downtown.
+black		There’s _{s} convention going on and everybody is _{v}.
+black		I called 911 because my sister wouldn’t stop _{v}.
+black		15% of married men say they’ve cheated by _{v} with another woman.
+black		The Internet is made out of _{pc}.
+black		According to the Senate, the Internet is a series of _{p}.
+white	v	being angry and stupid
+black		The 2020 Olympics will feature a new sport: synchronized _{v}.
+black		Steve Jobs thought he could cure his cancer with _, a naturopathic remedy.
+white	np	pedophiles
+black		The president’s tweet reads: “The _ story is a hoax! Just an excuse by _{n} for _{v}! Very sad and sick!”
+black		Opioids help people with _, but then they cant poop.
+white	np	gay chemicals
+black		Our frat settles disputes by seeing who can chug _{c} the fastest.
+white	vt	murdering
+white	n	a gay Mexican
+white	v	sad people doing sad things for their sad lives
+black		I feel like I’m being punished for _{v}.
