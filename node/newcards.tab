@@ -548,9 +548,6 @@ black		Armed with _{n}, sharpened over days, the inmate went on a killing spree.
 black		Armed with _{n}, sharpened over days, the inmate went on a _{-vc} spree.
 white	vtnc	crazy killing
 	REPEAT?	killing
-white	vtnc	mercy killing
-	REPEAT?	mercy killing
-	REPEAT?	mercy killing
 white	v	not getting it
 white	nc	regurgitated Phad Thai
 black		In the future, everyone will be _.
@@ -647,4 +644,518 @@ black	1	Is your teen engaging in “_{UTn} Challenge”? Sucking _ into their no
 black		We had to let Rebecca go because she was always _{v} with Chad.
 white	v	trying to get it on
 black	1	Is your teen engaging in the “_{UTn} Challenge”? Sucking _ into their nose and out their mouth?
-	POST ID	76698
+white	nc	the same stuff Prince used
+black		In front of the senate investigators, _{n} tore open and emerged from Zuckerberg’s oily husk.
+black		You fool! You uploaded _{n} and crashed the whole website!
+white	nc	filthy crazy gay smut
+white	n	the man claiming to be his father
+black		There’s a new rumor that the president was _{v} out of wedlock.
+white	v	never succeeding
+white	nc	other buried treasure
+white	nc	Hell
+	REPEAT?	knowing hell
+	REPEAT?	the Hell pits
+	REPEAT?	a hollow shell
+black		And God said: If I ever catch you _{v} with _{n} I’m sending you straight to Hell.
+black		Wow! Ever part of _{n} is _{v}.
+white	nc	hooker pee
+white	nc	hooker spit
+	REPEAT?	hooker pee
+black		We Germans are really into ze _{p} and ze farts.
+white	v	hearing it
+white	v	beating it
+	REPEAT?	hearing it
+white	nc	fecal bacteria
+black		Study finds restroom hand dryers suck in _{n} and blow it on your hands.
+black		The Philippines is going to block _{n} on the Internet.
+white	v	mimicking the anus of a dead animal
+black		My parents used to beat me with _{n}. I just had to lay there and take it.
+white	n	a shopping cart
+white	v	getting beaten with a shopping cart
+white	n	an aggressive centipede
+white	v	startling an aggressive centipede
+	REPEAT?	an aggressive centipede
+black		_{Un}: everybody gets one.
+black		You know the human centipede? This is more like _{n} centipede.
+white	v	being dissolved in acid
+white	v	marching together
+	REPEAT?	fusing together
+black		March together with us for _ rights!
+white	v	getting killed in my house
+black		Pokemon Go players having been trespassing into _{n} factory to catch _{p}.
+black		I ate _ whilst _ on the way to school.
+black		In the far future, the 2010s will be known as the Golden Age of _.
+black		On a rainy day, I prefer to cuddle up with _.
+black		_, the breakfast of champions.
+black		My only regret is never having _ while _.
+black		Who needs friends when you have _?
+black		I get by with a little help from _.
+black		I got pulled over the other day when I was _.  Apparently, that’s a crime.
+black		When I am Prime Minister, I will create the Ministry of _.
+white	nc	the magic of live theatre
+white	np	American Gladiators
+	REPEAT?	me
+white	vt	bingeing and purging
+white	v	slapping a biscuit out of an orphan’s mouth
+white	v	jerking off into a pool of children’s tears
+white	np	lumberjack fantasies
+white	n	a much younger woman
+white	v	ejaculating inside another man’s wife
+white	np	10,000 Syrian refugees
+white	np	extremely tight trousers
+white	nc	Multiple Personality Disorder
+white	n	a dragon dildo bigger than your left work boot
+white	n	the internet
+	REPEAT?	a joke from the Internet
+white	np	pornstars
+white	v	puppets representing all the important people in your life
+white	v	demonstrating what never to do
+white	np	1000 slim jims
+white	vt	dying
+	REPEAT?	dying evil
+	REPEAT?	dying in captivity
+white	nc	my unfinished homework
+	REPEAT?	work
+white	np	dressed up as my dog for Halloween
+white	n	the cold, limp remains of what used to be a dog
+white	nc	my collection of my ex wife’s discarded hair
+white	n	a slimy tentacle monster
+white	n	a lumpy space princess
+white	np	six gummy bears and some scotch
+white	nc	back pain
+white	n	an argumentative vegan
+white	v	getting dragged out in the street and shot
+black		_{Un} should be dragged out in the street and shot.
+black		The CDC warns that romaine lettuce is contaminated with _{n}.
+black		For April Fools, I glued _{n} under my coworkers desks.
+white	n	DJ Khaled most definitely not eating pussy
+white	n	the human butthole
+white	nc	pooch cancer
+white	v	not peeing on the seat
+white	v	only peeing on the seat
+	REPEAT?	not peeing on the seat
+white	v	getting pee on the seat
+white	v	having a heart attach in Azteca
+white	nc	horsepox
+white	v	traveling one minute back in time
+white	nc	every mom
+	REPEAT?	mom
+white	n	every mom’s nightmare
+	REPEAT?	every mom
+white	v	getting a job
+white	np	confirmed fatalities
+	REPEAT?	me
+black		The school’s on lockdown because someone left _{n} in the hall. And Mr. Ryan was _{v} with it!
+black		Prince Charles to walk Meghan Markle down _{n} Saturday
+black		Google’s AI can call your hairdresser and make an appointment for _{v}.
+black		My wife cooked _{n} in a sous vide bag last night mmmm!
+black		_{Un}: I’m not sure where it is, but I know what it is.
+white	nc	willing flesh
+white	n	a suspicious death in a neighboring city
+white	np	huge glittery eyelashes
+	REPEAT?	glittery eyelashes
+	REPEAT?	glittery eyelashes
+white	n	the entire Mississippi River
+black		We have a zero tolerance policy for _ here at Disney. So take _{n} and leave quietly please.
+white	v	cranking super hard
+black		The secretive Task Force 88 of was responsible for _ during the Iraq War.
+black		My mom got a trophy from work that says “Best at _{UTv} of _{UTn}”
+white	v	looking like a sex offender
+white	n	a completely normal sexual encounter
+black		Dear parent or guardian, lately your daughter has almost been _.
+white	v	hooking onto the inside of my butt
+white	v	using my face as a fly swatter
+white	n	my face as a fly swatter
+	REPEAT?	using my face as a fly swatter
+	REPEAT?	using my face as a fly swatter
+black		The kids were running around and one knocked over _{n}.
+white	v	cutting my neck open
+	REPEAT?	cutting
+black		I thought I had an STD, but it turned out to just be _.
+white	v	getting run over by a Bentley
+white	n	a robotic breast massager
+black	1	_{U}? I rinsed my hole for _?
+white	v	sucking a rat dry like a furry little juice box
+white	nc	my Ellen Paige photo album
+white	vt	kung-fu fighting
+white	n	a magical ethnic person
+white	n	a noble hobo
+white	n	the sensation of having the back of your neck licked
+black		New report finds no evidence that having sex with robots leads to _.
+white	n	a Japanese girl in need of a Viking funeral
+black		The loss of _{n} has been devastating to the children of this town.
+black		The full name of Los Angeles: El Pueblo de _{UT} de los Ángeles del Río _{UT}
+white	np	me? Or your lyin’ eyes
+white	n	me?
+	REPEAT?	me
+	REPEAT?	me
+white	n	the intelligence level of Wile E. Coyote
+white	v	getting wet
+	REPEAT?	getting fat
+	REPEAT?	getting off
+white	n	an utterly filthy butt crack
+white	v	unlocking my piss chakra
+white	v	nodding sadly
+white	n	the prosecution
+white	v	being so creamy
+white	n	the creamiest
+white	v	getting milked
+	REPEAT?	getting boinked
+white	nc	her butthole areola, or whatever it’s called
+black		Well butter _ and call me _!
+white	nc	blubber
+white	nc	floss
+white	np	gasoline-soaked rags
+black		The world rests atop four elephants, and under that it’s _{p} all the way down.
+black		The drain wasn’t draining because there was _{s} caught in it.
+white	n	an elephant
+black		I won hide-and-seek by hiding under _{n}.
+black		An aperture opens at the front of the camera and _{n} streams in through the lens.
+white	n	a pneumatic bidet
+black		A _{n} worth commenting on.
+white	np	delicious chocolate and broken Dreamcasts
+white	np	this old busted shit
+white	np	accidental Asians
+	REPEAT?	Asia
+white	nc	born into a war you don’t fully understand
+white	np	reading your thought words
+white	np	zero cupcakes
+white	np	zero chupacabras
+white	np	two vials of essence of cat screams
+black		Family startled to find rattlesnakes hiding in _{n}.
+black		Family startled to find _{n} hiding in pool noodle.
+black		Come to find out _{n} was hiding in the shower while I was _{v}.
+black		Come to find out _{n} was _{v} in the shower while I was _{v}.
+	REPEAT?	Come to find out _{n} was hiding in the shower while I was _{v}.
+white	n	a glitter strap-on dildo
+white	nc	right in the sack
+black		My new Wordpress plugin makes your blog into _{n}.
+white	v	waiting in the car alone
+black		“Pivot! PIVOT!” I yelled as my brother and I tried to get _{n} up the stairs.
+white	vt	levitating
+white	v	going “shloop!”
+white	v	coming back
+black		As the magician crammed the last of _{n} into his mouth, _{n} popped out his ear!
+black		These playing cards all have naughty pictures of _ on them.
+white	n	a no-legged cat
+black		I learned the hard way that there will be _ in the apocalypse.
+white	np	no civil rights
+black		_ is a very specific fetish, but is one which this establishment can cater to.
+white	n	an albino dominatrix
+white	n	fishnet stockings and a thong leotard
+white	v	throwing your children at your enemies
+white	n	a creepy shower
+white	n	my festering ant wound
+white	np	pictures of creepy shit, like your family
+white	vt	long-distance shotgun sniping
+white	n	a fat piece of blood
+black		Everyone who knows me, knows I love _.
+white	n	a dangerous sociopath with a long history of violence
+black		In an unexpected plot twist,  _  turned out to be _.
+black		When it comes to porn, nothing get me hotter than _.
+black		Studio Trigger’s new anime is about _.
+black		_ : Once you pop, the fun don’t stop!
+black		Your _ will pierce the heavens!
+white	np	monster girls
+white	np	phallic symbols
+white	nc	forced drama
+white	nc	special mommy time
+	REPEAT?	mom
+	REPEAT?	me
+white	np	random beams of light
+white	nc	QUALITY
+	REPEAT?	a quality buttplug
+	REPEAT?	the finest quality cheese
+white	v	being so gay that you come full circle and end up liking girls
+white	n	an anime NOT set in high school.
+white	nc	plot
+white	v	watching hentai instead of normal porn
+white	v	waiting for a sequel that’ll never come
+white	np	Weaboos
+white	n	the best girl
+white	np	blood diamonds
+white	nc	cartoon pussy
+white	vt	cousin cuddling
+	REPEAT?	cuddling
+white	v	defying the laws of physics
+white	v	forgetting the safe word
+white	np	binders full of women
+	REPEAT?	me
+white	np	stuff and things
+white	np	two brothers, an Impala, and a fuckton of pie
+white	n	a pretty floral bonnet
+white	vt	aggressive potato eating
+white	n	the world’s worst dad
+white	n	a day care Fight Club
+white	n	a man-sized hamster wheel
+	REPEAT?	a human-sized hamster ball
+black		It was more uncomfortable than _ at a _ convention.
+black		Disney presents:  _ on ice!
+black		The best of waking up is _ in your cup.
+black		You can never have too many _ when in East LA.
+black		9 out of 10 Doctors agree that taking _ twice a day helps prevents cancer.
+white	n	an unexpected finger
+	REPEAT?	an unexpected finger
+	REPEAT?	an unexpected finger
+white	n	a literal lady
+white	n	a fleshy connection
+white	v	Putting the fear of God in you
+black		It’s dangerous to go alone, take _.
+black		If you wish to make _ from scratch, you must first invent the Universe.
+black		_ is the number one _!
+black		_  gave me such a good boner.
+black		This isn’t even _!
+black		Someday when I have kids, I want to share with them the joys of _.
+black		The seven stages of grief: denial, anger,_, bargaining, _, acceptance.
+black		The most romantic thing ever? _, obviously.
+black		It’s a pity that kids these days are getting involved with _.
+white	nc	your mom
+	REPEAT?	your mom’s bathroom
+	REPEAT?	mom
+white	nc	my final form
+white	np	low-budget special effects
+white	nc	bullet time
+	REPEAT?	me
+white	v	going in dry
+white	v	violently beating your friends to death with a baseball bat
+white	v	going in drag
+	REPEAT?	going in dry
+black		During his midlife crisis, my dad really got into _.
+black		What never fails to liven up the party? _.
+black		He who controls _,  controls the world.
+white	n	a homoerotic volleyball montage
+white	np	powerful thighs
+white	nc	some god-damn peace and quiet
+white	n	a lifelike silicone love doll
+white	v	hurting my chest
+white	np	lady fists
+white	n	a single sticky note with “NO” written on it in red sharpie
+white	n	a human child
+	REPEAT?	a human
+black		Will I ever love _ as much as I love _?
+black		Will I ever love _{n} as much as I love haunted houses?
+black		Will I ever love a man as much as I love _{p}?
+	REPEAT?	Will I ever love _ as much as I love _?
+white	nc	user error
+black		Justin Trudeau’s campaign promise: _ in every room, and _ on every corner.
+black		_{U} is too racist for Australia.
+white	vt	upgrading
+white	v	tasering a puppy
+black		At the office we all got trophies. Mine says, “Best _{UTvpc}.”
+black		Sticky notes are good for _.
+black		You can send _{n} back to the kitchen for being too cold, but they’ll just microwave it.
+black		Is it OK to put _{n} in the microwave?
+black		California woman arrested after leaving _{n} in her car while shopping at Walmart.
+black		Dogs: the animal most likely to be _.
+black	1	How come Colonel Sanders is allowed to be _ if I’m not allowed to be _.
+black		Give me liberty or give me _{n}!
+black		Georgia O’Keeffe famously painted flowers that look like _{n}.
+white	v	correcting a woman
+white	np	two tortilla chips
+white	v	barfing in the closet later
+white	n	a premature ejaculator
+black		George can’t come to the party. He’s _.
+white	n	just some weirdo
+	REPEAT?	me
+white	nc	strawberry syrup
+white	n	some frothing whore
+	REPEAT?	me
+white	np	corpses along the way
+white	n	the corpses along the way
+	REPEAT?	corpses along the way
+	REPEAT?	corpses along the way
+black		_{Un}: a bit much, even by my standards.
+white	n	a sexual act with the mini-sub
+black		Elon Musk, angered that I suggested he engage in a sexual act with _{s}, called me _{n}.
+white	np	seventeen espresso beans
+black		Sumo Sushi introducing the “Bang Bang” roll with _{n}, seared, and _{n}, raw.
+white	n	a lava bomb
+white	v	just talkin’ on the phone
+white	np	different people
+white	np	my dad’s thoughts
+	REPEAT?	dad
+white	np	my sad thoughts
+white	nc	what was left
+white	n	something to die for
+	REPEAT?	me
+black		Just the thought of _ makes me sick to my stomach.
+white	v	sobbing quietly
+white	nc	actually good pizza
+white	n	a big fat butt
+white	n	an eagle with human genitalia
+white	v	feeding my children
+white	v	getting sold down the river
+white	n	a giggling baby
+white	n	a layer of fresh cream
+white	n	a safety belt
+white	nc	lobster popcorn
+white	nc	chicken and water
+	REPEAT?	water
+white	n	an underwater Chinese ghost base
+white	np	women in refrigerators
+black		David Cage famously said “_ is a failure of the game designer.”
+black		_, it’s great! Makes you less stressed!
+black		How can _ be this cute?
+white	nc	my dead husband
+white	v	beating your meat
+	REPEAT?	me
+white	v	yelling at women
+	REPEAT?	me
+white	n	a farting dick and balls
+white	nc	Game Over
+	REPEAT?	me
+black		Kamchatka is famous for the abundance of _, with an estimated  three to four _ per 100 square kilometers.
+black		From that day forward I’ve dedicated my life to _.
+white	n	a young woman of marriageable age
+white	v	stealing a shark from the aquarium
+white	v	barking at teenagers
+white	nc	a little LSD
+white	np	bitter droplets
+white	n	your stupid Toyota Solara
+white	n	a cat treat
+white	n	Scrappy Doo
+white	v	swallowing a poodle whole
+white	np	too many cats
+white	v	going off
+black		Trying to figure out if my coworker was a boy or girl I tried _{v}.
+white	v	sliding one leg out
+white	v	eatin’ bugs
+white	np	big anime titties
+	REPEAT?	me
+white	nc	wet denim
+white	nc	Russian mafia money
+	REPEAT?	money
+white	v	doing drugs
+	REPEAT?	dealing drugs
+	REPEAT?	drugs
+white	np	anime kids
+	REPEAT?	me
+white	vt	still peeing
+black		_ is more disgusting than the most depraved, sickest porn.
+white	v	teleporting into my butt
+white	v	getting boobs installed
+white	v	getting boobs deinstalled
+	REPEAT?	getting boobs installed
+white	nc	style
+	REPEAT?	your lifestyle
+white	np	different styles
+	REPEAT?	style
+white	nc	discount brain surgery
+white	v	running down
+black		_ and _ are qualities I look for in a potential spouse.
+white	nc	milkfat
+white	n	my Costco card
+white	np	white punks on dope
+	REPEAT?	dope
+white	nc	real fast danger
+white	v	handholding cuddlesex
+	REPEAT?	sex
+white	vt	asexually reproducing
+	REPEAT?	sex
+white	n	an extra creamy orgasm
+white	v	Launching nukes for the greater good
+white	nc	loss
+	REPEAT?	floss
+	REPEAT?	floss
+	REPEAT?	weight loss
+black		Salesman: *slaps top of _* This bad boy can fit so much _ in it.
+black		Salesman: *slaps top of _{n}* This bad boy can fit so much _{c} in it.
+	REPEAT?	Salesman: *slaps top of _* This bad boy can fit so much _ in it.
+white	nc	A toilet designed like a highchair
+white	np	bruises on my neck
+	REPEAT?	bruises on my pelvis
+	REPEAT?	markings on my neck
+white	np	more Spider-Man GIFs
+white	n	mom’s face
+	REPEAT?	Mom’s face
+	REPEAT?	Mom’s feet
+	REPEAT?	Mom’s face
+	REPEAT?	mom
+black		I take pride in _.
+white	nc	dead body storage
+black		_{U} is dangerously cool.
+white	n	a little cat-sized machine gun
+white	v	getting sewn shut
+white	n	my cat, going through menopause
+white	nc	diet advice
+white	n	a giant dildo called ‘the orphan maker’
+white	n	one gut bacterium
+white	v	yelling at the dog
+black		I may not be much to look at, but I fuck like _.
+black		It was a non-stop fuckfest. When it was over, my asshole looked like _.
+black		Run, Run, as fast as you can! You can’t catch me, I’m _.
+white	n	the government
+	REPEAT?	me
+white	n	a burrito that’s just sour cream
+white	v	finding love in the back of a police cruiser
+white	v	getting diagnosed
+white	vt	disappearing
+white	vt	up and just disappearing
+	REPEAT?	disappearing
+black		I’ve been diagnosed with _.
+white	nc	even women
+	REPEAT?	me
+black		This restaurant uses _ for fast payment processing.
+black		I’ve decided to allow _ in my home.
+white	np	not-so-innocent girls
+white	nc	just poop
+black		I’m in the prime of my life. I’m young, hot, and full of _.
+black		If you don’t  jump _, you’ll never be where you want to be.
+black		What good is _ without the pulp?
+black		Sir, are you aware that there’s _ in your basement?!
+white	n	a dinosaur skeleton covered in ooze
+white	nc	orange juice
+white	n	a goddamn magic T-Rex
+white	nc	super-sperm
+white	np	guns
+	REPEAT?	machine guns
+	REPEAT?	white men with guns
+white	nc	moderate-to-severe joint pain
+black		I’ve been diagnosed with _{UT}’s Syndrome. It makes my body always try to be _{}.
+white	n	this particular salmon
+white	v	Flying to Peru to eat a pet
+white	n	a fancy orphan
+white	vt	pooping and screaming
+	REPEAT?	screaming
+black		For a healthy snack, try _.
+white	n	a 100’ crane
+black		If something crawls onto the patio, do _{pc} to it.
+black		I’m gonna get up on stage, and do _{n} to entertain everyone.
+white	v	smoking and talking about Satan
+white	n	astrophysicist Neil deGrasse Tyson
+white	np	shark teeth
+white	n	a sausage casing
+white	np	three men and a lady
+	REPEAT?	me
+white	v	Experiencing female pattern baldness
+white	np	Ruth Bader Ginsberg’s three broken ribs
+black		This new “Smart” toilet scans _{n}.
+white	v	Flexing on Grandma
+white	np	qualms
+black		I didn’t know what to think when _ popped outta my birthday cake.
+black		A very sick individual put needles in _{n}.
+white	v	being killed and then pardoned
+black	1	The Queen is going to knight _. Sir _{UT}.
+black		_{nU} _{v}. Has a nice ring to it, don’t you think?
+white	v	becoming sentient
+white	np	Sean Connery’s legs
+	REPEAT?	legs
+black		At the airport _{n} in my bag set off the TSA’s machine.
+white	n	your future
+white	np	white tears
+white	n	the average
+white	nc	chocolate coating
+white	n	a vampire fang
+white	n	my secret vagina
+black		Stand back! I’m _{t} _{n}!!!
+white	v	wearing my girl clothes
+white	n	a finger sticking out
+white	v	Making pop culture references
+white	v	going all crazy eyes
+white	np	The Alabama Bible Boys
+white	n	an all-white circle of Hawaii’s power wives
+white	n	the nozzle of a firehose
+white	nc	dog shampoo
+white	n	a dick pimple
+white	n	a long stringy anus hair
+	POST ID	77037

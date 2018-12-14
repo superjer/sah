@@ -1605,7 +1605,7 @@ black	1	They said _ was out of my league, but look at me now! I’ve got _ out t
 black		My life coach told me that to maximise my positive energy flow, I should alternate between _{v} and _{v}.
 white	v	completely wigging out
 black		Great job on the proposal for _{v}, Dave! You’re in line for a raise, and the boss might even give you _{s}.
-black		In the third world, luxuries like _{n} are an alien concept, and most people don’t even have access to _{nc}.
+black		In the third world, luxuries like _{n} are an alien concept.
 white	n	the alpha male
 white	nc	bloodlust
 white	n	every part of the buffalo
@@ -1864,7 +1864,7 @@ white	v	going straight to hell
 black		We couldn’t land because of _{n} caught in the landing gear. We had to crash land on the runway like _.
 white	n	the juiciest cunt I ever seen in my life
 black		A 2008 study of Movile’s only snail found that it has been _{v}. The snail may have escaped _ by going underground.
-black		_{U} can actually erode _{n}, which is gradually causing a decrease in effectiveness.
+black		_{U} can wear down _{n}, which gradually decreases effectiveness.
 white	v	exposing their genitals
 white	n	Nitro Busey (Gary Busey but faster)
 white	v	seeing my penis twice
@@ -2485,7 +2485,7 @@ black		The new Fallout DLC will allow you to recruit _ and acquire _!
 black		_{U} is a temporary setback on the road to _!
 black		It's like they always say: _ never changes.
 black		“D” is for _.
-black		This year’s hottest album is “_” by _.
+black		This year’s hottest album is “_{UT}” by _{UT}.
 white	np	friends
 white	nc	over-sized scissors
 white	v	drinking toilet water
@@ -2497,7 +2497,7 @@ black		_{Uv} with _{n} is a uniquely British problem.
 white	v	cuttin’ off mommy’s finger
 black		I’m going to post the new white card "_" to SAH. What do you think to _?
 white	nc	a man in a meat suit
-white	n	a rotting infant carcass
+white	n	a rotting buffalo carcass
 white	v	monkeying around
 black		The truly rich have mansions with _{s} room, _{s} room, and servants to handle _.
 white	nc	my bisexuality
@@ -2515,7 +2515,7 @@ white	n	your comfort zone
 white	nc	your past
 white	n	my vaginal microbiome
 black		Hello, 911? I think there’s _{n} in my house...
-black		I’m terrible at goodbyes, but not as terrible as _.
+black		Oh no! Mom sold _{n} at the charity shop!
 white	n	the power of love
 black		I had the most horrific bowel movement. It was like _.
 black		Woah, weird, is anyone else getting turned on by _?
@@ -2549,3 +2549,4 @@ white	vt	murdering
 white	n	a gay Mexican
 white	v	sad people doing sad things for their sad lives
 black		I feel like I’m being punished for _{v}.
+white	n	a cheap, lying, no-good, rotten, four-flushing, low-life, snake-licking, dirt-eating, inbred, overstuffed, ignorant, blood-sucking, dog-kissing, brainless, dickless, hopeless, heartless, fat-assed, bug-eyed, stiff-legged, spotty-lipped, worm-headed, sack of monkey shit
