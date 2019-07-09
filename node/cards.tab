@@ -1601,7 +1601,7 @@ white	np	good, Christian values
 white	v	mistreating the clitoris
 white	v	plummeting from 20,000 feet
 black		At the new circus in town, three jugglers throw each other _{s}, while a man is _{v} on a galloping horse.
-black	1	They said _ was out of my league, but look at me now! I’ve got _ out the ears!
+black	1	They said _ was out of my league, but look at me now! I’m the king of _!
 black		My life coach told me that to maximise my positive energy flow, I should alternate between _{v} and _{v}.
 white	v	completely wigging out
 black		Great job on the proposal for _{v}, Dave! You’re in line for a raise, and the boss might even give you _{s}.
@@ -1622,7 +1622,7 @@ white	n	a complete wimp
 black		My pharmacist separated _{n} into two parts, and carefully lowered one into _{n}.
 white	np	loose teeth
 white	n	a vicious cupboard lesbian
-black		At Boeing R&D, we test _{n} by subjecting it to _ and blasts of energy.
+black		At Boeing R&D, we test _{n} by subjecting it to _ and extreme heat.
 white	v	touching my deformity
 black		When I saw _{n} I was nervous, but when it started coming toward me, _{v}, I freaked!
 white	v	slapping everything
@@ -1939,7 +1939,7 @@ white	v	going to Wendy’s
 white	n	a disease
 white	n	a time machine
 white	vt	cutting
-black		today at school the teacher asked us “what we want to be when we grow up?”  I responded: _!!!
+black		Today at school the teacher asked us “what we want to be when we grow up?” I responded: _!!!
 white	nc	meatball marinara
 white	np	allergies
 white	n	an extremely painful sneeze
@@ -2115,7 +2115,7 @@ white	v	stretching it till it rips
 white	n	a sudden penetration
 black		Lucy Liu has studied various rituals of _. She has stated, “I prefer _.”
 white	nc	Jigglypuff!
-black		Could you buy me _?  I’ll pay you back.
+black		Could you buy me _? I’ll pay you back.
 black		The new artsy indie game “_{UT}” is a deeply emotional exploration of _.
 white	v	getting stepped on by a dominatrix
 black		I was surprised to find bones in _{n}. Is that normal?
@@ -2157,7 +2157,7 @@ black		We have a zero tolerance policy for _{pcv} here at Disney. So get _ and g
 black		Deep Earth miners in Venezuela struck an enormous ore vein of _{pc}. Half the country is _{v}.
 white	nc	nothing, initially
 white	np	your sisters
-black		Don’t leave the door open! _{n} will get in.
+black		Don’t leave the door open! _{Un} will get in.
 black		_{Un} can only be killed by _.
 black		When _{n} hits your eye like a big pizza pie, that’s amore!
 white	nc	absolutely no black people
@@ -2352,7 +2352,7 @@ black		These special lenses help colorblind people see that _{n} is _{v}.
 white	nc	ISIS
 white	n	a softer option
 black		I actually clicked page 2 on Google cuz I was so desperate searching for _.
-black		Introducing, The _{UT} diet, where you can lose up to three pounds in twenty minutes!
+black		Introducing, The _{UT} diet, where you can lose 5lbs a week without exercise.
 white	v	struggling to get out of the van
 white	v	killing again
 black		NASA spent millions developing a pen that could write in space. The Russians used _{n}.
@@ -2382,7 +2382,7 @@ white	v	hurting me
 white	n	a hotdog
 white	nc	another man
 black		My spirit animal: _.
-black		Last night at the gym I was working out so hard that  _{n} came shooting out of  _{n}.
+black		Last night at the gym I was working out so hard that _{n} came shooting out of _{n}.
 black		I Googled for _ and found a picture of myself.
 black		For Farm Day at my school we had a haystack to search through and find _{n}, _{n} and _.
 white	nc	just the tip
@@ -2507,7 +2507,7 @@ black		The only thing standing in your way is _.
 black		Wolves don’t eat _, and neither should kings.
 black		_ is where _ goes to die.
 black		That kind of attitude is why we have _ now.
-black		Last night was the tragic result of  _
+black		Last night was the tragic result of _.
 white	v	getting attacked by a garbage truck
 white	nc	broccoli
 white	nc	the toilet
@@ -2550,3 +2550,47 @@ white	n	a gay Mexican
 white	v	sad people doing sad things for their sad lives
 black		I feel like I’m being punished for _{v}.
 white	np	my DMs
+white	v	having no gag reflex
+white	nc	butt stuff
+white	np	both thumbs
+black		I can tell my mom’s car because of the bumper sticker: Proud Mom of _{T}.
+white	n	the nastiest bitch in town
+black		The hippo’s tail launched _{c} all over the place.
+black		I accidentally dropped _{n} in the urinal at the Jeep dealership.
+white	n	a bloody thing that popped
+black		I feel great! I got _{n} in my bloodstream.
+black		_{Un} from the Ohio county fair to be destroyed due to infection.
+black		Today the Senate is voting on _.
+black	1	My wife wears _{n} after Labor Day because audacity is always in style.
+white	vt	escaping
+black		I went to my step mom’s church and the priest blessed me with _.
+white	np	intersex children
+black		For my project I’m making _. But I need to see if they have _ at the craft store.
+black		I thought I just had gas, but it came out as _{s}.
+black		I get chills when _{sc} brushes against my leg.
+black		I’m _ today because tomorrow I’ll be over-encumbered with _.
+white	vt	snarling and thrashing
+black		While I was out the dog chewed into the packaging on _{n}. I found him _{v}.
+white	n	the chewy part
+white	n	a chick with a beautiful dick
+white	nc	complete ecstasy
+white	v	being in a state of total ecstasy
+black		Nordstrom’s return policy is so customer-friendly, a woman once returned _{pc} there.
+black		Turmoil at Samsung Corp: Several high-ranking employees fired for _.
+white	v	teaching Grandpa to make gravy
+black		Those hoodlums graffitied _ on my mailbox again.
+white	nc	such a wonderful flavor
+black		The four schools of ethics: relativism, universalism, utilitarianism, and _.
+black		After Lincoln was shot, _ briefly became the next president.
+black		If Benjamin Franklin didn’t invent _, certainly others would have.
+white	n	John Wilkes Booth
+white	n	that lamp over there
+white	nc	death
+white	np	words
+white	v	funding for ISIS
+black		Blue Whaling: the disturbing internet trend in which teens commit suicide by _{v}.
+black		Do you remember when we were kids, and the police shut the school, and we were _?
+black		I dreamed I was back in school, late to class. You were there! But you were _.
+white	nc	fanny pack full of ground beef
+black		A salesman came to the door selling _{n}. I didn’t open. He slid _{n} under the door.
+black		Last thing I hear before the anesthesia kicks in is my neurosurgeon saying he’s _.
