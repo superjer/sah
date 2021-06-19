@@ -181,7 +181,7 @@ white	ncv	dying evil
 white	v	organizing children to join armies
 white	v	serving humanity
 white	n	the measure of a man
-white	n	an ancient insignificant dead Jew
+white	n	the Time Cube
 white	v	not knowing or caring why
 white	nc	exact science
 white	v	knowing hell
@@ -199,7 +199,7 @@ white	n	a grave error
 white	v	allowing babies to starve while you gorge
 white	v	succumbing to nature
 white	v	having a zero-value existence
-white	np	secret Jews
+white	np	secret agents
 white	nc	evil thinking
 white	v	deserving to be killed
 white	n	a frantic woman
@@ -513,7 +513,7 @@ white	nc	unladylike musculature
 white	n	a ripe body
 white	n	a creepy dude
 white	n	the wrong man
-white	n	a homeless man jerking it
+white	n	a homeless man jerking it on the bus
 white	vt	mounting
 white	n	a child leash
 white	np	children’s toys
@@ -544,7 +544,7 @@ white	np	Angelina Jolie’s lips
 white	n	original white, straight Barbie
 white	n	a bottle of urine
 white	nc	gay shit
-white	nc	tasteful blackface
+white	n	one of Justin Trudeau’s “costumes”
 white	n	a short muscular rectum
 white	n	half a spider
 white	np	claws
@@ -679,8 +679,8 @@ white	v	dick slapping
 white	v	jammin’ a body in the wood chipper
 white	v	feeling fat and sassy
 white	n	a dusty butthole
-white	np	childbirth
-black		How high do you have to be to put _{n} on _{n}?
+white	nc	childbirth
+black	1	At BASF, we don't *make* _{n}, we make _{n} *better*.
 black		I’m late to my meeting for _.
 black	1	_{U}! _{U}! My kingdom for _!
 black		In future times, the children will work together to build _{n}.
@@ -704,32 +704,32 @@ black		J. Robert Oppenheimer is often called the father of _.
 black		When he reached the New World, Cortés burned _{n}. As a result, his men were well motivated.
 black		Ich bin ein _.
 black		The 7 deadly sins: lust, gluttony, _, sloth, wrath, _, and pride.
-black		I’m having a picnic no one will forget! Bring _{n}.
-black		If you’re interested in my services, email me at: _{u-}@_{u-}.biz
+black		Aunt Shasta usually brings _{n} to the picnic.
+black		Interested in my services? Mail me at: _{u-}@_{u-}.biz
 black		Go, go, Gadget _{T}!
 black		My favorite new band is “_{UT} and _{T}”.
 black		When the beef came at me it was like _.
 black		There is no “I” in “team” but there is an “I” in “_”.
-black		Class, turn to page 100 and start reading “_{UT} and You”.
-black		For my last meal I want _{n} seasoned lightly with _.
-black		After 6 grueling years, Microsoft and I have created _{n}.
+black		Class, turn to page 105 and read “_{UT} and You”.
+black		For my last meal I want _{n}.
+black		After 6 years in development, Google has created _{n}.
 black		SWF looking for a real man. If you’re _, get to the front of the line.
 black		I refuse to roleplay as anything but _.
 black		You’ve got to come see the baby, it’s as cute as _.
 black		How embarrassing! I forget I left _{n} in the foyer.
 black		The doctor held up my x-ray and I could just make out _{n}.
 black		It’s not delivery. It’s _.
-black		I surreptitiously crawled into bed, only to find _.
-black		At the new Asian-inspired restaurant downtown, the chef will prepare _{n} right at your table.
-black		A scandal erupted this week when prime ministers of Australia and Canada were caught with _{n}.
-black		Kirkland mom makes $20,000 a week with _.
+black		After a long day I crawled into bed, only to find _.
+black		At the new Asian-inspired spot downtown, the chef will prepare _{n} right at your table.
+black		Huge scandal this week as the PM of Australia was caught with _{n}.
+black		Brooklyn mom makes $20,000 a week! How, you ask? _{U}.
 black		A woman is like a teabag. You can’t tell how strong she is until you put her in _{n}.
 black		Science never solves a problem without creating _{n}.
 black		This ship’s gonna sink unless we throw _{n} overboard!
-black		That’s not funny. My dad was killed by _.
-black		Your attempt to get little Susie what’s-her-name drunk on lime vodka ended with _.
+black		That’s not funny. My sweet father was killed by _.
+black		It started out as drinks with friends and ended with _.
 black		I met a strange lady, she made me nervous. She took me in and gave me _{n}.
-black		The President’s unimaginative campaign slogan: _{vUT}.
+black		The Green Party’s new campaign slogan: _{vUT}.
 black		I thought I was being attacked, so I defended myself with _.
 black		If _ were in the Olympics, Canada would be in great shape!
 black		Throughout human history, _{v} has been the first activity of explorers of any new region.
@@ -739,11 +739,11 @@ black		During routine surgery, the doctors found _{n} embedded in my abdomen.
 black		Military scientists in Syria found traces of _ in the soil.
 black		Cambodia’s economy is entirely dependent on _.
 black		I’m undergoing immersion therapy by continually exposing myself to _{n}.
-black		Original style is fine, but chunky kinda tastes like _.
-black		Meet me by the modern art installation downtown. You know, it’s _{n} straddled by _{n}.
+black		Easy Mac is good, but the white cheddar one kinda tastes like _.
+black		Meet me by that sculpture downtown. You know, it’s _{n} balanced on _{n}.
 black		I went to cut the cake, and to my delight, _{n} popped out!
 black		More than 260 people were injured by festive firecracker blasts and _ in the Philippines.
-black		In New York, a new law went into effect at midnight making it legal to buy _{n} from dispensaries.
+black		In New York, a new law went into effect making it legal to buy _{n} from dispensaries.
 black		This is my second kid. My first one came out as _{n}.
 black		Driving late at night, I was horrified to find _{n} in the back seat.
 black		I dug around for hours in the trash but never found _{n}.
@@ -762,7 +762,7 @@ black		The most remarkable thing about my mother is that for 30 years she served
 black		The best comfort food will always be greens, _{n}, and fried chicken.
 black		Jan Sobieski, leading the largest charge of _{pc} in history, rode into battle atop _{s}.
 black		_{U} has proven extremely popular among young, urban audiences in focus testing.
-black		That’s Captain Rogers the Rancorous of “_{nUT},” the finest ship in the harbor!
+black		I’m Captain Rogers the Rancorous of “_{nUT},” the finest ship in the harbor!
 black		Nancy Drew and the Mystery of _{T}.
 black		McDonald’s combo menu #3: Double Quarter Pounder with Cheese, a large Coke, and a side of _{n}.
 black		New extreme Mountain Dew™ flavor: _{UT} Blast!
@@ -781,7 +781,7 @@ black		The terrorists will execute _{n} every 20 minutes until they receive _{n}
 black		I tried to sneak out of the store with _{n} under one arm and _{n} down my pants.
 black		The new bill before congress would require _ in all K-through-12 classrooms.
 black		My religion demands that I must abstain from _. _{U} however, is OK.
-black		Our secret society is dedicated to elucidating the mysteries of _{n} _{v}.
+black		Our secret society is dedicated to discovering _{n} _{v}.
 black		It’s important to pack the essentials when camping, such as water, first aid, _, toilet paper, shelter, and _.
 black		These wounds were given to me by the beast of legend. Part of it was _, part was _, and it was crowned with _{n}.
 black		Early rugby’s rules: carry the ball as _{n}, score points by _{v}, and _{n} shall not be on the field.
@@ -1350,7 +1350,7 @@ white	nc	recalled pizza with glass in it
 white	np	skeleton hands
 white	v	getting wrapped around a tree
 white	v	force-feeding a bird
-white	nc	$200 worth of Taco Bell™
+white	nc	$18 worth of Taco Bell™
 white	n	a hanging body
 white	nc	fingernail torture
 white	np	baby eels
@@ -1411,7 +1411,7 @@ black		My teacher graded my paper F because I wrote about _.
 black		The band hadn’t started playing when the stage effect with _{n} went off early, ejecting _ into the air!
 black		The fire raged out of control because the firemen’s hoses got caught around _{n}.
 black		My publisher demanded I remove _ from my manuscript because it’s “not decent.”
-black		We need more black cards! Maybe another one about _, but with _!
+black		When I was a kid, to avoid nightmares, I stayed awake by _{v}.
 black		At least I was trying to cheer people up when I took _{n} to the funeral.
 black		President Reagan and his entire cabinet got _{n} before every meeting.
 black		The survey team detected _ at the work site so I threw _{n} in my truck and drove straight there.
@@ -1522,7 +1522,7 @@ black		A weird glitch in the Oculus Rift demo caused me to experience _ like I w
 black		At spring training a foul ball bounced off _{n} in the stands and then knocked _{n} off _{n}.
 black		The cineplex has been using _{n} in the popcorn machine because it’s cheaper than oil.
 black		Wife and I got a bit kinky last night. Ended up at the hospital to get _{n} removed from her and _{n} removed from me.
-black		The cruiseliner struck _{n} and lost power, leaving hundreds of vacationers to deal with _.
+black		The cruiseliner struck _{n} and lost power, leaving hundreds of vacationers without _.
 black		The new Harley-Davidson hog’s got _{n} painted on both sides, which some say encourages _.
 black		Pundits agree it will take _ for the senator to win the election.
 black		There is a rumor that Marilyn Manson had _{n} removed so he could be _.
@@ -1536,8 +1536,8 @@ black		On Ebay you can get _{n} but it may be counterfeit.
 black		Peter Molyneux’s new game will use facial recognition to explore _ in a very realistic way.
 black		The weird payment system at the grocery store makes me put _{n} in the slot, but I forget to take it out.
 black		At the winery tour we saw how they put _{n} and grapes in the tank, but it smelled like _.
-black		Growing up we never had _{n}, but we had to deal with _, and I want the opposite for my children.
-black		Wine tasters describe this Pinot Grigio as having silky hints of _{n} and a mouthfeel like _.
+black		Growing up we never had _{n}, but we had to deal with _.
+black		Wine tasters describe this vintage as having silky hints of _{n} and a mouthfeel like _.
 black		As an homage to humanity, NASA has broadcasted _{n} to the vastness of space.
 black		Chase bank is giving out _{n} this week if you open an account and put $100 in it.
 black		Lonely guys in Japan can buy _{n} that sounds like a girl and will even go to bed with them.
@@ -1621,7 +1621,7 @@ black		I got written up at work today for running to the bathroom and _{v}. Ther
 white	n	a complete wimp
 black		My pharmacist separated _{n} into two parts, and carefully lowered one into _{n}.
 white	np	loose teeth
-white	n	a vicious cupboard lesbian
+white	n	a cardboard lesbian
 black		At Boeing R&D, we test _{n} by subjecting it to _ and extreme heat.
 white	v	touching my deformity
 black		When I saw _{n} I was nervous, but when it started coming toward me, _{v}, I freaked!
@@ -1700,7 +1700,7 @@ white	vt	cheating
 black		_{U} like this is enough to kill a horse!
 white	v	a caring, understanding man
 black		_{Uv} while driving has been statistically shown to increase the risk of _{v}.
-black		I can’t believe you guys went _{v} without me! Loop me in next time, I want _{n} too!
+black		I can’t believe you guys went _{v} without me! Loop me in next time!
 white	n	a dead cat
 white	n	the T-Rex
 black		I can’t swing _{s} around here without hitting _{n}!
@@ -1954,7 +1954,7 @@ white	np	big dudes with big dudes
 white	n	NORTH KOREA
 black		While you’re at the store can you pick up _, in family size?
 white	np	nut sack hairs
-white	v	beating up retarded people
+white	v	beating up Dracula
 black		James Bond will return in “The Man With _”!
 white	n	Martha Stewart, orgasming
 white	v	killing protesters
@@ -1983,7 +1983,7 @@ white	nc	automated mechanized death
 black		Today you’re on the receiving end of _.
 white	n	a boyfriend shaped bed 
 white	v	shitting all over me
-black		I don’t think that even comes close to being _.
+black		Guys. Guys! _{U} is getting a little close to _!
 black		I strongly believe that every scene of a movie should end with _.
 black		You wouldn’t think it, but during Prohibition many people were _{v}.
 black		I think a lot of people would pay to see _.
@@ -2002,8 +2002,8 @@ white	n	a divorce
 white	nc	spandex
 white	nc	hooplah
 white	np	floppy, out-of-control boobs
-white	v	running with a floppy, out-of-control hand
-white	v	getting kidnapped in an uber
+white	np	mah runnin’ legs
+white	v	getting kidnapped in an Uber
 white	n	a mild orgasm
 white	v	holding hands
 white	v	searching his ass
@@ -2031,7 +2031,7 @@ white	vt	inhaling
 white	np	side effects
 white	nc	some next-level shit
 white	v	making a little whoopsie
-white	np	Jews in cahoots
+white	np	two cocaine guys from the 80s
 white	v	waiting to kill
 white	np	two or three caterpillars
 white	np	$10
@@ -2112,7 +2112,7 @@ white	nc	butt magic
 white	nc	a little surprise incest
 white	v	taking my shirt off
 white	v	stretching it till it rips
-white	n	a sudden penetration
+white	nc	careful penetration
 black		Lucy Liu has studied various rituals of _. She has stated, “I prefer _.”
 white	nc	Jigglypuff!
 black		Could you buy me _? I’ll pay you back.
@@ -2125,7 +2125,7 @@ white	np	several clones of hitler
 white	n	her penis
 white	v	increasing in size
 black		_{U} is the spice of _{n}.
-white	n	the grossest whiff of minty poot
+white	np	actual stink lines
 white	n	his vagina
 white	n	my black son
 white	n	his holiness the pope
@@ -2170,7 +2170,7 @@ black		I could tell _{n} had ended up behind me when I felt _{n} as I backed up.
 white	n	me
 black		After a truck ran over _{s} there was so much damage you couldn’t tell it apart from _{n}.
 black		When I went into the bathroom I swear I saw _ in the mirror! And it smelled like _ in there! I’m so scared!
-black		SpaceX is developing a machine to simulate _ to prepare for a mission to mars.
+black		SpaceX is developing a machine to simulate _ to prepare for a mission to Mars.
 white	n	the princess’s saliva
 white	n	a mafia hitman
 white	nc	lethal radiation
@@ -2178,9 +2178,9 @@ white	v	being deep inside each other
 white	np	our cute little gay faces
 white	np	even more bees
 black		Slender and muscled, like _{n}. She was the spitting image of _.
-black		Senator, give us _ biannually and you’ll get our vote.
+black		Senator, give me _ and you’ll get my vote.
 black		In the first Battle of _{T} he faced _{n}, and with one great blow he split them in half.
-white	v	literally shivering me timbers
+green	v	literally shivering me timbers
 white	n	the latte Christian Bale ordered half an hour ago
 black		The new MacBook Pro weighs about as much as _{n} and comes with 1 USB-C port and _{n}! Groovy! 
 white	v	terrorizing that pussy
@@ -2235,10 +2235,10 @@ white	v	drowning the children
 white	nc	loose morals
 white	v	choking bitches
 white	np	my dead parents
-white	nc	a mountain of Jew gold
+white	nc	a mountain of gold doubloons
 black		Donald Trump’s first act as president was to outlaw _.
 black		If it weren’t for me, you wouldn’t even be _.
-black		Senator, I trust you enjoyed _ last night. Now, can I count on your vote?
+black		Don't you know the lobbyists bribe all the senators with _?
 black		No more _ at Starbucks.
 white	np	micropenises
 white	nc	my daughter
@@ -2306,7 +2306,7 @@ white	n	a gay vagina
 black		Somebody screenshotted my Snapchat and now everyone thinks I’m _.
 black		I’ve finally got the last of _{n} out of _.
 black		During the half-time show, a rip in _{n} exposed _{n} to the audience.
-white	v	mastrubating into the faces of your enemies
+white	v	pelvic thrusting
 black		Baskin Robbins is going off the deep end with their new flavors, I saw _ flavor and then _ flavor.
 white	n	a backdoor woman
 black		We put _{n} in your tea!
@@ -2419,7 +2419,7 @@ black		At work I secretly have _{n} under my desk.
 black		The food and yard waste bin is only for _{p} (clean) and _{p} (oil-free).
 white	v	squirting everywhere
 white	np	white boys
-black		Politics. The _{Tpcv} Party, is always trying to shove _{n} down our throats. This time it’s _.
+black		Politics. The _{Tpcv} Party, is always trying to shove _{n} down our throats.
 black		4 out of 5 doctors recommend _.
 white	n	a penis and a vagina
 white	v	wearing John Travolta’s face
@@ -2495,17 +2495,17 @@ black		In some households, they’ve trained _{sp} to use the potty.
 white	n	a uniquely British problem
 black		_{Uv} with _{n} is a uniquely British problem.
 white	v	cuttin’ off mommy’s finger
-black		I’m going to post the new white card "_" to SAH. What do you think to _?
+black		I have _{n}. The cat won’t stop staring at me.
 white	nc	a man in a meat suit
 white	n	a rotting buffalo carcass
 white	v	monkeying around
-black		The truly rich have mansions with _{s} room, _{s} room, and servants to handle _.
+black		The truly rich have huge mansions, and servants to take care of _.
 white	nc	my bisexuality
 white	nc	peeeeeeeEEEE​EEEEEEEEEEEE​EEEnnnnnnnNN​NNNNNisssss​sssssssssss​ssssss
 black		Scorpions can shed _{n} in order to escape a predator... but doing so also removes their anus.
 black		The only thing standing in your way is _.
 black		Wolves don’t eat _, and neither should kings.
-black		_ is where _ goes to die.
+black		_{Uv} is how _{n} always dies.
 black		That kind of attitude is why we have _ now.
 black		Last night was the tragic result of _.
 white	v	getting attacked by a garbage truck
@@ -2529,7 +2529,7 @@ black		Vote for me and I’ll stop _{v}, get rid of _{n}, and give everyone _{n}
 lack		The blurry picture of the “Loch Ness monster” was actually a picture of _{n}.
 white	v	getting a face full of crotch
 white	v	getting boinked
-black		Stick out your tongue and say, “I was born in a pile of _{pc}.”
+black		Stick out your tongue and say, “I was born on _{n}.”
 black		I swear to God I have had it up to HERE with _{pc}.
 black		I think there’s _{s} convention going on downtown.
 black		There’s _{s} convention going on and everybody is _{v}.
@@ -2541,7 +2541,7 @@ white	v	being angry and stupid
 black		The 2020 Olympics will feature a new sport: synchronized _{v}.
 black		Steve Jobs thought he could cure his cancer with _, a naturopathic remedy.
 white	np	pedophiles
-black		The president’s tweet reads: “The _ story is a hoax! Just an excuse by _{n} for _{v}! Very sad and sick!”
+black		The president’s tweet reads: “The _ story is a hoax! Just an excuse by _{n} for _{v}! Very sad!”
 black		Opioids help people with _, but then they can’t poop.
 white	np	gay chemicals
 black		Our frat settles disputes by seeing who can chug _{c} the fastest.
@@ -2594,3 +2594,75 @@ black		I dreamed I was back in school, late to class. You were there! But you we
 white	nc	fanny pack full of ground beef
 black		A salesman came to the door selling _{n}. I didn’t open. He slid _{n} under the door.
 black		Last thing I hear before the anesthesia kicks in is my neurosurgeon saying he’s _.
+white	n	my toucan, going crazy
+white	v	trying to get away with murder
+white	v	goin’ up the butt sideways
+white	v	turning the frogs gay
+black		Everyone knows Houdini for being good at escapes. But he was GREAT at _.
+white	v	killing Kim Jong-un
+black		_{Un} slowly began to open and someone yelled, “It’s accepting us!”
+black		The FBI is at the door. I think they're here because of... you know... _.
+white	nc	some kind of magic juice
+white	nc	toxic virginity
+white	nc	empty space
+white	n	the penis
+black		At the gym they have this new machine where you’re _{v}.
+black		Sometimes I feel out of place at the gym then I look to my left and see _, and I feel better.
+black		I always get caught _{v} in the locker room. Sorry.
+white	nc	so much raw meat
+white	n	every credit card
+white	v	going back in time
+white	nc	no Internet
+white	n	the vacuum of space
+white	np	two VCRs
+white	v	wanting blood
+white	n	a police officer on Facebook
+white	np	old people fucking in it
+white	n	my sex tape
+white	np	lubed pistons
+white	n	Vladimir Putin fucking a bear
+white	v	getting tossed in the trash
+white	v	winding up dead
+white	v	turning up dead
+black		Kim Jong-un’s Central Luxury Mansion has a wing for _.
+black		The Pentagon’s most secure room is for _.
+white	v	coming from the same hole
+black	1	At BASF we don’t make _{n}. We make _{n} better.
+black		My brother thought he was SO funny when he took _{n} from the freezer and put it down the back of my shirt.
+white	n	a rat’s... anus?
+white	n	the entrance to Hell
+black		Don't you hate when you see _ in the carpool lane?
+white	n	“the cyber”
+white	np	constant little orgasms
+black		I saw two hobos fighting over _{n} behind the library. One of them was _{v}.
+black		If you pour it right, a frothy layer of _{c} will form on top of your beer.
+white	v	abusing a goat
+black		Jeez! Who slipped _{n} in your Cheerios™ this morning?
+white	n	the Roomba
+white	n	the center of the earth
+white	n	a soul-stealing telephone
+white	n	a walrus rolling down a hill
+white	n	a rabbit that just exploded
+white	n	an electric cord
+white	n	his left nut
+white	n	her left vaginal wall
+white	n	a sex toy vending machine
+white	n	a river
+white	n	a fanny pack full of rice
+white	n	a cat in a cardboard box
+black		I didn’t know they made _{n} in lemon flavor.
+black		Apparently I owe $350 to the pool guy for putting _{n} in my pool.
+black		Life Hack: use Band-Aids to stick _{n} to your family photo.
+black		When I was a kid I used to take _{n} into the bathroom with me.
+white	n	the devil
+white	n	the United States of America
+black		The suspect’s pockets were full of pictures of _.
+white	np	7 billion people
+white	v	getting sealed in a glass box
+white	n	a can of Coke
+white	v	tickling Al Pacino
+black		My mom says you have to call it _{n} or you get in trouble!
+white	v	removing my appendix
+black		I can’t believe they used to churn _{n} into butter.
+white	nc	gas
+black		Throw _{n} at your enemies to distract them.
