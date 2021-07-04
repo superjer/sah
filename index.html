@@ -23,7 +23,7 @@
 <div class=scoresheet id=scoresheet>
   <div class=sshelper>
     <h2><span class=clock>0:00</span></h2>
-    <button class="leave mobonly">Exit</button>
+    <button class="leave mobonly">Quit</button>
     <h1><span>SuperJer </span><span>Against </span><span>Humanity</span></h1>
     <p class=mobonly>
       <span class=roomname></span><br>
@@ -34,7 +34,6 @@
       <thead>
       <tr>
         <th>Player</th>
-        <th></th>
         <th>Pts</th>
         <th>Card</th>
       </tr>
@@ -48,7 +47,7 @@
       Score <span class=scorestatus></span>
     </p>
     <a class=help href='javascript:;'>How to Play</a>
-    <button class="leave nomob">Exit</button>
+    <button class="leave nomob">Quit</button>
   </div>
   <div class=pullbar><span class=sah>SAH</span><span class=clock>0:00</span>&bull; &bull; &bull;</div>
 </div>
@@ -117,7 +116,7 @@
         <tbody class=history>
         </tbody>
       </table>
-      <button class=leave>Exit</button>
+      <button class=leave>Quit</button>
     </div>
     <div class=clear></div>
   </div>
@@ -134,7 +133,7 @@
     </div>
     <div class=contenders></div>
     <div class=clear></div>
-    <button class=leave>Exit</button>
+    <button class=leave>Quit game</button>
     <button class=abandon>Abandon</button>
   </div>
 </div>
@@ -143,12 +142,17 @@
   <div>
     <h1 class=lobtitle>SAH Lobby</h1>
     <ul>
-      <li class="jointab selected">Join <span class=nomob>a room</span></li>
+      <li class="profiletab selected">Profile</li>
+      <li class="jointab">Join <span class=nomob>a room</span></li>
       <li class="createtab">Create <span class=nomob>a new room</span></li>
-      <li class="exittab">Exit</li>
     </ul>
-    <div class=joinpage>
-      <div class=clear></div>
+    <div class="page profilepage">
+      <label title='Change your name here.'>
+        <div>Your name</div>
+        <input id=name class=yourname name=yourname value='' type=text>
+      </label>
+    </div>
+    <div class="page joinpage">
       <div class=filters>
         <label>
           Filter: <input class=filter type=text>
@@ -172,7 +176,7 @@
       </table>
       <div class=norooms>There are currently no rooms. Try creating a new one!</div>
     </div>
-    <div class=createpage>
+    <div class="page createpage">
       <label title='Type in a name for your room.'>
         <div>Room name</div>
         <input id=name name=roomname value='' type=text tabindex=11>
@@ -207,6 +211,7 @@
     <div class=clear></div>
     <br>
     <a class=help href='javascript:;'>How to Play</a>
+    <a class=forum href='/forum/'>Forum</a>
     <br>
   </div>
 </div>

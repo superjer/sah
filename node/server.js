@@ -1,11 +1,12 @@
 var util = require('util');
+
 var http = require('http').Server(/* handler */);
 var io = require('socket.io')(http);
 var fs = require('fs');
 var port = 1337;
 var cardfile = 'cards.tab';
 var cachefile = 'cache/save.json';
-var version = 4;
+var version = 5;
 
 var init = 0;
 var games = {};
@@ -164,12 +165,21 @@ io.on('connection', function(socket) {
     playerid = +cookies['sj_id'] || +cookies['sj_t_id'];
     playername = cookies['sj_name'] || cookies['sj_t_name'];
 
+    util.log('Cookies read: sj_id=' + playerid + ', sj_name=' + playername);
+
     if( !playerid ) {
         util.log('Client is not logged in: ' + socket.id);
-        socket.emit('state', {msg: 'Please <a href=../!login.php?return=sah>login</a> to play'});
-        socket.disconnect();
-        return;
+        playerid = -Math.floor(Math.random() * 4294967295);
+        playername = randomname();
     }
+
+    socket.emit('state', {
+        yourname: playername,
+        cookies: [
+            'sj_id=' + playerid + ';path=/;max-age=31536000',
+            'sj_name=' + encodeURIComponent(playername) + ';path=/;max-age=31536000'
+        ]
+    });
 
     playerlong = playername + ' (' + playerid + ')';
 
@@ -205,6 +215,23 @@ io.on('connection', function(socket) {
     socket.on('check', function(data) {
         if( data.movement )
             bump_player(player);
+    });
+
+    // player has changed name on profile tab
+    socket.on('rename', function(data) {
+        if( data.newname.length < 1 ) {
+            data.newname = randomname();
+        }
+        util.log(playerlong + ' renamed to ' + data.newname);
+        player.name = playername = data.newname;
+        playerlong = playername + ' (' + playerid + ')';
+        socket.emit('state', {
+            yourname: playername,
+            cookies: [
+                'sj_id=' + playerid + ';path=/;max-age=31536000',
+                'sj_name=' + encodeURIComponent(playername) + ';path=/;max-age=31536000'
+            ]
+        });
     });
 
     // player is creating a new game (room in the UI)
@@ -1072,6 +1099,72 @@ function parse_cookies(str) {
     });
 
     return out;
+}
+
+function randomname() {
+    var ssanames = [
+"James", "Mary", "Robert", "Patricia", "John", "Jennifer", "Michael", "Linda",
+"William", "Elizabeth", "David", "Barbara", "Richard", "Susan", "Joseph",
+"Jessica", "Thomas", "Sarah", "Charles", "Karen", "Christopher", "Nancy",
+"Daniel", "Lisa", "Matthew", "Betty", "Anthony", "Margaret", "Mark", "Sandra",
+"Donald", "Ashley", "Steven", "Kimberly", "Paul", "Emily", "Andrew", "Donna",
+"Joshua", "Michelle", "Kenneth", "Dorothy", "Kevin", "Carol", "Brian", "Amanda",
+"George", "Melissa", "Edward", "Deborah", "Ronald", "Stephanie", "Timothy",
+"Rebecca", "Jason", "Sharon", "Jeffrey", "Laura", "Ryan", "Cynthia", "Jacob",
+"Kathleen", "Gary", "Amy", "Nicholas", "Shirley", "Eric", "Angela", "Jonathan",
+"Helen", "Stephen", "Anna", "Larry", "Brenda", "Justin", "Pamela", "Scott",
+"Nicole", "Brandon", "Emma", "Benjamin", "Samantha", "Samuel", "Katherine",
+"Gregory", "Christine", "Frank", "Debra", "Alexander", "Rachel", "Raymond",
+"Catherine", "Patrick", "Carolyn", "Jack", "Janet", "Dennis", "Ruth", "Jerry",
+"Maria", "Tyler", "Heather", "Aaron", "Diane", "Jose", "Virginia", "Adam",
+"Julie", "Henry", "Joyce", "Nathan", "Victoria", "Douglas", "Olivia", "Zachary",
+"Kelly", "Peter", "Christina", "Kyle", "Lauren", "Walter", "Joan", "Ethan",
+"Evelyn", "Jeremy", "Judith", "Harold", "Megan", "Keith", "Cheryl", "Christian",
+"Andrea", "Roger", "Hannah", "Noah", "Martha", "Gerald", "Jacqueline", "Carl",
+"Frances", "Terry", "Gloria", "Sean", "Ann", "Austin", "Teresa", "Arthur",
+"Kathryn", "Lawrence", "Sara", "Jesse", "Janice", "Dylan", "Jean", "Bryan",
+"Alice", "Joe", "Madison", "Jordan", "Doris", "Billy", "Abigail", "Bruce",
+"Julia", "Albert", "Judy", "Willie", "Grace", "Gabriel", "Denise", "Logan",
+"Amber", "Alan", "Marilyn", "Juan", "Beverly", "Wayne", "Danielle", "Roy",
+"Theresa", "Ralph", "Sophia", "Randy", "Marie", "Eugene", "Diana", "Vincent",
+"Brittany", "Russell", "Natalie", "Elijah", "Isabella", "Louis", "Charlotte",
+"Bobby", "Rose", "Philip", "Alexis", "Johnny", "Kayla"
+    ];
+
+    var animals = [
+"Aardvark", "Albatross", "Alligator", "Alpaca", "Anchovy", "Ant", "Anteater",
+"Antelope", "Armadillo", "Axolotl", "Baboon", "Badger", "Barnacle",
+"Barracuda", "Bat", "Bear", "Beaver", "Beetle", "Bird", "Bison", "Blobfish",
+"Bobcat", "Buffalo", "Bullfrog", "Bumblebee", "Butterfly", "Camel",
+"Capybara", "Carp", "Cat", "Caterpillar", "Catfish", "Centipede", "Chameleon",
+"Cheetah", "Chicken", "Chihuahua", "Chimpanzee", "Chinchilla", "Chipmunk",
+"Cicada", "Clownfish", "Cockatoo", "Cockroach", "Codfish", "Cougar", "Cow",
+"Coyote", "Crab", "Crane", "Crocodile", "Dalmatian", "Deer", "Dingo", "Dodo",
+"Dog", "Dolphin", "Donkey", "Dragonfly", "Duck", "Eagle", "Earwig", "Echidna",
+"Eel", "Elephant", "Elk", "Emu", "Falcon", "Ferret", "Flamingo", "Flounder",
+"Fly", "Fox", "Frog", "Gecko", "Gerbil", "Gibbon", "Giraffe", "Goat", "Goose",
+"Gopher", "Gorilla", "Grasshopper", "Guppy", "Hamster", "Hedgehog", "Heron",
+"Herring", "Hippo", "Horse", "Human", "Hummingbird", "Hyena", "Iguana",
+"Jackal", "Jaguar", "Jellyfish", "Kangaroo", "Koala", "Ladybug", "Lamprey",
+"Lemming", "Lemur", "Leopard", "Lion", "Lizard", "Llama", "Lobster", "Locust",
+"Lynx", "Macaw", "Magpie", "Manatee", "Marmot", "Meerkat", "Millipede",
+"Mink", "Mole", "Mongoose", "Monkey", "Moose", "Moth", "Mouse", "Mule",
+"Muskrat", "Narwhal", "Newt", "Ocelot", "Octopus", "Opossum", "Orangutan",
+"Ostrich", "Otter", "Oyster", "Pangolin", "Panther", "Parrot", "Peacock",
+"Pelican", "Penguin", "Pheasant", "Pig", "Pigeon", "Piranha", "Platypus",
+"Pomeranian", "Poodle", "Porcupine", "Porpoise", "Prawn", "Pufferfish",
+"Puffin", "Pug", "Puma", "Quail", "Rabbit", "Raccoon", "Rat", "Rattlesnake",
+"Reindeer", "Rhino", "Robin", "Salamander", "Salmon", "Sardine", "Sawfish",
+"Scorpion", "Seahorse", "Seal", "Shark", "Sheep", "Shrimp", "Skunk", "Sloth",
+"Snail", "Snake", "Sparrow", "Squid", "Squirrel", "Starfish", "Stingray",
+"Sturgeon", "Swan", "Tapir", "Termite", "Terrier", "Tiger", "Tortoise",
+"Toucan", "Tuna", "Turkey", "Vulture", "Wallaby", "Walrus", "Warthog", "Wasp",
+"Weasel", "Whippet", "Wildebeest", "Wolf", "Wolverine", "Wombat", "Woodlouse",
+"Woodpecker", "Yak", "Zebra", 
+    ];
+
+    return ssanames[Math.floor(Math.random() * ssanames.length)] + ' '
+        + animals[Math.floor(Math.random() * animals.length)];
 }
 
 // vim: sw=4 ts=4 et

@@ -74,6 +74,13 @@ socket.on('state', function(d){
         return;
     }
 
+    if( d.cookies ) {
+        $('input.yourname').val(d.yourname);
+        for( var i in d.cookies )
+            document.cookie = d.cookies[i];
+        return;
+    }
+
     if( version === null )
         version = d.version;
 
@@ -100,7 +107,6 @@ socket.on('state', function(d){
     game = d.game;
 
     if( statechange ) {
-        $('.username').text(d.username);
         $('.roomname').text(game.name);
         $('.roundstatus').text(game.round + ' of ' + game.maxrounds);
         $('.scorestatus').text(game.high + ' / ' + game.goal);
@@ -158,11 +164,9 @@ socket.on('state', function(d){
                 enough++;
             }
 
-            var stat = (pl.gone ? 'Out' : pl.idle ? 'Idle' : '');
-            var whatup = (plczar ? 'Czar' : pl.whatup);
+            var whatup = (pl.gone ? 'Out' : pl.idle ? 'Idle' : plczar ? 'Czar' : pl.whatup);
             var title = (pl.idle ? 'title="Idle for ' + pl.idle + ' turns"' : '');
             html += '<tr class="' + classes + '" ' + title + '><td>' + pl.name
-                 +  '</td><td>' + stat
                  +  '</td><td>' + pl.score
                  +  '</td><td>' + whatup
                  +  '</td></tr>';
@@ -739,22 +743,32 @@ $(function() {
         });
     });
 
+    $('.profiletab').click(function() {
+        $('.lobbywin li').removeClass('selected');
+        $(this).addClass('selected');
+        $('.lobbywin .page').hide();
+        $('.profilepage').show();
+    });
+
     $('.jointab').click(function() {
         $('.lobbywin li').removeClass('selected');
         $(this).addClass('selected');
-        $('.createpage').hide();
+        $('.lobbywin .page').hide();
         $('.joinpage').show();
     });
 
     $('.createtab').click(function() {
         $('.lobbywin li').removeClass('selected');
         $(this).addClass('selected');
-        $('.joinpage').hide();
+        $('.lobbywin .page').hide();
         $('.createpage').show();
     });
 
-    $('.exittab').click(function() {
-        window.location.href = '../';
+    $('input.yourname').on('change', function() {
+        checkin({
+            action: 'rename',
+            newname: $(this).val()
+        });
     });
 
     $('input.activeonly').on('change', function() {

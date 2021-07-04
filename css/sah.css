@@ -167,8 +167,8 @@ h2 {
 }
 .scoresheet table th:first-child, .scoresheet table td:first-child {
   text-align:left;
-  width:110px;
-  max-width:110px;
+  width:150px;
+  max-width:150px;
 }
 .scoresheet table th:last-child, .scoresheet table td:last-child {
   padding-left:8px;
@@ -287,6 +287,9 @@ button.scale {
 .lobbywin tbody tr:hover .key {
   color:#fff;
 }
+.joinpage {
+  display:none;
+}
 .createpage {
   display:none;
 }
@@ -398,6 +401,10 @@ tbody.history td:first-child {
 }
 a.help {
   float:right;
+}
+a.forum {
+  float:right;
+  margin-right:10px;
 }
 .play {
 }
