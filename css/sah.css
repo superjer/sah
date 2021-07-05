@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 html, body, td {
   margin:0;
   padding:0;
@@ -43,8 +46,8 @@ h2 {
   margin:5px;
   border-radius:8px;
   border:2px dashed #ccc;
-  width:158px;
-  height:208px;
+  width:18%;
+  height:auto;
   float:left;
 }
 .card {
@@ -53,15 +56,15 @@ h2 {
   border-radius:8px;
   background:white;
   border:1px solid #333;
-  width:130px;
-  height:180px;
-  float:left;
+  width:auto;
+  height:auto;
   box-shadow:2px 3px 3px 0 #aaa;
 }
 .card.slot {
   background:none;
   border:1px dashed transparent;
   box-shadow:none;
+  height: 192px;
 }
 .holder.buttons {
   border-color:transparent;
@@ -446,7 +449,7 @@ a.forum {
   display:none;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1050px) {
   html {
     overflow-y:scroll;
   }
@@ -472,7 +475,7 @@ a.forum {
   }
 
   .leftcol {
-    margin-right:0;
+    margin: 0 5px;
   }
 
   .scoresheet {
@@ -560,10 +563,10 @@ a.forum {
   }
 
   .holder {
-    margin:5px 0 0 5px;
+    margin:5px 5px 0 0;
     border:1px dashed #ccc;
-    width:79px;
-    height:79px;
+    width:31%;
+    height:99px;
     border-radius:5px;
   }
 
@@ -591,20 +594,25 @@ a.forum {
 
   .card {
     padding:5px;
-    width:70px;
-    height:70px;
-    font-size:10px;
+    width:auto;
+    height:auto;
+    font-size:14px;
     box-shadow:none;
     border-radius:5px;
     border-color:#f5f5f5;
   }
 
   .cardtxt {
-    height:60px;
+    height:90px;
+  }
+
+  .card.slot {
+    height:90px;
   }
 
   .num {
-    font-size:10px;
+    margin-top:-15px;
+    font-size:12px;
   }
 
   .num div {
@@ -614,7 +622,12 @@ a.forum {
   }
 
   .leftcol > .holder:first-child {
-    width:251px;
+    margin-right:0;
+    width:100%;
+  }
+
+  .play, .hand {
+    margin-right:0;
   }
 
   .play > .holder:first-child {
@@ -626,8 +639,8 @@ a.forum {
   }
 
   .blackcard, .selectwin .blackcard {
-    width:242px;
-    height:70px;
+    width:auto;
+    height:100px;
     border-radius:5px;
   }
 
@@ -656,6 +669,7 @@ a.forum {
   }
 
   .aset {
+    width:31%;
     padding:4px;
     margin:0 8px 8px 0;
     background:#ddd;
