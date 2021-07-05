@@ -237,6 +237,7 @@ button {
   width:130px;
   padding:10px 0;
   font-size:20px;
+  background-color: #ddd;
 }
 button.abandon, button.confirm, .selectwin button.leave {
   margin:0;

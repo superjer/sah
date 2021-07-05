@@ -29,20 +29,25 @@ function dropme($x) {
     $x.droppable({
         tolerance: "intersect",
         drop: function(event, ui) {
-            movement++;
             var $slot = $(event.target).first();
             var $card = $(ui.draggable);
-            var $parent = $card.parent();
-            $parent.append($slot.replaceWith($card));
-            dropme($slot);
-            $card.css({top:0, left:0});
+            movecardto($card, $slot);
+        }
+    });
+}
 
-            checkin({
-                action: 'move',
-                cardid: +$card.attr('cardid'),
-                slot:   +$card.parent().attr('slot'),
-            });
-        },
+function movecardto($card, $slot) {
+    movement++;
+    var $parent = $card.parent();
+
+    $parent.append($slot.replaceWith($card));
+    dropme($slot);
+    $card.css({top:0, left:0});
+
+    checkin({
+        action: 'move',
+        cardid: +$card.attr('cardid'),
+        slot:   +$card.parent().attr('slot'),
     });
 }
 
@@ -51,6 +56,17 @@ function dragme($x) {
         revert: "invalid",
         stack: ".draggable",
     }).disableSelection();
+    $x.click(function(){
+        var slot = $x.parent().attr('slot');
+        var start = slot < 3 ? 3 : 0;
+        for( var i = start; i < 13; i++ ) {
+            var $slot = $('.hasslot[slot=' + i + '] .slot');
+            if( $slot.length ) {
+                movecardto($x, $slot);
+                return;
+            }
+        }
+    });
 }
 
 function checkin( json ) {
